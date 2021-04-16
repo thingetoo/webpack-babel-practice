@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { TOKEN } from './config';
+import TOKEN from './config';
+
 
 axios.defaults.headers.common['Authorization'] = TOKEN;
 
