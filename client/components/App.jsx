@@ -4,6 +4,7 @@ import Questions from './Questions.jsx'
 //
 import Overview from './Overview.jsx';
 import RelProductList from './RelProductList.jsx';
+import TOKEN from '../../config.js';
 
 class App extends React.Component {
   constructor(props) {
