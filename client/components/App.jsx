@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentProduct: null
+      currentProduct: []
     }
     this.productStateChange = this.productStateChange.bind(this);
   }
@@ -24,8 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
-    axios.get(requests.products)
+    axios.get('/products')
       .then((response) => {
         this.productStateChange(response.data)
       });
@@ -34,20 +33,19 @@ class App extends React.Component {
 
 
   render() {
-    var campus = this.state.currentProduct === null ? <h1></h1> : <h1>{this.state.currentProduct.campus}</h1>;
+
 
 
 
     return (
       <div>
-        {campus}
         <Questions />
         <QuestionBar />
         <h1></h1>
         <h1>App.js is connected and working!</h1>
         <Overview />
         <Questions />
-        <RelProductList />
+        <RelProductList productId={this.state.currentProduct.id} />
       </div>
     )
   }
