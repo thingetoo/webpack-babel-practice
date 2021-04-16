@@ -14,7 +14,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log(requests)
-    axios.get(requests.cart)
+    axios.get(requests.products)
     .then(response => console.log(response.data));
   }
 
