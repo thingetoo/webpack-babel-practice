@@ -11,12 +11,23 @@ import requests from '../../axios-prefilter'
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      currentProduct: []
+    }
+    this.productStateChange = this.productStateChange.bind(this);
+  }
+
+  productStateChange(data) {
+    this.setState({
+      currentProduct: data[0]
+    })
   }
 
   componentDidMount() {
-    console.log(requests)
-    axios.get(requests.products)
-    .then(response => console.log(response.data));
+    axios.get('/products')
+      .then((response) => {
+        this.productStateChange(response.data)
+      });
   }
 
 
@@ -34,7 +45,7 @@ class App extends React.Component {
         <h1>App.js is connected and working!</h1>
         <Overview />
         <Questions />
-        <RelProductList />
+        <RelProductList productId={this.state.currentProduct.id} />
       </div>
     )
   }
