@@ -1,6 +1,7 @@
 import React from 'react';
-import Cats from './Cats.jsx';
 import Questions from './Questions.jsx'
+import QuestionBar from './QuestionBar.jsx'
+//
 import Overview from './Overview.jsx';
 import RelProductList from './RelProductList.jsx';
 
@@ -14,7 +15,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log(requests)
-    axios.get(requests.cart)
+    axios.get(requests.products)
     .then(response => console.log(response.data));
   }
 
@@ -27,9 +28,11 @@ class App extends React.Component {
 
     return (
       <div>
+        <Questions />
+        <QuestionBar />
+        <h1></h1>
         <h1>App.js is connected and working!</h1>
         <Overview />
-        <Cats />
         <Questions />
         <RelProductList />
       </div>
