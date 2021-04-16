@@ -11,23 +11,36 @@ import requests from '../../axios-prefilter'
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      currentProduct: null
+    }
+    this.productStateChange = this.productStateChange.bind(this);
+  }
+
+  productStateChange(data) {
+    this.setState({
+      currentProduct: data[0]
+    })
   }
 
   componentDidMount() {
-    console.log(requests)
+
     axios.get(requests.products)
-    .then(response => console.log(response.data));
+      .then((response) => {
+        this.productStateChange(response.data)
+      });
   }
 
 
 
   render() {
-
+    var campus = this.state.currentProduct === null ? <h1></h1> : <h1>{this.state.currentProduct.campus}</h1>;
 
 
 
     return (
       <div>
+        {campus}
         <Questions />
         <QuestionBar />
         <h1></h1>
