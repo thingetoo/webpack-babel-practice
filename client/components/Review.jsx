@@ -1,7 +1,8 @@
 import React from 'react';
 
 var Review = () => (
-  <h2>Review</h2>
+  <h2>Ratings {&} Review</h2>
+  
 );
 
 export default Review;
