@@ -1,5 +1,6 @@
-import axios from 'axios';
-import { TOKEN } from './config';
+const axios = require('axios');
+const TOKEN = require('./config');
+
 
 axios.defaults.headers.common['Authorization'] = TOKEN;
 
@@ -11,4 +12,4 @@ const requests = {
   cart: `https://app-hrsei-api.herokuapp.com/api/fec2/${CAMPUS_CODE}/cart`
 }
 
-export default requests;
+module.exports = requests;

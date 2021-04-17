@@ -9,7 +9,7 @@ class Questions extends React.Component {
   render() {
    return (
     <div>
-    <h1>Hello Marcia</h1>
+    <h1>QUESTIONS &#38; ANSWERS</h1>
   </div>
    )
   }
