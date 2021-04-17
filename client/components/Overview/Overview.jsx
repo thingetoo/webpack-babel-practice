@@ -10,7 +10,7 @@ class Overview extends React.Component{
     super(props)
 
     this.state = {
-      thumbnails: ['img1', 'img2', 'img3', 'img4', 'img5', 'img6', 'img7', 'img8', 'img9'],
+      thumbnails: [],
       thumbnailsShown: [0, 7],
       styles: [],
       currentStyle: 0,
@@ -50,7 +50,6 @@ class Overview extends React.Component{
   fetchThumbnails() {
       axios.get(`/product/${this.props.product.id}/styles`)
         .then(response => {
-          console.log(response)
           this.setState({
             styles: response.data.results,
             thumbnails: response.data.results[this.state.currentStyle].photos
@@ -65,8 +64,8 @@ class Overview extends React.Component{
   }
 
   render() {
+
     const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail } = this.state;
-    console.log(styles)
     return this.props.product ?
     (
       <div>
@@ -86,7 +85,7 @@ class Overview extends React.Component{
             }
           {
             this.state.thumbnails.slice(thumbnailsShown[0], thumbnailsShown[1]).map((thumb, idx) => {
-              return <Thumbnail index={idx} thumbnailClick={this.handleThumbnailClick} thumb={thumb} key={idx} />
+              return <Thumbnail thumbnailIndex={idx} currentThumbnail={this.state.currentThumbnail} thumbnailClick={this.handleThumbnailClick} thumb={thumb} key={idx} />
             })
           }
           {
