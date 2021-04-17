@@ -7,8 +7,13 @@ class Overview extends React.Component{
 
     console.log(props)
     this.state = {
-      thumbnails: ['item1', 'item2', 'item3', 'item4', 'item5']
+      thumbnails: ['img1', 'img2', 'img3', 'img4', 'img5']
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+
   }
 
   render() {
@@ -16,11 +21,13 @@ class Overview extends React.Component{
     (
       <div>
         <div className='image-container'>
+          <div className='image-container__thumbnail-container'>
           {
             this.state.thumbnails.map((thumb, idx) => {
-              return <div className='image-container__thumbnail' key={idx}>thumb</div>
+              return <div onClick={() => this.handleClick()} className='image-container__thumbnail' key={idx}>{thumb}</div>
             })
           }
+          </div>
         </div>
       </div>
     )

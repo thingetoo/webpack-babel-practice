@@ -1,7 +1,26 @@
 .image-container {
   border: 1px solid black;
-  display: grid;
+
   height: 60vh;
   width: 75vh;
   position: relative;
+}
+
+.image-container__thumbnail-container {
+  display: grid;
+  height: 75%;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  row-gap: 2px;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: max-content;
+}
+
+.image-container__thumbnail {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
