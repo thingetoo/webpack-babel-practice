@@ -43,7 +43,7 @@ class App extends React.Component {
         <QuestionBar />
         <h1></h1>
         <h1>App.js is connected and working!</h1>
-        <Overview />
+        <Overview product={this.state.currentProduct} />
         <Questions />
         <RelProductList productId={this.state.currentProduct.id} />
       </div>

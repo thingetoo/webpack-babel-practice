@@ -12,7 +12,7 @@ class Overview extends React.Component{
   }
 
   render() {
-    return this.props.product[0] ?
+    return this.props.product ?
     (
       <div>
         <div className='image-container'>

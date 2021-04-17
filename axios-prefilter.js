@@ -1,8 +1,7 @@
 const axios = require('axios');
 const TOKEN = require('./config');
 
-
-axios.defaults.headers.common['Authorization'] = TOKEN;
+axios.defaults.headers.common['Authorization'] = TOKEN.TOKEN;
 
 const CAMPUS_CODE = 'hr-rfe';
 
