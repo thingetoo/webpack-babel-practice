@@ -1,0 +1,7 @@
+.image-container {
+  border: 1px solid black;
+  display: grid;
+  height: 60vh;
+  width: 75vh;
+  position: relative;
+}
