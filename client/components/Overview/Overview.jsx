@@ -20,7 +20,7 @@ class Overview extends React.Component{
           <div className='image-container__thumbnail-container'>
           {
             this.state.thumbnails.map((thumb, idx) => {
-              return <div className='image-container__thumbnail' ><Thumbnail thumb={thumb} key={idx} /></div>
+              return <Thumbnail thumb={thumb} key={idx} />
             })
           }
           </div>
