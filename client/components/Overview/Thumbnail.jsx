@@ -4,7 +4,7 @@ import css from './Overview.css'
 const Thumbnail = (props) => {
 
   return(
-    <div className='image-container__thumbnail'>{props.thumb}</div>
+    <img onClick={() => props.thumbnailClick(props.index)} src={props.thumb.thumbnail_url} className='image-container__thumbnail' />
   )
 }
 

@@ -20,6 +20,14 @@ app.get('/products', (req, res) => {
     });
 })
 
+app.get('/product/:productId/styles', (req, res) => {
+  //styles
+  axios.get(`${requests.products}/${req.params.productId}/styles`)
+    .then((response) => {
+      res.json(response.data)
+    })
+})
+
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
 });

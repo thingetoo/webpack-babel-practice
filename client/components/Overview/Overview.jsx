@@ -2,22 +2,27 @@ import React from 'react';
 import css from './Overview.css'
 import Thumbnail from './Thumbnail.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 class Overview extends React.Component{
   constructor(props) {
     super(props)
 
-    console.log(props)
     this.state = {
-      thumbnails: ['img1', 'img2', 'img3', 'img4', 'img5', 'img6', 'img7'],
-      thumbnailsShown: [0, 5],
+      thumbnails: ['img1', 'img2', 'img3', 'img4', 'img5', 'img6', 'img7', 'img8', 'img9'],
+      thumbnailsShown: [0, 7],
+      styles: [],
+      currentStyle: 0,
+      currentThumbnail: 0
     }
     this.onArrowDownClick = this.onArrowDownClick.bind(this);
     this.onArrowUpClick = this.onArrowUpClick.bind(this);
+    this.fetchThumbnails = this.fetchThumbnails.bind(this);
+    this.handleThumbnailClick = this.handleThumbnailClick.bind(this)
   }
 
-
+// Arrow function account for only 14 icons - will need to adjust the logic for more item
   onArrowDownClick() {
     if (this.state.thumbnailsShown[1] < this.state.thumbnails.length) {
       const diff = this.state.thumbnails.length - this.state.thumbnailsShown[1];
@@ -29,7 +34,6 @@ class Overview extends React.Component{
 
   onArrowUpClick() {
     const diff = this.state.thumbnails.length - this.state.thumbnailsShown[0];
-    console.log('clicked');
     if (this.state.thumbnailsShown[0] > 0) {
       this.setState({
         thumbnailsShown: [0, diff]
@@ -37,13 +41,43 @@ class Overview extends React.Component{
     }
   }
 
-  render() {
-    const { thumbnails, thumbnailsShown } = this.state;
+  handleThumbnailClick(id) {
+    this.setState({
+      currentThumbnail: id
+    })
+  }
 
+  fetchThumbnails() {
+      axios.get(`/product/${this.props.product.id}/styles`)
+        .then(response => {
+          console.log(response)
+          this.setState({
+            styles: response.data.results,
+            thumbnails: response.data.results[this.state.currentStyle].photos
+          })
+        })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.product !== prevProps.product) {
+      this.fetchThumbnails();
+    }
+  }
+
+  render() {
+    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail } = this.state;
+    console.log(styles)
     return this.props.product ?
     (
       <div>
         <div className='image-container'>
+        {
+          styles[currentStyle] ?
+          <img className='image-container__main-image' src={styles[currentStyle].photos[currentThumbnail].thumbnail_url} />
+          :
+          <img src='https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'
+          />
+        }
           <div className='image-container__thumbnail-container'>
             {
           thumbnailsShown[0] > 0 ?
@@ -52,11 +86,11 @@ class Overview extends React.Component{
             }
           {
             this.state.thumbnails.slice(thumbnailsShown[0], thumbnailsShown[1]).map((thumb, idx) => {
-              return <Thumbnail thumb={thumb} key={idx} />
+              return <Thumbnail index={idx} thumbnailClick={this.handleThumbnailClick} thumb={thumb} key={idx} />
             })
           }
           {
-            thumbnailsShown[1] !== thumbnails.length ?
+            thumbnailsShown[1] < thumbnails.length ?
             <FontAwesomeIcon className='image-container__arrow' onClick={() => this.onArrowDownClick()} icon={faArrowDown} /> :
             <div></div>
           }
