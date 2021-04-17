@@ -2,7 +2,7 @@ import React from 'react';
 import Questions from './Questions.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
-import Overview from './Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
 
 import axios from 'axios';

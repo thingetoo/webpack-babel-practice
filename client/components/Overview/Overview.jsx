@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './Overview.css'
+import Thumbnail from './Thumbnail.jsx'
 
 class Overview extends React.Component{
   constructor(props) {
@@ -9,11 +10,6 @@ class Overview extends React.Component{
     this.state = {
       thumbnails: ['img1', 'img2', 'img3', 'img4', 'img5']
     }
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-
   }
 
   render() {
@@ -24,7 +20,7 @@ class Overview extends React.Component{
           <div className='image-container__thumbnail-container'>
           {
             this.state.thumbnails.map((thumb, idx) => {
-              return <div onClick={() => this.handleClick()} className='image-container__thumbnail' key={idx}>{thumb}</div>
+              return <div className='image-container__thumbnail' ><Thumbnail thumb={thumb} key={idx} /></div>
             })
           }
           </div>
