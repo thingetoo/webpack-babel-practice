@@ -7,7 +7,7 @@ const Thumbnail = (props) => {
     onClick={() => props.thumbnailClick(props.thumbnailIndex)}
     style={
       props.thumbnailIndex === props.currentThumbnail ?
-      {borderBottom: '4px solid rgba(0, 0, 0, 0.7)', boxSizing: 'border-box'} :
+      {border: '2px solid white', boxSizing: 'border-box'} :
       {}
     } src={props.thumb.thumbnail_url}
     className='image-container__thumbnail' />
