@@ -21,6 +21,15 @@
   width: 100%;
 }
 
+.leftRightIcon {
+  position: inherit;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 425px;
+  margin-right: 3%;
+  font-size: 1.5em;
+}
+
 .image-container__thumbnail {
   border: 1px solid black;
   width: 45px;
