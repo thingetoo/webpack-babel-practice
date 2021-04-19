@@ -55,6 +55,18 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
     })
 })
 
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  axios.put(`${requests.questions}/${req.params.question_id}/helpful`)
+    .then((response) => {
+      console.log('success')
+      res.end()
+    })
+    .catch((err) => {
+      console.log('error')
+      res.end(err)
+    })
+})
+
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
 });
