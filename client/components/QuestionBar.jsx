@@ -11,10 +11,10 @@ class QuestionBar extends React.Component {
   }
 
   handleSearch (event) {
-    this.setState([
+    this.setState({
       search: event.target.value
       // length: event.length
-    ])
+    })
 
     // if length > 3 filter props.questions and QA state = filtered
   }
