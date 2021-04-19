@@ -40,6 +40,9 @@ class App extends React.Component {
 
     return (
       <div>
+        <h1></h1>
+        <h1>App.js is connected and working!</h1>
+        <Overview product={this.state.currentProduct} />
         {/* <Questions /> */}
         <QuestionBar />
         <h1></h1>
@@ -47,6 +50,8 @@ class App extends React.Component {
         <Overview product={this.state.currentProduct} />
         {/* <Questions /> */}
         <RelProductList productId={this.state.currentProduct.id} />
+        <QA />
+        <QuestionBar />
       </div>
     )
   }
