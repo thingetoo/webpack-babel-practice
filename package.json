@@ -16,8 +16,8 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "express": "^4.17.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^16.4",
+    "react-dom": "^16.4",
     "style-loader": "^2.0.0"
   },
   "devDependencies": {
@@ -30,6 +30,8 @@
     "css-loader": "^5.2.2",
     "eslint": "^7.24.0",
     "eslint-plugin-react": "^7.23.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "webpack": "^5.11.1",
