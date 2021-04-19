@@ -10,7 +10,7 @@ import requests from '../../axios-prefilter'
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       currentProduct: []
     }
@@ -26,6 +26,7 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
+        console.log(response.data);
         this.productStateChange(response.data)
       });
   }
