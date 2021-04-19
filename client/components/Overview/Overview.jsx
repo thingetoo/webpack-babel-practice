@@ -14,7 +14,8 @@ class Overview extends React.Component{
       thumbnailsShown: [0, 7],
       styles: [],
       currentStyle: 0,
-      currentThumbnail: 0
+      currentThumbnail: 0,
+      product: {}
     }
     this.onArrowDownClick = this.onArrowDownClick.bind(this);
     this.onArrowUpClick = this.onArrowUpClick.bind(this);
@@ -74,7 +75,7 @@ class Overview extends React.Component{
         .then(response => {
           this.setState({
             styles: response.data.results,
-            thumbnails: response.data.results[this.state.currentStyle].photos
+            thumbnails: response.data.results[this.state.currentStyle].photos,
           })
         })
   }
@@ -117,8 +118,14 @@ class Overview extends React.Component{
             }
           </div>
           <div className='leftRightIcon'>
-            <FontAwesomeIcon onClick={() => this.onArrowLeftClick()} icon={faAngleLeft} />
-            <FontAwesomeIcon onClick={() => this.onArrowRightClick()} icon={faAngleRight} />
+            {
+              currentThumbnail > 0 ? <FontAwesomeIcon onClick={() => this.onArrowLeftClick()} className='leftArrow' icon={faAngleLeft} /> : <div></div>
+            }
+
+            {
+              currentThumbnail < thumbnails.length - 1 ? <FontAwesomeIcon onClick={() => this.onArrowRightClick()} className='rightArrow' icon={faAngleRight} /> : <div></div>
+            }
+
           </div>
         </div>
       </div>

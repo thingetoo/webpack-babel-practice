@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.image-container:hover {
+  cursor: zoom-in
+}
+
 .image-container__thumbnail-container {
   display: grid;
   height: 75%;
@@ -22,12 +26,21 @@
 }
 
 .leftRightIcon {
-  position: inherit;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 425px;
-  margin-right: 3%;
+  gap: 360px;
+  margin-left: 3%;
   font-size: 1.5em;
+  position: fixed;
+  color: darkmagenta;
+}
+
+.leftArrow {
+  cursor: pointer;
+}
+
+.rightArrow {
+  cursor: pointer;
 }
 
 .image-container__thumbnail {
@@ -37,6 +50,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: default;
 }
 
 .image-container__main-image {
