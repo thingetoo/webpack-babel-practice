@@ -28,6 +28,8 @@ app.get('/product/:productId/styles', (req, res) => {
     })
 })
 
+
+
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
 });
