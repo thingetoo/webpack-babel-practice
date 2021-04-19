@@ -9,6 +9,7 @@ const requests = {
   products: `https://app-hrsei-api.herokuapp.com/api/fec2/${CAMPUS_CODE}/products`,
   reviews: `https://app-hrsei-api.herokuapp.com/api/fec2/${CAMPUS_CODE}/reviews`,
   cart: `https://app-hrsei-api.herokuapp.com/api/fec2/${CAMPUS_CODE}/cart`,
+  questions: `https://app-hrsei-api.herokuapp.com/api/fec2/${CAMPUS_CODE}/qa/questions`
 }
 
 module.exports = requests;

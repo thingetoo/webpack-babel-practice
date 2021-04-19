@@ -1,6 +1,8 @@
 import React from 'react';
-import QA from './QA.jsx'
-import QuestionBar from './QuestionBar.jsx'
+import QA from './QA/QA.jsx'
+import QuestionBar from './QA/QuestionBar.jsx'
+import QuestionList from './QA/QuestionList.jsx'
+// import QuestionEntry from './QA/QuestionEntry.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
@@ -26,7 +28,6 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
-        console.log(response.data);
         this.productStateChange(response.data)
       });
   }
@@ -40,18 +41,11 @@ class App extends React.Component {
 
     return (
       <div>
-        <h1></h1>
-        <h1>App.js is connected and working!</h1>
-        <Overview product={this.state.currentProduct} />
-        {/* <Questions /> */}
-        <QuestionBar />
-        <h1></h1>
         <h1>App.js is connected and working!</h1>
         <Overview product={this.state.currentProduct} />
         {/* <Questions /> */}
         <RelProductList productId={this.state.currentProduct.id} />
-        <QA />
-        <QuestionBar />
+        <QA productId={this.state.currentProduct.id}/>
       </div>
     )
   }

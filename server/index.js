@@ -28,7 +28,32 @@ app.get('/product/:productId/styles', (req, res) => {
     })
 })
 
+app.get('/qa/questions/:product_id/:count', (req, res)=> {
+  //questions
+  axios.get(`${requests.questions}?product_id=${req.params.product_id}&count=${req.params.count}`)
+    .then((response) => {
+      var sorted = response.data.results.sort(function(a, b){
+        return b.question_helpfulness - a.question_helpfulness
+      })
+      res.json(sorted)
+    })
+    .catch((err) => {
+      console.log('Error with Questions get request' + err)
+      res.end()
+    })
+})
 
+app.get('/qa/answers/:question_id/answers', (req, res) => {
+  //answers
+  axios.get(`${requests.questions}/${req.params.question_id}/answers`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err)=> {
+      console.log('Error with Answers get request' + err)
+      res.end();
+    })
+})
 
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
