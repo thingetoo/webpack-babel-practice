@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import css from './Overview.css'
 import Thumbnail from './Thumbnail.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +17,7 @@ class Overview extends React.Component{
       styles: [],
       currentStyle: 0,
       currentThumbnail: 0,
-      product: {}
+      product: []
     }
     this.onArrowDownClick = this.onArrowDownClick.bind(this);
     this.onArrowUpClick = this.onArrowUpClick.bind(this);
@@ -45,7 +47,7 @@ class Overview extends React.Component{
   }
 
   onArrowLeftClick() {
-    const { currentThumbnail, thumbnails } = this.state;
+    const { currentThumbnail } = this.state;
     const prevThumbnail = currentThumbnail - 1;
     if (currentThumbnail > 0) {
       this.setState({
@@ -71,13 +73,13 @@ class Overview extends React.Component{
   }
 
   fetchThumbnails() {
-      axios.get(`/product/${this.props.product.id}/styles`)
-        .then(response => {
-          this.setState({
-            styles: response.data.results,
-            thumbnails: response.data.results[this.state.currentStyle].photos,
-          })
+    axios.get(`/product/${this.props.product.id}/styles`)
+      .then(response => {
+        this.setState({
+          styles: response.data.results,
+          thumbnails: response.data.results[this.state.currentStyle].photos,
         })
+      })
   }
 
   componentDidUpdate(prevProps) {

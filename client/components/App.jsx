@@ -6,7 +6,6 @@ import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
 
 import axios from 'axios';
-import requests from '../../axios-prefilter'
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +25,6 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
-        console.log(response.data);
         this.productStateChange(response.data)
       });
   }
@@ -34,10 +32,6 @@ class App extends React.Component {
 
 
   render() {
-
-
-
-
     return (
       <div>
         <h1>App.js is connected and working!</h1>
