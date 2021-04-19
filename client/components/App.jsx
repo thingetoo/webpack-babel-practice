@@ -2,7 +2,7 @@ import React from 'react';
 import Questions from './Questions.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
-import Overview from './Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
 
 import axios from 'axios';
@@ -43,7 +43,7 @@ class App extends React.Component {
         <QuestionBar />
         <h1></h1>
         <h1>App.js is connected and working!</h1>
-        <Overview />
+        <Overview product={this.state.currentProduct} />
         <Questions />
         <RelProductList productId={this.state.currentProduct.id} />
       </div>
