@@ -18,7 +18,7 @@ class QA extends React.Component {
     <div>
     <h1>QUESTIONS &#38; ANSWERS</h1>
     <QuestionBar />
-    <QuestionList />
+    {/* <QuestionList /> */}
     <button>MORE ANSWERED QUESTIONS</button>
     <button>ADD A QUESTION</button>
   </div>
