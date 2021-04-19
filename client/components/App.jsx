@@ -39,12 +39,12 @@ class App extends React.Component {
 
     return (
       <div>
-        <Questions />
+        {/* <Questions /> */}
         <QuestionBar />
         <h1></h1>
         <h1>App.js is connected and working!</h1>
         <Overview product={this.state.currentProduct} />
-        <Questions />
+        {/* <Questions /> */}
         <RelProductList productId={this.state.currentProduct.id} />
       </div>
     )
