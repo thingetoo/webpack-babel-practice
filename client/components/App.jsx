@@ -1,5 +1,5 @@
 import React from 'react';
-import Questions from './Questions.jsx'
+import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
 import Overview from './Overview.jsx';
