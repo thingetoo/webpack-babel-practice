@@ -34,15 +34,15 @@ class RelProductList extends React.Component {
       <div>
         <h2>Related Products</h2>
         {
-          this.state.rel_products.map(() => {
-            return <RelProductCard />;
-          })
+          // this.state.rel_products.map(() => {
+          //   return <RelProductCard />;
+          // })
         }
         <h2>My Outfits</h2>
         {
-          arr.map(() => {
-            return <RelProductCard />;
-          })
+          // arr.map(() => {
+          //   return <RelProductCard />;
+          // })
         }
       </div>
     )
