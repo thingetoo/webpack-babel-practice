@@ -28,7 +28,29 @@ app.get('/product/:productId/styles', (req, res) => {
     })
 })
 
+app.get('/products/:product_id/related', (req, res) => {
 
+  console.log(req.params);
+  // res.sendStatus(200);
+  axios.get(`${requests.products}/${req.params.product_id}/related`)
+    .then((data) => {
+      var arr = [];
+      console.log(data.data);
+      data.data.forEach((id) => {
+        axios.get(`${requests.products}/${id}/styles`)
+          .then((response) => {
+            arr.push(response.data);
+            if (arr.length === data.data.length) {
+              res.json(arr);
+            }
+          })
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+})
 
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
