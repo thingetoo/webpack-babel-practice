@@ -1,14 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-const RelProductList = function (props) {
-
-  return (
-    <div>
-
-    </div>
-  )
-=======
 import RelProductCard from './RelProductCard.jsx';
 
 class RelProductList extends React.Component {
@@ -36,7 +26,6 @@ class RelProductList extends React.Component {
       </div>
     )
   }
->>>>>>> main
 }
 
 
