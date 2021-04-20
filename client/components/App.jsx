@@ -3,7 +3,7 @@ import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
 import Overview from './Overview/Overview.jsx';
-import RelProductList from './RelProductList.jsx';
+import RelProductList from './RelatedProdList/RelProductList.jsx';
 
 import axios from 'axios';
 import requests from '../../axios-prefilter'
