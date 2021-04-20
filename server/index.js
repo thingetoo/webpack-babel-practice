@@ -35,7 +35,6 @@ app.get('/products/:product_id/related', (req, res) => {
   axios.get(`${requests.products}/${req.params.product_id}/related`)
     .then((data) => {
       var arr = [];
-      console.log(data.data);
       data.data.forEach((id) => {
         axios.get(`${requests.products}/${id}/styles`)
           .then((response) => {
