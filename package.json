@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
     "express": "^4.17.1",
+    "jquery": "^3.6.0",
     "react": "^16.4",
     "react-dom": "^16.4",
     "style-loader": "^2.0.0"

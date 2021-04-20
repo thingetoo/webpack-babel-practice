@@ -42,4 +42,4 @@ describe('Testing on thumbnail on arrow up click', () => {
   })
 })
 
-describe()
+// describe()
