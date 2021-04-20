@@ -21,7 +21,7 @@ class QuestionBar extends React.Component {
 
   render () {
     return (
-      <input placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." onChange={this.handleSearch}></input>
+      <input className='searchBar' placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." onChange={this.handleSearch}></input>
     )
   }
 }

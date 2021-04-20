@@ -1,0 +1,22 @@
+
+.questionform{
+  padding-top: 30%;
+  padding-left: 15%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right:0;
+  background-color:white;
+  opacity: 90%;
+}
+
+.main-heading{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: medium;
+}
+
+.searchBar{
+  width: 60%;
+  height: 3em;
+}

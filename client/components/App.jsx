@@ -35,17 +35,14 @@ class App extends React.Component {
 
 
   render() {
-
-
-
-
+console.log(this.state.currentProduct)
     return (
       <div>
         <h1>App.js is connected and working!</h1>
         <Overview product={this.state.currentProduct} />
         {/* <Questions /> */}
         <RelProductList productId={this.state.currentProduct.id} />
-        <QA productId={this.state.currentProduct.id}/>
+        <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name}/>
       </div>
     )
   }
