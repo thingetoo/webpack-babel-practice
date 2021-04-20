@@ -2,7 +2,6 @@ import React from 'react';
 import QA from './QA/QA.jsx'
 import QuestionBar from './QA/QuestionBar.jsx'
 import QuestionList from './QA/QuestionList.jsx'
-// import QuestionEntry from './QA/QuestionEntry.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
