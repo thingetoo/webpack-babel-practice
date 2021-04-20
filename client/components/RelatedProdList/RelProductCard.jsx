@@ -58,7 +58,9 @@ class RelProductCard extends React.Component {
 
     return (
       <div className='related-card'>
-        <div className='related-card-visual'>
+        <div className='related-card-visual' onClick={(e) => {
+
+        }}>
           <img className='related-card-visual-star-default' src="https://img.icons8.com/windows/32/000000/star--v1.png" />
           {thumb}
         </div>
