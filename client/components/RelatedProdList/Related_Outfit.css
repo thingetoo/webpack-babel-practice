@@ -73,3 +73,25 @@
 .related-card-info {
   margin: 10px;
 }
+
+.comparison-viewer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1000px;
+  border-radius: 5%;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.comparison-table {
+  position: sticky;
+  top: 20%;
+  left: 50%;
+  width: 400px;
+  height: 300px;
+  border-radius: 10%;
+  box-shadow: 5px 4px 30px .2px rgba(0, 0, 0, 0.178);
+  background-color: rgb(233, 207, 207);
+}

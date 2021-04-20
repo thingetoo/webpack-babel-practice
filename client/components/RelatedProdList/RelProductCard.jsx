@@ -59,7 +59,7 @@ class RelProductCard extends React.Component {
     return (
       <div className='related-card'>
         <div className='related-card-visual' onClick={(e) => {
-
+          this.props.toggleComparison();
         }}>
           <img className='related-card-visual-star-default' src="https://img.icons8.com/windows/32/000000/star--v1.png" />
           {thumb}

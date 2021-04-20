@@ -65,7 +65,7 @@ class RelProductList extends React.Component {
             <div className='related-list-content'>
               {
                 this.state.rel_products.map((product, i) => {
-                  return <RelProductCard key={i} product={product} />;
+                  return <RelProductCard key={i} product={product} toggleComparison={this.props.toggleComparison} />;
                 })
               }
             </div>

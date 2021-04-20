@@ -13,9 +13,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentProduct: [],
-      comparisonToggle: false
+      comparisonToggle: true
     }
     this.productStateChange = this.productStateChange.bind(this);
+    this.comparisonToggle = this.comparisonToggle.bind(this);
   }
 
   productStateChange(data) {
@@ -32,22 +33,25 @@ class App extends React.Component {
       });
   }
 
+  comparisonToggle() {
+    var status = !this.state.comparisonToggle ? true : false;
 
+    this.setState({
+      comparisonToggle: status
+    })
+  }
 
   render() {
-
-
-
-
-
-
+    var comparison = this.state.comparisonToggle ? <Comparison_Model toggleComparison={this.comparisonToggle} /> : <div></div>;
     return (
       <div>
-        <Overview product={this.state.currentProduct} />
-        <Comparison_Model />
-        <RelProductList productId={this.state.currentProduct.id} />
-        <QA />
-        <QuestionBar />
+        {comparison}
+        <div className="product-page-viewer">
+          <Overview product={this.state.currentProduct} />
+          <RelProductList productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} />
+          <QA />
+          <QuestionBar />
+        </div>
       </div>
     )
   }
