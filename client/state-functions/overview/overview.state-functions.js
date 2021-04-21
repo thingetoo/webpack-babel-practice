@@ -41,4 +41,10 @@ module.exports = {
   }
 }
 
-
+export async function fetchThumbnails() {
+  const productId = 19089
+  axios.get(`/product/${productId}/styles`).then(async response => {
+    return await response.data
+  }).catch(err => console.log(err));
+}
+//Try importing the class's functions and testing them within the testing suite.
