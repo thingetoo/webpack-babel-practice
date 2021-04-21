@@ -1,15 +1,18 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import css from './Overview.css'
+// eslint-disable-next-line no-unused-vars
+// import css from './Overview.css'
 
-const Thumbnail = (props) => {
+const Thumbnail = ({ thumbnailClick, thumbnailIndex, thumb, currentThumbnail, product }) => {
   return(
     <img
-    onClick={() => props.thumbnailClick(props.thumbnailIndex)}
+    onClick={() => thumbnailClick(thumbnailIndex)}
     style={
-      props.thumbnailIndex === props.currentThumbnail ?
+      thumbnailIndex === currentThumbnail ?
       {border: '2px solid white', boxSizing: 'border-box'} :
       {}
-    } src={props.thumb.thumbnail_url}
+    } src={thumb.thumbnail_url}
+    alt={product.name}
     className='image-container__thumbnail' />
 
   )

@@ -6,7 +6,6 @@ import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
 
 import axios from 'axios';
-import requests from '../../axios-prefilter'
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +27,6 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
-        console.log(response.data);
         this.productStateChange(response.data)
       });
   }
