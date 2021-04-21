@@ -36,36 +36,36 @@ var Comparison_Model = (props) => {
         props.toggleComparison();
       }}>
         <table className="comparison-table">
-          <thead>
-            <tr>
-              <th colSpan="1">comparison</th>
-            </tr>
-          </thead>
           <tbody>
-            <tr>
-              <td>{displayInfo.name}</td>
-              <td>Features</td>
-              <td>{props.relatedProduct.name}</td>
+            <tr className="comparison-table-title">
+              <td>COMPARING</td>
+              <td></td>
+              <td></td>
             </tr>
-            <tr>
-              <td>{'$' + displayInfo.default_price.split('.').slice(0, 1).join('')}</td>
-              <td>Price</td>
-              <td>{'$' + props.relatedProduct.default_price.split('.').slice(0, 1).join('')}</td>
+            <tr className="comparison-table-names">
+              <td className="comparison-table-display-product">{displayInfo.name}</td>
+              <td></td>
+              <td className="comparison-table-related-product">{props.relatedProduct.name}</td>
             </tr>
-            <tr>
-              <td>{displayInfo.category}</td>
-              <td>Category</td>
-              <td>{props.relatedProduct.category}</td>
+            <tr className="comparison-table-info">
+              <td className="comparison-table-display-product">{'$' + displayInfo.default_price.split('.').slice(0, 1).join('')}</td>
+              <td className="comparison-table-feature">Price</td>
+              <td className="comparison-table-related-product">{'$' + props.relatedProduct.default_price.split('.').slice(0, 1).join('')}</td>
             </tr>
-            <tr>
-              <td>{displayInfo.features[0].value}</td>
-              <td>Fabric</td>
-              <td>{props.relatedProduct.features[0].value}</td>
+            <tr className="comparison-table-info">
+              <td className="comparison-table-display-product">{displayInfo.category}</td>
+              <td className="comparison-table-feature">Category</td>
+              <td className="comparison-table-related-product">{props.relatedProduct.category}</td>
             </tr>
-            <tr>
-              <td>{displayInfo.features[0].value}</td>
-              <td>Cut</td>
-              <td>{props.relatedProduct.features[1].value}</td>
+            <tr className="comparison-table-info">
+              <td className="comparison-table-display-product">{displayInfo.features[0].value}</td>
+              <td className="comparison-table-feature">Fabric</td>
+              <td className="comparison-table-related-product">{props.relatedProduct.features[0].value}</td>
+            </tr>
+            <tr className="comparison-table-info">
+              <td className="comparison-table-display-product">{displayInfo.features[0].value}</td>
+              <td className="comparison-table-feature">Cut</td>
+              <td className="comparison-table-related-product">{props.relatedProduct.features[1].value}</td>
             </tr>
           </tbody>
         </table>

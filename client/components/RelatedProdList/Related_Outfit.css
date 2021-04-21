@@ -162,7 +162,31 @@ body {
   left: 50%;
   width: 400px;
   height: 300px;
-  border-radius: 10%;
+  border: black 1px solid;
+  padding: 15px;
   box-shadow: 5px 4px 30px .2px rgba(0, 0, 0, 0.178);
-  background-color: rgb(187, 187, 187);
+  background-color: rgb(230, 230, 230);
+}
+
+.comparison-table-names {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.comparison-table-title {
+  font-weight: 300;
+  font-size: .8em;
+}
+
+.comparison-table-related-product {
+  text-align: right;
+}
+
+.comparison-table-feature {
+  font-weight: bold;
+  text-align: center;
+}
+
+td {
+  padding: 0px;
 }
