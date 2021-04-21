@@ -58,7 +58,7 @@ class RelProductList extends React.Component {
       <div>
         <div className='related-view'>
           <h2>Related Products</h2>
-          <img className='related-list-arrows related-list-arrows__left' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='related-list-arrows related-list-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
             this.arrowHandler('left', e);
           }} />
           <div className='related-list'>
@@ -70,7 +70,7 @@ class RelProductList extends React.Component {
               }
             </div>
           </div>
-          <img className='related-list-arrows related-list-arrows__right .hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='related-list-arrows related-list-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
             this.arrowHandler('right', e);
           }} />
         </div>

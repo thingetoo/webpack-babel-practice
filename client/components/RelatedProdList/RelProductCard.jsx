@@ -48,9 +48,14 @@ class RelProductCard extends React.Component {
       })
   }
   render() {
-    console.log(this.state.currentStyle);
     var { name, category, default_price } = this.props.product;
 
+    var { sale_price } = this.state.currentStyle;
+
+    default_price = '$' + default_price.split('.').slice(0, 1).join('');
+    if (sale_price) {
+      sale_price = '$' + sale_price.split('.').slice(0, 1).join('')
+    }
     var saleElement = <p className='related-card-info-default-sale'>{this.state.currentStyle.sale_price}</p>
     var defPriceElement = <p className='related-card-info-default-price'>{default_price}</p>
     var price = !this.state.currentStyle.sale_price ? defPriceElement : saleElement;

@@ -21,18 +21,19 @@
 }
 
 .related-list-arrows {
-  height: 64px;
+  height: 24px;
   position: absolute;
-  top: 40%;
+  background-color: white;
+  border-radius: 5px;
+  top: 60%;
   z-index: 1;
 }
 
 .related-list-arrows__right {
-  left: 90%;
+  left: 97%;
 }
 .related-list-arrows__left {
-  left: -2%;
-  transform: rotate(180deg);
+  left: 0%;
 }
 
 /* ARROW HOVER EFFECTS */
@@ -52,6 +53,25 @@
   transform: translateX(8px);
 }
 
+.hvr-backward {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  transform: rotate(180deg);
+}
+.hvr-backward:hover, .hvr-backward:focus, .hvr-backward:active {
+  -webkit-transform: translateX(-8px) rotate(180deg);
+  transform: translateX(-8px) rotate(180deg);
+  /* transform: rotate(180deg); */
+}
+
+/*RELATED CARD */
 .related-card {
   max-width: 250px;
   width: 250px;
@@ -59,36 +79,57 @@
   max-height: 400px;
   height: 350px;
   margin: 0 20px 0 20px;
-  border-radius: 2%;
+  border-radius: 5px;
   box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.40);
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.related-card-visual {
-  display: flex;
-  height: 55%;
   flex-direction: column;
   justify-content: flex-start;
 }
 
+.related-card-visual {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
 .related-card-visual-thumbnail {
-  aspect-ratio: inherit;
+  aspect-ratio: 1/1;
   width: 100%;
   height: 100%;
 }
 
 .related-card-visual-star-default {
-  position: sticky;
-  margin: 5px 25px 5px 0;
+  position: absolute;
+  margin: 5px 10px 5px 0;
   justify-items: flex-start;
   align-self: flex-end;
   width: 20px;
 }
 
 .related-card-info {
-  margin: 10px;
+
+  margin: 10px 20px;
+}
+/* all children */
+.related-card-info>* {
+  margin: 0 0 8px 0;
+}
+
+.related-card-info-name {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.related-card-info-category {
+  font-weight: normal;
+  font-size: .8em;
+}
+
+.related-card-info-default-price {
+  font-size: .8em;
 }
 
 .comparison-viewer {
@@ -110,5 +151,5 @@
   height: 300px;
   border-radius: 10%;
   box-shadow: 5px 4px 30px .2px rgba(0, 0, 0, 0.178);
-  background-color: rgb(233, 207, 207);
+  background-color: rgb(187, 187, 187);
 }
