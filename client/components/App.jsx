@@ -3,15 +3,16 @@ import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
 import Overview from './Overview/Overview.jsx';
-import RelProductList from './RelProductList.jsx';
+import RelProductList from './RelatedProdList/RelProductList.jsx';
 
 import axios from 'axios';
-
+import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: []
+      currentProduct: [],
+      comparisonToggle: false
     }
     this.productStateChange = this.productStateChange.bind(this);
   }
@@ -34,9 +35,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>App.js is connected and working!</h1>
         <Overview product={this.state.currentProduct} />
-        {/* <Questions /> */}
+        <Comparison_Model />
         <RelProductList productId={this.state.currentProduct.id} />
         <QA />
         <QuestionBar />
