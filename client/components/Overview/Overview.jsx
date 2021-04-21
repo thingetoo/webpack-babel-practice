@@ -25,6 +25,7 @@ class Overview extends React.Component{
     this.handleThumbnailClick = this.handleThumbnailClick.bind(this);
     this.onArrowLeftClick = this.onArrowLeftClick.bind(this);
     this.onArrowRightClick = this.onArrowRightClick.bind(this);
+    this.handleStyleClick = this.handleStyleClick.bind(this);
   }
 
 // Arrow function account for only 14 icons - will need to adjust the logic for more item
@@ -66,6 +67,14 @@ class Overview extends React.Component{
     }
   }
 
+  handleStyleClick(styleId) {
+    // console.log(this.state.styles[styleId])
+    this.setState({
+      currentStyle: styleId,
+      thumbnails: this.state.styles[styleId].photos
+    })
+  }
+
   handleThumbnailClick(id) {
     this.setState({
       currentThumbnail: id
@@ -91,16 +100,16 @@ class Overview extends React.Component{
   render() {
     const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail } = this.state;
     const { product } = this.props
-    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick } = this;
+    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick } = this;
     const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product }
     return product ?
     (
       <div className='overview-container'>
         <ImageDisplay {...overviewProps} />
-        <ProductInfo product={product} styles={styles} currentStyle={currentStyle}/>
+        <ProductInfo product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick}/>
         <div className='description-container'>
-          <p>{product.slogan}</p>
-          <p>{product.description}</p>
+          <h4>{product.slogan}</h4>
+          <h5>{product.description}</h5>
         </div>
       </div>
     )

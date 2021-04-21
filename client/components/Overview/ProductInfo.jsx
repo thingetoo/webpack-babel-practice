@@ -31,7 +31,8 @@ class ProductInfo extends React.Component {
      })
     this.setState({
       size: e.target.value,
-      totalQuantity: cur[0][1].quantity
+      totalQuantity: cur[0][1].quantity,
+      selectedQuantity: 1
     })
   }
 
@@ -42,28 +43,28 @@ class ProductInfo extends React.Component {
   }
 
   render() {
-    const { product, styles, currentStyle } = this.props;
+    const { product, styles, currentStyle, handleStyleClick } = this.props;
     const { name, default_price, category } = this.props.product
     return product ?
     (
       <div className='product-information'>
         <h5>Read all [#] reviews</h5>
         <h5>{category}</h5>
-        <h1>{name}</h1>
-        <h5>{default_price}</h5>
-        <h4>STYLE &gt; SELECTED STYLE</h4>
+        <h3>{name}</h3>
+        <p>{default_price}</p>
+        <h5>STYLE &gt; SELECTED STYLE</h5>
         <div className='styles-container'>
           {
-            styles.map(style => {
-              return <img className='styles__photo hvr-glow' key={style.style_id} src={style.photos[0].thumbnail_url}></img>
+            styles.map((style, idx) => {
+              return <img className='styles__photo hvr-glow' onClick={() => handleStyleClick(idx)} key={style.style_id} src={style.photos[0].thumbnail_url}></img>
               // <img className='styles__photo' key={style.style_id} alt={style.name} src={style.photos[0].thumbnail_url} />
             })
           }
         </div>
         <div className='checkout-buttons'>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <select value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
+          <div className='input-container'>
+            <select className='checkout-input hvr-glow' value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
               <option value=''>Select Size</option>
               {
               styles[currentStyle] && Object.entries(styles[currentStyle].skus).map(([key, entry]) => {
@@ -71,16 +72,16 @@ class ProductInfo extends React.Component {
               })
               }
             </select>
-            <select value={this.state.selectedQuantity} onChange={e => this.handleQuantityChange(e)}>
-            <option value=''>-</option>
+            <select className='checkout-input hvr-glow' value={this.state.selectedQuantity} onChange={e => this.handleQuantityChange(e)}>
+              <option value=''>-</option>
               {
                 this.state.totalQuantity && [...Array(this.state.totalQuantity)].map((el, idx) => {
-                  return <option key={idx}>{idx}</option>
+                  return <option key={idx}>{idx + 1}</option>
                 })
               }
             </select>
-          </label>
-          <input className="hvr-back-pulse" type="submit" value="Submit" />
+            <input className="hvr-back-pulse checkout-input" type="submit" value="Add to Cart" />
+          </div>
         </form>
         </div>
       </div>
