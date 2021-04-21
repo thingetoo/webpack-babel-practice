@@ -14,15 +14,16 @@ class RelProductList extends React.Component {
   }
 
   arrowHandler(direction, e) {
-    console.log('left arrow handler triggered');
     var view = $(".related-list");
     var move = "300px";
-    var sliderLimit = -500;
+    var sliderLimit = parseInt($('.related-list-content').css('width'));
+    // var sliderLimit = -500;
+    sliderLimit -= sliderLimit * 2;
 
     var currentPosition = parseInt(view.css("left"));
     console.log(currentPosition);
     if (direction === 'right') {
-      if (currentPosition >= sliderLimit) {
+      if (currentPosition >= 0) {
         $('.related-list-arrows__right').animate({ border: 'solid 2px red' }, { duration: 400 });
         view.stop(false, true).animate({ left: "-=" + move }, { duration: 400 });
       }
