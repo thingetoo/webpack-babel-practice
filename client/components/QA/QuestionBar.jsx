@@ -18,6 +18,8 @@ class QuestionBar extends React.Component {
 
     // if length > 3 filter props.questions and QA state = filtered
   }
+  // Defines image as sumbit button https://www.w3schools.com/tags/att_input_type_image.asp
+  //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image
 
   render () {
     return (

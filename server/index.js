@@ -3,10 +3,13 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const requests = require('../axios-prefilter.js');
+const bodyParser = require('body-parser');
 
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, '..')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 // app.use('/', (req, res) => {
 //   res.render('index.html')
@@ -56,6 +59,7 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
 })
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  //helpful-question
   axios.put(`${requests.questions}/${req.params.question_id}/helpful`)
     .then((response) => {
       console.log('success')
@@ -67,13 +71,10 @@ app.put('/qa/questions/:question_id/helpful', (req, res) => {
     })
 })
 app.get('/products/:product_id/related', (req, res) => {
-
-  console.log(req.params);
   // res.sendStatus(200);
   axios.get(`${requests.products}/${req.params.product_id}/related`)
     .then((data) => {
       var arr = [];
-      console.log(data.data);
       data.data.forEach((id) => {
         axios.get(`${requests.products}/${id}/styles`)
           .then((response) => {
@@ -87,7 +88,42 @@ app.get('/products/:product_id/related', (req, res) => {
     .catch((err) => {
       console.log(err);
     })
+})
 
+app.post('/qa/questions', (req, res) => {
+   axios.post(`${requests.questions}`, req.body)
+    .then(success => {
+      console.log('sucessfully sent post')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error with post request' + err)
+      res.end()
+    })
+})
+
+app.post('/qa/questions/:question_id/answers', (req, res)=> {
+  axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
+    .then(success => {
+      console.log('successful sent answer')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error sending answer' + err)
+      res.end();
+    })
+})
+
+app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  axios.put(`${requests.answers}/${req.params.answer_id}/helpful`)
+    .then(success => {
+      console.log('sucessfully updated answer helpfulness')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error updating answer helpfulness')
+      res.end();
+    })
 })
 
 app.listen(port, () => {

@@ -1,7 +1,7 @@
 
 .questionform{
-  padding-top: 30%;
-  padding-left: 15%;
+  padding-top: 20%;
+  padding-left: 35%;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,12 +11,45 @@
   opacity: 90%;
 }
 
+.question-ctn {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 250px;
+}
+
 .main-heading{
   font-family: 'Courier New', Courier, monospace;
   font-size: medium;
 }
 
 .searchBar{
-  width: 60%;
+  width: 100%;
   height: 3em;
+}
+
+.questionList-div {
+  width: 100%;
+}
+
+.question{
+  font-family: monospace;
+  font-size: large;
+  font-weight: 550;
+}
+
+.container {
+  width: 100%;
+}
+
+.questionLink {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: small;
+}
+
+.A {
+  font-weight: 550;
 }

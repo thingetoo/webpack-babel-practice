@@ -30,7 +30,9 @@ class Answers extends React.Component {
     return (
       <div>
         {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,2)}/> : <Answer answer={this.state.answers}/>}
+        <div>LOAD MORE ANSWERS</div>
       </div>
+
     )
   }
 }
