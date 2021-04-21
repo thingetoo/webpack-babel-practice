@@ -6,10 +6,13 @@ class Answers extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      answers: []
+      answers: [],
+      i: 2,
+      load: 'LOAD MORE ANSWERS'
     }
 
     this.getAnswers = this.getAnswers.bind(this);
+    this.handleMoreQuestions = this.handleMoreQuestions.bind(this);
   }
 
   getAnswers() {
@@ -23,14 +26,30 @@ class Answers extends React.Component {
 
   componentDidMount () {
       this.getAnswers();
+  }
 
+  handleMoreQuestions () {
+    if (this.state.load === 'LOAD MORE ANSWERS'){
+      this.setState({
+        i: this.state.answers.length,
+        load : 'COLLAPSE ANSWERS'
+
+      })
+    }
+
+    if (this.state.load === 'COLLAPSE ANSWERS'){
+      this.setState({
+        i: 2,
+        load: 'LOAD MORE ANSWERS'
+      })
+    }
   }
 
   render() {
     return (
       <div>
-        {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,2)}/> : <Answer answer={this.state.answers}/>}
-        <div>LOAD MORE ANSWERS</div>
+        {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,this.state.i)}/> : <Answer answer={this.state.answers}/>}
+        {this.state.answers.length > 2 ? <div className='load-ans' onClick={this.handleMoreQuestions}>{this.state.load}</div> : null}
       </div>
 
     )

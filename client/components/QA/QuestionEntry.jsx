@@ -35,17 +35,19 @@ handleClickForm () {
 
   render() {
     return (
-      <div className=''>
+      <div>
       <div className='question'>Q:{'  '+ this.props.question.question_body}</div>
+
       <div className='questionLink'>
 
       <div>helpful? <span onClick={this.handleHelpful}>Yes({this.props.question.question_helpfulness})</span></div>
-      <div> | </div>
-      <div onClick={this.handleClickForm}>  Add Answer</div>
-
+      <div className='help'>{' !!!! '}</div>
+      <div onClick={this.handleClickForm}>Add Answer</div>
       </div>
+
       {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} name={this.props.name}/> : null}
-      <div><Answers questionId={this.props.question.question_id}/></div>
+
+      <Answers questionId={this.props.question.question_id}/>
       </div>
     )
 

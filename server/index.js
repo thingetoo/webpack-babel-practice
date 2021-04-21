@@ -126,6 +126,30 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
     })
 })
 
+app.put('/qa/questions/:question_id/report', (req, res) => {
+  axois.put(`${requests.questions}/${req.params.question_id}/report`)
+    .then(success => {
+      console.log('successfully reported question')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error in reporting question')
+      res.end();
+    })
+})
+
+app.put('/qa/answers/:answer_id/report', (req, res) => {
+  axios.put(`${requests.answers}/${req.params.answer_id}/report`)
+    .then(success => {
+      console.log('successfully reported answer')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error in reporting answer')
+      res.end();
+    })
+})
+
 app.listen(port, () => {
   console.log(`Server listening at localhost:${port}!`);
 });

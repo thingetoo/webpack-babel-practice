@@ -68,6 +68,7 @@ class AddAnswer extends React.Component {
         <div id='thumbnail'>
           {this.state.photos.length > 0 ? this.handleThumbnail() : null}
         </div>
+        <button>Submit</button>
       </div>
     )
   }
