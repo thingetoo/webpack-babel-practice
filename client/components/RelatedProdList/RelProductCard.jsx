@@ -11,10 +11,8 @@ class RelProductCard extends React.Component {
   }
   // var defaultStyle =
   handleUpdate(id) {
-    console.log('ID', id);
     axios.get(`/product/${id}/styles`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           styleList: response.data,
           currentStyle: response.data.results[0],
@@ -48,7 +46,6 @@ class RelProductCard extends React.Component {
       })
   }
   render() {
-    console.log(this.state.currentStyle);
     var { name, category, default_price } = this.props.product;
 
     var saleElement = <p className='related-card-info-default-sale'>{this.state.currentStyle.sale_price}</p>

@@ -8,7 +8,8 @@ class ProductInfo extends React.Component {
     this.state = {
       size: '',
       totalQuantity: '',
-      selectedQuantity: 0
+      selectedQuantity: 0,
+      currentSku: ''
     }
 
     this.handleSizeChange = this.handleSizeChange.bind(this);
@@ -16,12 +17,17 @@ class ProductInfo extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.styles !== this.props.styles) {
-      console.log(this.props.styles[this.props.currentStyle].skus, this.state.size)
+    if (prevProps.currentStyle !== this.props.currentStyle) {
       this.setState({
         quantity: this.props.styles[this.props.currentStyle].skus.quantity,
+        size: 'Select Size',
+        selectedQuantity: '-',
+        totalQuantity: 0,
       })
+
     }
+
+
   }
 
   handleSizeChange(e) {
@@ -29,10 +35,12 @@ class ProductInfo extends React.Component {
     const cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
        return entry.size === e.target.value
      })
+     const currentSku = cur[0][0];
     this.setState({
       size: e.target.value,
       totalQuantity: cur[0][1].quantity,
-      selectedQuantity: 1
+      selectedQuantity: 1,
+      currentSku: currentSku
     })
   }
 
@@ -43,26 +51,44 @@ class ProductInfo extends React.Component {
   }
 
   render() {
-    const { product, styles, currentStyle, handleStyleClick } = this.props;
+    const { product, styles, currentStyle, handleStyleClick, handleAddToCart} = this.props;
     const { name, default_price, category } = this.props.product
-    return product ?
+    const { currentSku, selectedQuantity } = this.state;
+    console.log(styles[currentStyle])
+    return product && styles[currentStyle] ?
     (
       <div className='product-information'>
         <h5>Read all [#] reviews</h5>
         <h5>{category}</h5>
         <h3>{name}</h3>
-        <p>{default_price}</p>
-        <h5>STYLE &gt; SELECTED STYLE</h5>
+        <div>
+          {
+          styles[currentStyle].sale_price ?
+          <div id='product-information__prices'>
+            <p id='old-price'>{styles[currentStyle].original_price}</p>
+            <p>{styles[currentStyle].sale_price}</p>
+          </div>
+          :
+          styles[currentStyle].original_price || default_price
+          }
+        </div>
+        <h5>STYLE &gt; {styles[currentStyle].name || 'Loading...'}</h5>
         <div className='styles-container'>
           {
             styles.map((style, idx) => {
-              return <img className='styles__photo hvr-glow' onClick={() => handleStyleClick(idx)} key={style.style_id} src={style.photos[0].thumbnail_url}></img>
+              return(
+                <div className='styles-container__style' key={style.style_id}>
+                  <img className='styles__photo hvr-glow' alt={style.name} onClick={() => handleStyleClick(idx)} src={style.photos[0].thumbnail_url}></img>
+                  <h6 onClick={() => handleStyleClick(idx)}>{style.name}</h6>
+                </div>
+
+              )
               // <img className='styles__photo' key={style.style_id} alt={style.name} src={style.photos[0].thumbnail_url} />
             })
           }
         </div>
         <div className='checkout-buttons'>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => handleAddToCart(e, currentSku, selectedQuantity)}>
           <div className='input-container'>
             <select className='checkout-input hvr-glow' value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
               <option value=''>Select Size</option>
@@ -75,7 +101,7 @@ class ProductInfo extends React.Component {
             <select className='checkout-input hvr-glow' value={this.state.selectedQuantity} onChange={e => this.handleQuantityChange(e)}>
               <option value=''>-</option>
               {
-                this.state.totalQuantity && [...Array(this.state.totalQuantity)].map((el, idx) => {
+                this.state.totalQuantity && [...Array(this.state.totalQuantity - 1)].map((el, idx) => {
                   return <option key={idx}>{idx + 1}</option>
                 })
               }

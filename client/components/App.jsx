@@ -34,13 +34,21 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Overview product={this.state.currentProduct} />
-        <Comparison_Model />
-        <RelProductList productId={this.state.currentProduct.id} />
-        <QA />
-        <QuestionBar />
-      </div>
+      <main>
+        <section aria-label="overview">
+          <Overview id='overview' product={this.state.currentProduct} />
+        </section>
+        <section aria-label="comparison-model">
+          <Comparison_Model id='comparison-model' />
+        </section>
+        <section aria-label="related-products">
+          <RelProductList id="related-products" productId={this.state.currentProduct.id} />
+        </section>
+        <section aria-label="questions and ratings">
+          <QA id='qa' />
+          <QuestionBar id="question-bar" />
+        </section>
+      </main>
     )
   }
 }

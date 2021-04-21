@@ -17,7 +17,8 @@ class Overview extends React.Component{
       styles: [],
       currentStyle: 0,
       currentThumbnail: 0,
-      product: []
+      product: [],
+      sku: ''
     }
     this.onArrowDownClick = this.onArrowDownClick.bind(this);
     this.onArrowUpClick = this.onArrowUpClick.bind(this);
@@ -84,6 +85,7 @@ class Overview extends React.Component{
   fetchThumbnails() {
     axios.get(`/product/${this.props.product.id}/styles`)
       .then(response => {
+        console.log(response.data.results)
         this.setState({
           styles: response.data.results,
           thumbnails: response.data.results[this.state.currentStyle].photos,
@@ -97,16 +99,21 @@ class Overview extends React.Component{
     }
   }
 
+  handleAddToCart(e, sku, quantity) {
+    e.preventDefault();
+    console.log(sku, quantity)
+  }
+
   render() {
     const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail } = this.state;
     const { product } = this.props
-    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick } = this;
+    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick, handleAddToCart } = this;
     const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product }
     return product ?
     (
       <div className='overview-container'>
         <ImageDisplay {...overviewProps} />
-        <ProductInfo product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick}/>
+        <ProductInfo product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick} handleAddToCart={handleAddToCart}/>
         <div className='description-container'>
           <h4>{product.slogan}</h4>
           <h5>{product.description}</h5>
