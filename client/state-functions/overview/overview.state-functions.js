@@ -38,4 +38,4 @@ export async function fetchThumbnails() {
     return await response.data
   }).catch(err => console.log(err));
 }
-
+Try importing the class's functions and testing them within the testing suite.
