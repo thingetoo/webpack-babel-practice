@@ -85,7 +85,6 @@ class Overview extends React.Component{
   fetchThumbnails() {
     axios.get(`/product/${this.props.product.id}/styles`)
       .then(response => {
-        console.log(response.data.results)
         this.setState({
           styles: response.data.results,
           thumbnails: response.data.results[this.state.currentStyle].photos,
