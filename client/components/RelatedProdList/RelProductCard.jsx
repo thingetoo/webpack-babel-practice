@@ -62,10 +62,10 @@ class RelProductCard extends React.Component {
 
     // Display conditions
     var price = !this.state.currentStyle.sale_price ? defPriceElement : saleElement;
-    var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' alt='image is not found' />;
+    var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' src={`https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081`} alt='image is not found' />;
 
     return (
-      <div className='related-card'>
+      <div className='related-card hvr-float'>
         <div className='related-card-visual' onClick={(e) => {
           this.props.toggleComparison(this.props.product, this.state.currentStyle);
         }}>

@@ -1,12 +1,13 @@
 import React from 'react';
+import axios from 'axios';
 import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
-
-import axios from 'axios';
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
+import css from './App_Style.css';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +34,7 @@ class App extends React.Component {
 
   comparisonToggle(relatedProduct, relatedStyle) {
     // console.log(this.state.currentProduct);
-    console.log(relatedStyle);
+    // console.log(relatedStyle);
     var status = !this.state.comparisonToggle ? <Comparison_Model toggleComparison={this.comparisonToggle} displayedProduct={this.state.currentProduct} relatedProduct={relatedProduct} /> : false;
 
     this.setState({

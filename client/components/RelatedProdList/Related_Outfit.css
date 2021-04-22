@@ -1,9 +1,12 @@
-body {
-  background: white;
-}
+
 .related-view {
+  /* left: 15%; */
+  /* grid-column-start: line1; */
+
   position: relative;
-  max-width: 80%;
+  /* max-width: 80%; */
+  width: 80%;
+  /* min-width: 20%; */
   overflow: hidden;
   z-index: 1;
   /* background: linear-gradient(90deg, rgba(255, 255, 255, 0) 80%, rgb(255, 255, 255, 1)); */
@@ -93,10 +96,29 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   z-index: -6;
-  color: red;
   background: white;
 }
 
+/* Related Card Effect */
+.hvr-float {
+  /* display: inline-block; */
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-float:hover, .hvr-float:focus, .hvr-float:active {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+
+/* Related Card Contents */
 .related-card-visual {
   display: flex;
   height: 70%;

@@ -15,21 +15,28 @@ class RelProductList extends React.Component {
 
   arrowHandler(direction, e) {
     var view = $(".related-list");
-    var move = "300px";
     var sliderLimit = parseInt($('.related-list-content').css('width'));
     // var sliderLimit = -500;
-    sliderLimit -= sliderLimit * 2;
-
+    sliderLimit = (sliderLimit / 2) - sliderLimit;
+    var move = sliderLimit / -2;
+    move = move.toString();
     var currentPosition = parseInt(view.css("left"));
     console.log(currentPosition);
     if (direction === 'right') {
+      if (currentPosition === 0) {
+        $('.related-list-arrows__right').css('display', 'none');
+        $('.related-list-arrows__left').css('display', 'block');
+      }
       if (currentPosition >= 0) {
-        $('.related-list-arrows__right').animate({ border: 'solid 2px red' }, { duration: 400 });
         view.stop(false, true).animate({ left: "-=" + move }, { duration: 400 });
       }
     } else {
+      console.log('Slider: ', sliderLimit);
+      if (currentPosition === 0) {
+        $('.related-list-arrows__right').css('display', 'block');
+        $('.related-list-arrows__left').css('display', 'none');
+      }
       if (currentPosition < 0) {
-        $('.related-list-arrows__left').animate({ border: 'solid 2px red' }, { duration: 400 });
         view.stop(false, true).animate({ left: "+=" + move }, { duration: 400 });
       }
     }
@@ -56,7 +63,7 @@ class RelProductList extends React.Component {
 
     // console.log(props.productId);
     return (
-      <div>
+      <>
         <div className='related-view'>
           <h2>Related Products</h2>
           <img className='related-list-arrows related-list-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
@@ -81,7 +88,7 @@ class RelProductList extends React.Component {
           //   return <RelProductCard />;
           // })
         }
-      </div>
+      </>
     )
   }
 }
