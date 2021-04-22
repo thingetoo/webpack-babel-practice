@@ -27,9 +27,9 @@ class QuestionEntry extends React.Component {
   }
 // make it work when page reloads
 
-handleClickForm () {
+handleClickForm (boolean) {
   this.setState({
-    clickedForm: true
+    clickedForm: boolean
   })
 }
 
@@ -42,10 +42,10 @@ handleClickForm () {
 
       <div>helpful? <span onClick={this.handleHelpful}>Yes({this.props.question.question_helpfulness})</span></div>
       <div className='help'>{' !!!! '}</div>
-      <div onClick={this.handleClickForm}>Add Answer</div>
+      <div onClick={() => this.handleClickForm(true)}>Add Answer</div>
       </div>
 
-      {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} name={this.props.name}/> : null}
+      {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} name={this.props.name} close={this.handleClickForm}/> : null}
 
       <Answers questionId={this.props.question.question_id}/>
       </div>

@@ -6,9 +6,35 @@
   top: 0;
   bottom: 0;
   left: 0;
-  right:0;
-  background-color:white;
-  opacity: 90%;
+  right: 0;
+  background-color : rgba(0, 0, 0, 0.8);
+}
+
+.innerForm {
+  width: 500px;
+  height: 300px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items:flex-start;
+}
+
+.form-title {
+  align-self: center;
+  font-weight: 600;
+}
+
+.mini-title {
+  align-self: center;
+}
+
+.close {
+  align-self: flex-end;
+  transform: rotate(45deg);
+  cursor: pointer;
 }
 
 .QA-ctn {
@@ -27,6 +53,10 @@
 .searchBar{
   width: 100%;
   height: 3em;
+  background-image: url("https://img.icons8.com/ios-glyphs/50/000000/search.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 2em;
 }
 
 .list-ctn {
@@ -40,6 +70,7 @@
   font-family: monospace;
   font-size: large;
   font-weight: 550;
+  color: #484848;
 }
 
 .container {
@@ -57,6 +88,10 @@
   font-weight: 550;
 }
 
+.answer {
+  font-size: 0.9em;
+}
+
 .ans {
 }
 
@@ -66,6 +101,7 @@
   justify-content: space-between;
   font-size: small;
   margin: 1em;
+  color: #696969;
 }
 
 .load-ans {
@@ -89,10 +125,20 @@
 .button2 {
   border: 1px solid black;
   padding: 1em;
+  padding-right: 2em;
   margin-left: 1em;
   background-color: white;
+  background-image: url("https://img.icons8.com/android/24/000000/plus.png");
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  background-size: 1em;
 }
 
 .help{
   color: white;
 }
+
+::placeholder {
+  font-weight: 600;
+}
+

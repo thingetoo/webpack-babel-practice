@@ -46,11 +46,18 @@ class QA extends React.Component {
 
   handleMoreQuestions() {
     var add = this.state.amount
-    if (this.state.amount === this.state.data.length){
+    console.log(this.state.data.length)
+    console.log(this.state.amount)
+    if (this.state.amount >= this.state.data.length){
       this.setState({
         more: false
       })
-    } else{
+    } else if (this.state.amount + 1 === this.state.data.length){
+      this.setState({
+        amount: add + 2,
+        more: false
+      })
+    } else {
       this.setState({
         amount: add + 2
       })
@@ -58,10 +65,11 @@ class QA extends React.Component {
 
   }
 
-  handleClicked () {
+  handleClicked (boolean) {
     this.setState({
-      clicked: true
+      clicked: boolean
     })
+    console.log(this.state.clicked)
   }
 
   handleUpdate (data) {
@@ -82,9 +90,9 @@ class QA extends React.Component {
     {this.state.data.length > 0 ? <QuestionList name={this.props.name} questions={this.state.data.slice(0,this.state.amount)}/> : null}
     <div className='button'>
     {this.state.data.length > 2 && this.state.more ? <button className='button1' onClick={this.handleMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
-    <button className='button2' onClick={this.handleClicked}>ADD A QUESTION</button>
+    <button className='button2' onClick={() => this.handleClicked(true)}>ADD A QUESTION</button>
     </div>
-    {this.state.clicked ? <AddQuestion name={this.props.name} id={this.props.productId}/> : null}
+    {this.state.clicked ? <AddQuestion name={this.props.name} id={this.props.productId} close={this.handleClicked}/> : null}
   </div>
    )
   }

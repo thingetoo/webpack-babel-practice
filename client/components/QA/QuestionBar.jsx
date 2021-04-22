@@ -18,6 +18,7 @@ class QuestionBar extends React.Component {
       var filtered = this.props.questions.filter((question)=> {
          return question.question_body.includes(event.target.value)
       })
+      console.log(filtered)
       this.props.update(filtered)
 
     } else {
@@ -33,7 +34,11 @@ class QuestionBar extends React.Component {
 
   render () {
     return (
-      <input className='searchBar' placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." onChange={this.handleSearch}></input>
+
+      <input className='searchBar' placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." onChange={this.handleSearch}>
+      </input>
+
+
     )
   }
 }

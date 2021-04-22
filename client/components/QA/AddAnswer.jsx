@@ -55,8 +55,10 @@ class AddAnswer extends React.Component {
   render() {
     return (
       <div className='questionform'>
-        <h4>Submit your Answer</h4>
-        <h5>{this.props.name} : {this.props.question}</h5>
+        <div className='innerForm'>
+        <div className='close' onClick={() => this.props.close(false)}>+</div>
+        <div className='form-title'>Submit your Answer</div>
+        <div className='mini-title'>{this.props.name} : {this.props.question}</div>
         <label>Answer:</label>
         <input></input>
         <label>nickname:</label>
@@ -69,6 +71,7 @@ class AddAnswer extends React.Component {
           {this.state.photos.length > 0 ? this.handleThumbnail() : null}
         </div>
         <button>Submit</button>
+        </div>
       </div>
     )
   }
