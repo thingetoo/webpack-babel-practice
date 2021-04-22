@@ -8,9 +8,7 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, '..')));
 
-// app.use('/', (req, res) => {
-//   res.render('index.html')
-// })
+const tempOutfitList = [];
 
 app.get('/products', (req, res) => {
   // res.sendStatus(200);
@@ -30,7 +28,6 @@ app.get('/product/:productId/styles', (req, res) => {
 
 app.get('/products/:product_id/related', (req, res) => {
 
-  console.log(req.params);
   // res.sendStatus(200);
   axios.get(`${requests.products}/${req.params.product_id}/related`)
     .then((data) => {
@@ -46,7 +43,7 @@ app.get('/products/:product_id/related', (req, res) => {
       })
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     })
 })
 
@@ -55,13 +52,36 @@ app.get('/products/:product_id/info', (req, res) => {
   var id = req.params.product_id.split(':').join('');
   axios.get(`${requests.products}/${id}`)
     .then((response) => {
-      console.log(response.data);
       res.send(response.data);
     })
     .catch((err) => {
       // console.log(err);
     })
 })
+
+app.post('/products/:product/outfits', (req, res) => {
+
+  // console.log(req.params);
+  var outfitNum = parseInt(req.params.product);
+  var arr = [];
+  if (!tempOutfitList.includes(outfitNum)) {
+    tempOutfitList.push(outfitNum);
+  }
+  tempOutfitList.forEach((id) => {
+    axios.get(`${requests.products}/${id}`)
+      .then((response) => {
+        arr.push(response.data);
+        if (arr.length === tempOutfitList.length) {
+          res.json(arr);
+        }
+      })
+    // res.sendStatus(200);
+  })
+})
+
+// app.get('/products/outfits', (req, res) => {
+//   res.sendStatus(200);
+// })
 
 app.listen(port, () => {
   console.log(`Server listening at localhost: ${port}!`);

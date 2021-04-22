@@ -11,10 +11,8 @@ class RelProductCard extends React.Component {
   }
   // var defaultStyle =
   handleUpdate(id) {
-    console.log('ID', id);
     axios.get(`/product/${id}/styles`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           styleList: response.data,
           currentStyle: response.data.results[0],
@@ -27,10 +25,7 @@ class RelProductCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log(prevProps);
-    // // this.handleUpdate(this.props.product.id);
-    // if (prevProps !== this.props) {
-    // }
+
   }
 
   componentDidMount() {
@@ -65,7 +60,7 @@ class RelProductCard extends React.Component {
     var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' src={`https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081`} alt='image is not found' />;
 
     return (
-      <div className='related-card hvr-float'>
+      <div className='card hvr-float'>
         <div className='related-card-visual' onClick={(e) => {
           this.props.toggleComparison(this.props.product, this.state.currentStyle);
         }}>
