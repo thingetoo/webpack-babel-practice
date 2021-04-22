@@ -29,7 +29,7 @@ class QA extends React.Component {
   }
 
   handleQuestions () {
-    axios.get(`/qa/questions/${this.props.productId}/20`)
+    axios.get(`/qa/questions/${this.props.productId}/100`)
       .then(response => {
         this.setState({
           data: response.data,
@@ -46,8 +46,6 @@ class QA extends React.Component {
 
   handleMoreQuestions() {
     var add = this.state.amount
-    console.log(this.state.data.length)
-    console.log(this.state.amount)
     if (this.state.amount >= this.state.data.length){
       this.setState({
         more: false
@@ -69,7 +67,6 @@ class QA extends React.Component {
     this.setState({
       clicked: boolean
     })
-    console.log(this.state.clicked)
   }
 
   handleUpdate (data) {
@@ -87,7 +84,7 @@ class QA extends React.Component {
     <br></br>
     <QuestionBar questions={this.state.useData} update={this.handleUpdate}/>
     <br></br>
-    {this.state.data.length > 0 ? <QuestionList name={this.props.name} questions={this.state.data.slice(0,this.state.amount)}/> : null}
+    {this.state.data.length > 0 ? <QuestionList name={this.props.name} productId={this.props.productId} questions={this.state.data.slice(0,this.state.amount)} update={this.handleUpdate}/> : null}
     <div className='button'>
     {this.state.data.length > 2 && this.state.more ? <button className='button1' onClick={this.handleMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
     <button className='button2' onClick={() => this.handleClicked(true)}>ADD A QUESTION</button>

@@ -6,7 +6,8 @@ class Ans extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      report: 'Report'
+      report: 'Report',
+      clickedHelpful: false
     }
 
     this.handleAnswerHelpful = this.handleAnswerHelpful.bind(this);
@@ -14,11 +15,13 @@ class Ans extends React.Component {
   }
 
   handleAnswerHelpful (answerid) {
-    var count = 0;
-    if (count === 0) {
-      axios.put(`/qa/answers/${answerid}/helpful`)
-        .then (success => {
-          count+= 1;
+    if (this.state.clickedHelpful === false) {
+      axios.put(`/qa/answers/${answerid}/helpful`, {question_id: this.props.questionId})
+        .then ((data) => {
+          this.props.updateAns(data.data.results);
+          this.setState({
+            clickedHelpful: true
+          })
         })
     }
   }
@@ -40,7 +43,7 @@ class Ans extends React.Component {
           <div className='answer'><span className='A'>A:</span> {this.props.ans.body}</div>
           <div className='ans-info'>
           <div>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div>
-          <div>Helpful? <span onClick={() => this.handleAnswerHelpful(this.props.ans.answer_id)}>Yes({this.props.ans.helpfulness})</span></div>
+          <div>Helpful? <span onClick={() => this.handleAnswerHelpful(this.props.ans.answer_id)}>Yes</span>({this.props.ans.helpfulness})</div>
           <div onClick={() => this.handleAnswerReport(this.props.ans.answer_id)}>{this.state.report}</div>
           </div>
       </div>

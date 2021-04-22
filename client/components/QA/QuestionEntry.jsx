@@ -17,8 +17,9 @@ class QuestionEntry extends React.Component {
 
   handleHelpful (){
     if (this.state.clickedHelpful === false){
-      axios.put(`/qa/questions/${this.props.question.question_id}/helpful`)
-      .then((res) => {
+      axios.put(`/qa/questions/${this.props.question.question_id}/helpful`, {product_id: this.props.productId})
+      .then((data) => {
+        this.props.update(data.data)
         this.setState({
           clickedHelpful: true
         })
@@ -40,9 +41,8 @@ handleClickForm (boolean) {
 
       <div className='questionLink'>
 
-      <div>helpful? <span onClick={this.handleHelpful}>Yes({this.props.question.question_helpfulness})</span></div>
-      <div className='help'>{' !!!! '}</div>
-      <div onClick={() => this.handleClickForm(true)}>Add Answer</div>
+      <div className='link-helpful'>helpful? <span onClick={this.handleHelpful}>Yes</span>({this.props.question.question_helpfulness}) </div>
+      <div className='link-answe' onClick={() => this.handleClickForm(true)}> Add Answer</div>
       </div>
 
       {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} name={this.props.name} close={this.handleClickForm}/> : null}

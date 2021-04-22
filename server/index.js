@@ -61,9 +61,18 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   //helpful-question
   axios.put(`${requests.questions}/${req.params.question_id}/helpful`)
-    .then((response) => {
-      console.log('success')
-      res.end()
+    .then(() => {
+      axios.get(`${requests.questions}?product_id=${req.body.product_id}&count=100`)
+      .then((response) => {
+        var sorted = response.data.results.sort(function(a, b){
+          return b.question_helpfulness - a.question_helpfulness
+        })
+        res.json(sorted)
+    })
+      .catch((err) => {
+        console.log('Error with Questions get request' + err)
+        res.end()
+      })
     })
     .catch((err) => {
       console.log('error')
@@ -91,6 +100,7 @@ app.get('/products/:product_id/related', (req, res) => {
 })
 
 app.post('/qa/questions', (req, res) => {
+  console.log(req.body);
    axios.post(`${requests.questions}`, req.body)
     .then(success => {
       console.log('sucessfully sent post')
@@ -115,10 +125,17 @@ app.post('/qa/questions/:question_id/answers', (req, res)=> {
 })
 
 app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  //helpful-answers
   axios.put(`${requests.answers}/${req.params.answer_id}/helpful`)
-    .then(success => {
-      console.log('sucessfully updated answer helpfulness')
-      res.end();
+    .then(() => {
+      axios.get(`${requests.questions}/${req.body.question_id}/answers`)
+      .then((response) => {
+        res.json(response.data)
+      })
+      .catch((err)=> {
+        console.log('Error with Answers get request' + err)
+        res.end();
+      })
     })
     .catch(err => {
       console.log('error updating answer helpfulness')

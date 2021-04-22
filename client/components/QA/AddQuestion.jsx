@@ -34,7 +34,7 @@ class AddQuestion extends React.Component {
     })
   }
 
-  handleSubmit () {
+  handleSubmit (e) {
     axios.post('/qa/questions', {
       body: this.state.question,
       name: this.state.nickname,
@@ -43,10 +43,17 @@ class AddQuestion extends React.Component {
     })
       .then(success => {
         console.log('Successfully sent post request')
+        this.setState({
+          question: '',
+          nickname: '',
+          email: ''
+        })
       })
       .catch((err) => {
         console.log('Failed to send post request' + err)
       })
+      e.preventDefault();
+      //check length here
   }
 
   render () {
@@ -57,14 +64,14 @@ class AddQuestion extends React.Component {
         <div className='form-title'>Ask Your Question</div>
         <div className='mini-title'>About the {this.props.name}</div>
         <label htmlFor='question' >Your Question*</label>
-        <textarea type='text' id='question' placeholder='Why did you like the product or not?' maxLength="1000" onChange={this.handleQuestion}></textarea>
+        <textarea type='text' value={this.state.question} id='question' placeholder='Why did you like the product or not?' maxLength="1000" onChange={this.handleQuestion} required></textarea>
         <br></br>
         <label>Nickname*</label>
-        <input placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName}></input>
+        <input value={this.state.nickname} placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName} required></input>
         <span>“For privacy reasons, do not use your full name or email address”</span>
         <label>Email*</label>
-        <input type='email' maxLength="60"  onChange={this.handleEmail}></input>
-        <input type="submit" onClick={this.handleSubmit}></input>
+        <input type='email' value={this.state.email} maxLength="60"  onChange={this.handleEmail} required></input>
+        <input type="submit" onClick={(e) => this.handleSubmit(e)}></input>
         </div>
       </div>
     )

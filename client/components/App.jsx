@@ -34,7 +34,6 @@ class App extends React.Component {
 
 
   render() {
-console.log(this.state.currentProduct)
     return (
       <div>
         <h1>App.js is connected and working!</h1>

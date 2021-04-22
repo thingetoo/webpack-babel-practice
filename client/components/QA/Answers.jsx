@@ -13,6 +13,7 @@ class Answers extends React.Component {
 
     this.getAnswers = this.getAnswers.bind(this);
     this.handleMoreQuestions = this.handleMoreQuestions.bind(this);
+    this.updateAns = this.updateAns.bind(this);
   }
 
   getAnswers() {
@@ -45,10 +46,16 @@ class Answers extends React.Component {
     }
   }
 
+  updateAns (ans) {
+    this.setState({
+      answers: ans
+    })
+  }
+
   render() {
     return (
       <div>
-        {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,this.state.i)}/> : <Answer answer={this.state.answers}/>}
+        {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,this.state.i)} questionId={this.props.questionId} updateAns={this.updateAns}/> : <Answer answer={this.state.answers} questionId={this.props.questionId} updateAns={this.updateAns}/>}
         {this.state.answers.length > 2 ? <div className='load-ans' onClick={this.handleMoreQuestions}>{this.state.load}</div> : null}
       </div>
 
