@@ -9,18 +9,23 @@ class ProductInfo extends React.Component {
       size: '',
       totalQuantity: '',
       selectedQuantity: 0,
-      currentSku: ''
+      currentSku: '',
+      isDisabled: true,
+      forgotSize: false
     }
 
+
+    this.sizeSelect = React.createRef();
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.clickEvent = this.clickEvent.bind(this);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentStyle !== this.props.currentStyle) {
       this.setState({
         quantity: this.props.styles[this.props.currentStyle].skus.quantity,
-        size: 'Select Size',
+        size: '',
         selectedQuantity: '-',
         totalQuantity: 0,
       })
@@ -32,40 +37,74 @@ class ProductInfo extends React.Component {
     const { styles, currentStyle } = this.props;
     let cur;
     if (e.target.value === '') {
-      console.log('here')
       cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
-        return entry.size === 'XS'
+        return entry.size === ''
+      })
+      this.setState({
+        // isDisabled: true,
+        size: 'Select Size',
       })
     } else {
       cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
         return entry.size === e.target.value
       })
+      const currentSku = cur[0][0];
+      this.setState({
+        size: e.target.value,
+        totalQuantity: cur[0][1].quantity,
+        selectedQuantity: 1,
+        currentSku: currentSku,
+        isDisabled: false,
+        forgotSize: false
+      })
     }
-     console.log('THIS IS CUR', cur)
-     const currentSku = cur[0][0];
-    this.setState({
-      size: e.target.value,
-      totalQuantity: cur[0][1].quantity,
-      selectedQuantity: 1,
-      currentSku: currentSku
-    })
+  }
+
+  clickEvent(e) {
+    e.preventDefault()
+    const { currentSku, selectedQuantity } = this.state
+    this.sizeSelect.current.focus()
+    // this.sizeSelect.current.keydown()
+    if (this.state.size && this.state.size !== 'Select Size') {
+      console.log('here')
+      this.props.handleAddToCart(e, currentSku, selectedQuantity)
+    } else {
+      this.setState({
+        forgotSize: true
+      })
+    }
   }
 
   handleQuantityChange(e) {
     this.setState({
-      selectedQuantity: e.target.value
+      selectedQuantity: e.target.value,
     })
+
+    if (e.target.value) {
+      this.setState({
+        isDisabled: false
+      })
+    }
+    if (!e.target.value) {
+      this.setState({
+        isDisabled: true
+      })
+    }
   }
 
   render() {
-    const { product, styles, currentStyle, handleStyleClick, handleAddToCart} = this.props;
+    const { product, styles, currentStyle, handleStyleClick, isExtendedView} = this.props;
     const { name, default_price, category } = this.props.product
-    const { currentSku, selectedQuantity } = this.state;
+    const { isDisabled } = this.state;
+    const buttonClass = isDisabled ? 'checkout-input' : 'hvr-back-pulse checkout-input'
+    const forgotSize = this.state.forgotSize ? 'forgotSize' : 'hidden-button'
+    const productInformationClass = isExtendedView ? 'prod-info-extended' : 'product-information'
     return product && styles[currentStyle] ?
     (
-      <div className='product-information'>
+      <div className={productInformationClass}>
         {/* Social Media buttons */}
         <div className='product-information__social-buttons'>
+          <h5>SHARE</h5>
           <a
           className="twitter-share-button"
           href="https://twitter.com/intent/tweet?text=Hello%20world">
@@ -100,6 +139,7 @@ class ProductInfo extends React.Component {
           styles[currentStyle].original_price || default_price
           }
         </div>
+        {/* Current style */}
         <h5>STYLE &gt; {styles[currentStyle].name || 'Loading...'}</h5>
         {/* Rendering the styles that are available for each product */}
         <div className='styles-container'>
@@ -121,9 +161,10 @@ class ProductInfo extends React.Component {
           }
         </div>
         <div className='checkout-buttons'>
-        <form onSubmit={(e) => handleAddToCart(e, currentSku, selectedQuantity)}>
+        <form onSubmit={(e) => this.clickEvent(e)}>
+              <h6 className={forgotSize}>Please Select a Size</h6>
           <div className='input-container'>
-            <select className='checkout-input hvr-glow' value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
+            <select className='checkout-input hvr-glow' ref={this.sizeSelect} value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
               <option value=''>Select Size</option>
               {
               styles[currentStyle] && Object.entries(styles[currentStyle].skus).filter(([, entry]) => entry.size !== 0).map(([key, entry]) => {
@@ -140,7 +181,7 @@ class ProductInfo extends React.Component {
                 : <option>No Results</option>
               }
             </select>
-            <input className="hvr-back-pulse checkout-input" type="submit" value="Add to Cart" />
+              <button onClick={this.clickEvent} className={buttonClass} type="submit" value="Add to Cart">Add To Cart</button>
           </div>
         </form>
         </div>

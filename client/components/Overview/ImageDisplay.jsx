@@ -6,11 +6,15 @@ import css from './Overview.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
-const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product }) => (
-  <div className='image-container'>
+const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }) => {
+  console.log(extendedView)
+  const imageContainerClass = extendedView ? 'extended-image-container' : 'image-container';
+  const leftRightIconClass = extendedView ? 'leftRightIcon-extended' : 'leftRightIcon'
+  return(
+  <div className={imageContainerClass}>
     {
       styles[currentStyle] ?
-      <img className='image-container__main-image' alt={product.name} src={styles[currentStyle].photos[currentThumbnail].thumbnail_url} />
+      <img className='image-container__main-image' onClick={(e) => handleMainImageClick(e)} alt={product.name} src={styles[currentStyle].photos[currentThumbnail].thumbnail_url} />
       :
       <img alt='placeholder image' src='https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'
       />
@@ -32,7 +36,7 @@ const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, curre
           <div></div>
         }
       </div>
-      <div className='leftRightIcon'>
+      <div className={leftRightIconClass}>
         {
           currentThumbnail > 0 ? <FontAwesomeIcon onClick={() => onArrowLeftClick()} className='leftArrow' icon={faAngleLeft} /> : <div></div>
         }
@@ -43,6 +47,7 @@ const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, curre
 
       </div>
     </div>
-)
+  )
+}
 
 export default ImageDisplay;
