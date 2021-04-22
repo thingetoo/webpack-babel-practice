@@ -88,7 +88,6 @@ class Overview extends React.Component{
     this.setState({
       extendedView: !this.state.extendedView
     }, () => console.log(this.state.extendedView))
-    console.log('clicked')
   }
 
   fetchThumbnails() {
@@ -109,7 +108,7 @@ class Overview extends React.Component{
 
   handleAddToCart(e, sku, quantity) {
     e.preventDefault();
-    console.log(sku, quantity)
+    // console.log(sku, quantity)
   }
 
   render() {

@@ -66,7 +66,6 @@ class ProductInfo extends React.Component {
     this.sizeSelect.current.focus()
     // this.sizeSelect.current.keydown()
     if (this.state.size && this.state.size !== 'Select Size') {
-      console.log('here')
       this.props.handleAddToCart(e, currentSku, selectedQuantity)
     } else {
       this.setState({

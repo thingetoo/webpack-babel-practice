@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }) => {
-  console.log(extendedView)
   const imageContainerClass = extendedView ? 'extended-image-container' : 'image-container';
   const leftRightIconClass = extendedView ? 'leftRightIcon-extended' : 'leftRightIcon'
   return(

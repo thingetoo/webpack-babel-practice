@@ -14,15 +14,15 @@ class RelProductList extends React.Component {
   }
 
   arrowHandler(direction, e) {
-    console.log('left arrow handler triggered');
     var view = $(".related-list");
     var move = "300px";
-    var sliderLimit = -500;
+    var sliderLimit = parseInt($('.related-list-content').css('width'));
+    // var sliderLimit = -500;
+    sliderLimit -= sliderLimit * 2;
 
     var currentPosition = parseInt(view.css("left"));
-    console.log(currentPosition);
     if (direction === 'right') {
-      if (currentPosition >= sliderLimit) {
+      if (currentPosition >= 0) {
         $('.related-list-arrows__right').animate({ border: 'solid 2px red' }, { duration: 400 });
         view.stop(false, true).animate({ left: "-=" + move }, { duration: 400 });
       }
@@ -58,19 +58,19 @@ class RelProductList extends React.Component {
       <div>
         <div className='related-view'>
           <h2>Related Products</h2>
-          <img className='related-list-arrows related-list-arrows__left' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='related-list-arrows related-list-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
             this.arrowHandler('left', e);
           }} />
           <div className='related-list'>
             <div className='related-list-content'>
               {
                 this.state.rel_products.map((product, i) => {
-                  return <RelProductCard key={i} product={product} />;
+                  return <RelProductCard key={i} product={product} toggleComparison={this.props.toggleComparison} />;
                 })
               }
             </div>
           </div>
-          <img className='related-list-arrows related-list-arrows__right' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='related-list-arrows related-list-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
             this.arrowHandler('right', e);
           }} />
         </div>
