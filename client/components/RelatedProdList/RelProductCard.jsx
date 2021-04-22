@@ -48,18 +48,26 @@ class RelProductCard extends React.Component {
       })
   }
   render() {
-    console.log(this.state.currentStyle);
     var { name, category, default_price } = this.props.product;
+    var { sale_price } = this.state.currentStyle;
+
+    // price display
+    default_price = '$' + default_price.split('.').slice(0, 1).join('');
+    if (sale_price) {
+      sale_price = '$' + sale_price.split('.').slice(0, 1).join('')
+    }
 
     var saleElement = <p className='related-card-info-default-sale'>{this.state.currentStyle.sale_price}</p>
     var defPriceElement = <p className='related-card-info-default-price'>{default_price}</p>
+
+    // Display conditions
     var price = !this.state.currentStyle.sale_price ? defPriceElement : saleElement;
     var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' alt='image is not found' />;
 
     return (
       <div className='related-card'>
         <div className='related-card-visual' onClick={(e) => {
-
+          this.props.toggleComparison(this.props.product, this.state.currentStyle);
         }}>
           <img className='related-card-visual-star-default' src="https://img.icons8.com/windows/32/000000/star--v1.png" />
           {thumb}

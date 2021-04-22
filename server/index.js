@@ -48,9 +48,21 @@ app.get('/products/:product_id/related', (req, res) => {
     .catch((err) => {
       console.log(err);
     })
+})
 
+app.get('/products/:product_id/info', (req, res) => {
+  console.log('ID', req.params);
+  var id = req.params.product_id.split(':').join('');
+  axios.get(`${requests.products}/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      res.send(response.data);
+    })
+    .catch((err) => {
+      // console.log(err);
+    })
 })
 
 app.listen(port, () => {
-  console.log(`Server listening at localhost:${port}!`);
+  console.log(`Server listening at localhost: ${port}!`);
 });
