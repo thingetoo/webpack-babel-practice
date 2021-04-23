@@ -3,13 +3,9 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const requests = require('../axios-prefilter.js');
-<<<<<<< HEAD
-const bodyParser = require('body-parser')
-app.use(bodyParser())
-=======
 const bodyParser = require('body-parser');
+app.use(bodyParser())
 const helperfunction = require('./helperfunction.js');
->>>>>>> main
 
 const port = 3000;
 
@@ -94,9 +90,7 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     })
   })
 
-<<<<<<< HEAD
   // console.log(req.params);
-=======
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   //helpful-question
@@ -120,7 +114,6 @@ app.put('/qa/questions/:question_id/helpful', (req, res) => {
     })
 })
 app.get('/products/:product_id/related', (req, res) => {
->>>>>>> main
   // res.sendStatus(200);
   axios.get(`${requests.products}/${req.params.product_id}/related`)
     .then((data) => {
