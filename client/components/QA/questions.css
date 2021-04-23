@@ -1,6 +1,6 @@
 
 .questionform{
-  padding-top: 20%;
+  padding-top: 5%;
   padding-left: 35%;
   position: fixed;
   top: 0;
@@ -12,14 +12,26 @@
 
 .innerForm {
   width: 500px;
-  height: 300px;
-  padding: 20px;
+  height: auto;
+  padding: 1em;
   background-color: white;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content:space-around;
   align-items:flex-start;
+}
+
+.form-img {
+  border: 2px solid pink;
+  width: 20%;
+  height: auto;
+  margin: 1em;
+}
+
+.form-img:hover {
+  width: 75%;
+  height: auto;
 }
 
 .form-title {
@@ -53,6 +65,7 @@
 .searchBar{
   width: 100%;
   height: 3em;
+  border: 1px solid black;
   background-image: url("https://img.icons8.com/ios-glyphs/50/000000/search.png");
   background-repeat: no-repeat;
   background-position: right;
@@ -60,7 +73,7 @@
 }
 
 .list-ctn {
-  height: 300px;
+  height: 290px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -93,15 +106,31 @@
   font-size: 0.9em;
 }
 
+.answer-ctn{
+  height: 90px;
+  overflow: scroll;
+}
+
 .ans {
 }
 
+.test {
+  width: 100%;
+  padding-left: 1em;
+}
+
+.ans-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 .ans-info {
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
   font-size: small;
-  margin: 1em;
+  margin-bottom: 1em;
   color: #696969;
 }
 
@@ -109,7 +138,7 @@
   font-size: 9px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight:900;
-  margin: 1em;
+  margin-bottom: 1em;
 }
 
 .button {
@@ -141,6 +170,7 @@
 
 ::placeholder {
   font-weight: 600;
+  padding-left: 0.5em;
 }
 
 .link-helpful {
@@ -153,4 +183,8 @@
 
 .ans-info span {
   text-decoration: underline;
+}
+
+.seller {
+  font-weight: 800;
 }

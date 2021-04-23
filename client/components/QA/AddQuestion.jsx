@@ -58,22 +58,23 @@ class AddQuestion extends React.Component {
 
   render () {
     return (
-      <div className='questionform'>
+      <form className='questionform' onSubmit={(e) => this.handleSubmit(e)}>
         <div className='innerForm'>
         <div className='close' onClick={() => this.props.close(false)}>+</div>
         <div className='form-title'>Ask Your Question</div>
         <div className='mini-title'>About the {this.props.name}</div>
         <label htmlFor='question' >Your Question*</label>
-        <textarea type='text' value={this.state.question} id='question' placeholder='Why did you like the product or not?' maxLength="1000" onChange={this.handleQuestion} required></textarea>
+        <textarea type='text' value={this.state.question} id='question' placeholder='What is your question?' maxLength="1000" onChange={this.handleQuestion} required></textarea>
         <br></br>
         <label>Nickname*</label>
         <input value={this.state.nickname} placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName} required></input>
         <span>“For privacy reasons, do not use your full name or email address”</span>
         <label>Email*</label>
         <input type='email' value={this.state.email} maxLength="60"  onChange={this.handleEmail} required></input>
-        <input type="submit" onClick={(e) => this.handleSubmit(e)}></input>
+        <span>“For authentication reasons, you will not be emailed”</span>
+        <input type="submit" ></input>
         </div>
-      </div>
+      </form>
     )
   }
 }

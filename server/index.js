@@ -4,6 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
+const helperfunction = require('./helperfunction.js');
 
 const port = 3000;
 
@@ -50,7 +51,7 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
   //answers
   axios.get(`${requests.questions}/${req.params.question_id}/answers`)
     .then((response) => {
-      res.json(response.data)
+      res.json(helperfunction.sortAnswer(response.data.results));
     })
     .catch((err)=> {
       console.log('Error with Answers get request' + err)

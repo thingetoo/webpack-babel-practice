@@ -46,8 +46,10 @@ handleClickForm (boolean) {
       </div>
 
       {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} name={this.props.name} close={this.handleClickForm}/> : null}
-
+      <div className='ans-section'>
+      <div className='A'>A:</div>
       <Answers questionId={this.props.question.question_id}/>
+      </div>
       </div>
     )
 

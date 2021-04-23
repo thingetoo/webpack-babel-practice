@@ -20,7 +20,7 @@ class Answers extends React.Component {
     axios.get(`/qa/answers/${this.props.questionId}/answers`)
     .then(response => {
       this.setState ({
-        answers: response.data.results
+        answers: response.data
       })
     })
   }
@@ -54,8 +54,9 @@ class Answers extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.answers.length > 2 ? <Answer answer={this.state.answers.slice(0,this.state.i)} questionId={this.props.questionId} updateAns={this.updateAns}/> : <Answer answer={this.state.answers} questionId={this.props.questionId} updateAns={this.updateAns}/>}
+      <div className='test'>
+
+      <Answer answer={this.state.answers.slice(0,this.state.i)} questionId={this.props.questionId} updateAns={this.updateAns}/>
         {this.state.answers.length > 2 ? <div className='load-ans' onClick={this.handleMoreQuestions}>{this.state.load}</div> : null}
       </div>
 

@@ -7,7 +7,8 @@ class AddAnswer extends React.Component {
       answer: '',
       nickname: '',
       email: '',
-      photos: []
+      photos: [],
+      max: false
     }
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNickName = this.handleNickName.bind(this);
@@ -35,9 +36,20 @@ class AddAnswer extends React.Component {
   }
 
   handlePhotos (event) {
-    this.setState({
-      photos: event.target.files
-    })
+
+    if (event.target.files.length > 5) {
+      alert('Only 5 images allowed')
+    } else if (event.target.files.length === 5) {
+      this.setState({
+        photos: event.target.files,
+        max: true
+      })
+    } else {
+      this.setState({
+        photos: event.target.files
+      })
+    }
+
 
     console.log(event.target.files)
   }
@@ -46,6 +58,7 @@ class AddAnswer extends React.Component {
     for (var i = 0; i < this.state.photos.length; i++){
       var photo = document.createElement("img");
       photo.src = URL.createObjectURL(this.state.photos[i]);
+      photo.className = 'form-img';
       var forDiv = document.getElementById('thumbnail');
       forDiv.appendChild(photo);
 
@@ -54,7 +67,7 @@ class AddAnswer extends React.Component {
 
   render() {
     return (
-      <div className='questionform'>
+      <form className='questionform'>
         <div className='innerForm'>
         <div className='close' onClick={() => this.props.close(false)}>+</div>
         <div className='form-title'>Submit your Answer</div>
@@ -66,13 +79,13 @@ class AddAnswer extends React.Component {
         <label>Email:</label>
         <input></input>
         <label>Add image:</label>
-        <input type='file' multiple onChange={this.handlePhotos}></input>
+        {this.state.max ? null : <input type='file' multiple onChange={this.handlePhotos}></input>}
         <div id='thumbnail'>
           {this.state.photos.length > 0 ? this.handleThumbnail() : null}
         </div>
-        <button>Submit</button>
+        <input type='submit'></input>
         </div>
-      </div>
+      </form>
     )
   }
 }

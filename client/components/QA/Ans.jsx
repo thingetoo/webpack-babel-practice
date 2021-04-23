@@ -40,9 +40,9 @@ class Ans extends React.Component {
   render () {
     return(
       <div className='ans'>
-          <div className='answer'><span className='A'>A:</span> {this.props.ans.body}</div>
+          <div className='answer'>{this.props.ans.body}</div>
           <div className='ans-info'>
-          <div>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div>
+          {this.props.ans.answerer_name === 'seller' ? <div className='seller'>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div> : <div>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div>}
           <div>Helpful? <span onClick={() => this.handleAnswerHelpful(this.props.ans.answer_id)}>Yes</span>({this.props.ans.helpfulness})</div>
           <div onClick={() => this.handleAnswerReport(this.props.ans.answer_id)}>{this.state.report}</div>
           </div>
