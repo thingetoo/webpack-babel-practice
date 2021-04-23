@@ -188,8 +188,14 @@
 }
 
 .checkout-input {
-  flex: 1 37%
+  flex: 1 37%;
+  background-color: #264143;
+  color: #f2ebe9;
 }
+
+/* button.checkout-input {
+  background-color: transparent;
+} */
 
 .product-information h5 {
   margin: 0;
