@@ -1,6 +1,7 @@
 import React from 'react';
-import QA from './QA.jsx'
-import QuestionBar from './QuestionBar.jsx'
+import QA from './QA/QA.jsx'
+import Review from './Review.jsx'
+//
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
 import Navbar from './Navbar/Navbar.jsx'
@@ -75,8 +76,8 @@ class App extends React.Component {
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} />
           </section>
           <section aria-label="questions and ratings">
-            <QA id='qa' />
-            <QuestionBar id="question-bar" />
+            <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name}/>
+            <Review item={this.state.currentProduct.id}/>
           </section>
         </div>
       </main>
