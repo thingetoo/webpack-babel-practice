@@ -17,6 +17,7 @@ class Overview extends React.Component{
       styles: [],
       currentStyle: 0,
       currentThumbnail: 0,
+      thumbnailUrl: '',
       product: [],
       sku: '',
       extendedView: false
@@ -37,7 +38,7 @@ class Overview extends React.Component{
     if (this.state.thumbnailsShown[1] < this.state.thumbnails.length) {
       const diff = this.state.thumbnails.length - this.state.thumbnailsShown[1];
       this.setState({
-        thumbnailsShown: [diff, this.state.thumbnailsShown[1] + diff]
+        thumbnailsShown: [diff, this.state.thumbnailsShown[1] + diff],
       })
     }
   }
@@ -46,7 +47,8 @@ class Overview extends React.Component{
     const diff = this.state.thumbnails.length - this.state.thumbnailsShown[0];
     if (this.state.thumbnailsShown[0] > 0) {
       this.setState({
-        thumbnailsShown: [0, diff]
+        thumbnailsShown: [0, diff],
+        currentThumbnail: 0
       })
     }
   }
@@ -79,9 +81,10 @@ class Overview extends React.Component{
     })
   }
 
-  handleThumbnailClick(id) {
+  handleThumbnailClick(id, url) {
     this.setState({
-      currentThumbnail: id
+      currentThumbnail: id,
+      thumbnailUrl: url
     })
   }
 
@@ -94,7 +97,6 @@ class Overview extends React.Component{
   fetchThumbnails() {
     axios.get(`/product/${this.props.product.id}/styles`)
       .then(response => {
-        console.log(response)
         this.setState({
           styles: response.data.results,
           thumbnails: response.data.results[this.state.currentStyle].photos,
@@ -123,10 +125,10 @@ class Overview extends React.Component{
   }
 
   render() {
-    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView } = this.state;
+    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView, thumbnailUrl } = this.state;
     const { product } = this.props
     const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick, handleAddToCart, handleMainImageClick } = this;
-    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }
+    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView, thumbnailUrl }
 
     return product ?
     (

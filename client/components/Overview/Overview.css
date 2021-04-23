@@ -26,6 +26,10 @@
     box-shadow: -9px 7px 20px 1px rgba(0, 0, 0, 0.40);
 }
 
+.image-container__arrow {
+  cursor: pointer;
+}
+
 .extended-image-container {
   height: 70vh;
   width: 81vw;
@@ -44,8 +48,8 @@
 
 .image-container__thumbnail-container {
   z-index: 1;
-  /* display: grid; */
-  display: flex;
+  display: grid;
+  /* display: flex; */
   flex-direction: column;
   height: 75%;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -54,15 +58,17 @@
   margin-left: 20px;
   width: max-content;
   align-items: center;
+  justify-items: center;
+  color: #de5499;
 }
 
 .leftRightIcon {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 360px;
+  gap: 306px;
   margin-left: 18%;
   font-size: 1.5em;
-  color: darkmagenta;
+  color: #de5499;;
   position: absolute;
 }
 
@@ -72,8 +78,9 @@
   gap: 360px;
   margin-left: 28%;
   font-size: 1.5em;
-  color: darkmagenta;
+  color: #de5499;
   position: absolute;
+  cursor: pointer;
 }
 
 .leftArrow {
@@ -91,7 +98,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: default;
+  cursor: pointer;
 }
 
 .image-container__main-image {

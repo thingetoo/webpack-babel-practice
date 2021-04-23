@@ -29,7 +29,7 @@ class App extends React.Component {
 
   productStateChange(data) {
     this.setState({
-      currentProduct: data[1]
+      currentProduct: data[4]
     })
     this.fetchCart()
   }

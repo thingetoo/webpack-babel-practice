@@ -98,7 +98,6 @@ class ProductInfo extends React.Component {
     const buttonClass = isDisabled ? 'checkout-input' : 'hvr-back-pulse checkout-input'
     const forgotSize = this.state.forgotSize ? 'forgotSize' : 'hidden-button'
     const productInformationClass = isExtendedView ? 'prod-info-extended' : 'product-information'
-    console.log(totalQuantity)
     return product && styles[currentStyle] ?
     (
       <div className={productInformationClass}>
@@ -175,7 +174,7 @@ class ProductInfo extends React.Component {
               <h6 className={forgotSize}>Please Select a Size</h6>
           <div className='input-container'>
             <select className='checkout-input hvr-glow' ref={this.sizeSelect} value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
-              <option value=''>Select Size</option>
+              {totalQuantity ? <option value=''>Select Size</option> : <option value=''>OUT OF STOCK</option>}
               {
               styles[currentStyle] && Object.entries(styles[currentStyle].skus).filter(([, entry]) => entry.size !== 0).map(([key, entry]) => {
                 return <option key={key} value={entry.size}>{entry.size}</option>
@@ -191,7 +190,7 @@ class ProductInfo extends React.Component {
                 : <option>No Results</option>
               }
             </select>
-              <button onClick={this.clickEvent} className={buttonClass} type="submit" value="Add to Cart">Add To Cart</button>
+            {totalQuantity ? <button onClick={this.clickEvent} className={buttonClass} type="submit" value="Add to Cart">Add To Cart</button> : <button className={buttonClass} style={{visibility: 'hidden'}}></button> }
           </div>
         </form>
         </div>

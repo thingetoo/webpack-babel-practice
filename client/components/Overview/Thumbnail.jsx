@@ -7,7 +7,7 @@ const Thumbnail = ({ thumbnailClick, thumbnailIndex, thumb, currentThumbnail, pr
   return thumb.thumbnail_url ? (
 
     <img
-    onClick={() => thumbnailClick(thumbnailIndex)}
+    onClick={() => thumbnailClick(thumbnailIndex, thumb.thumbnail_url)}
     style={
       thumbnailIndex === currentThumbnail ?
       {border: '2px solid', boxSizing: 'border-box', borderColor: '#de5499'} :
