@@ -5,9 +5,7 @@
 
 .navbar-container {
   height: 10vh;
-  /* width: 81vw; */
   margin: 0;
-  /* position: fixed; */
   background-color: #f2ebe9;
   z-index: 100;
   display: flex;
@@ -44,7 +42,6 @@
 }
 
 #bag-icon {
-  /* font-size: 1.75em; */
   color: #de5499;
   position: absolute;
 }
