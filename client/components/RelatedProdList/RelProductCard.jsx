@@ -11,10 +11,8 @@ class RelProductCard extends React.Component {
   }
   // var defaultStyle =
   handleUpdate(id) {
-    console.log('ID', id);
     axios.get(`/product/${id}/styles`)
       .then((response) => {
-        console.log(response.data);
         this.setState({
           styleList: response.data,
           currentStyle: response.data.results[0],

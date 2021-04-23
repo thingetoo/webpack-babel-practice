@@ -12,7 +12,6 @@ var Comparison_Model = (props) => {
     axios.get(`http://localhost:3000/products/:${props.displayedProduct.id}/info`)
       .then((response) => {
         // return function cleanup() {
-        console.log(changeDisplay);
         // }
 
 
@@ -29,7 +28,6 @@ var Comparison_Model = (props) => {
     }
   }
 
-  console.log(Object.keys(displayInfo).length);
   if (Object.keys(displayInfo).length) {
     return (
       <div className="comparison-viewer" onClick={(e) => {

@@ -8,66 +8,165 @@ class ProductInfo extends React.Component {
     this.state = {
       size: '',
       totalQuantity: '',
-      selectedQuantity: 0
+      selectedQuantity: 0,
+      currentSku: '',
+      isDisabled: true,
+      forgotSize: false
     }
 
+
+    this.sizeSelect = React.createRef();
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.clickEvent = this.clickEvent.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.styles !== this.props.styles) {
-      console.log(this.props.styles[this.props.currentStyle].skus, this.state.size)
+    if (prevProps.currentStyle !== this.props.currentStyle) {
       this.setState({
         quantity: this.props.styles[this.props.currentStyle].skus.quantity,
+        size: '',
+        selectedQuantity: '-',
+        totalQuantity: 0,
       })
+
     }
   }
 
   handleSizeChange(e) {
     const { styles, currentStyle } = this.props;
-    const cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
-       return entry.size === e.target.value
-     })
-    this.setState({
-      size: e.target.value,
-      totalQuantity: cur[0][1].quantity,
-      selectedQuantity: 1
-    })
+    let cur;
+    if (e.target.value === '') {
+      cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
+        return entry.size === ''
+      })
+      this.setState({
+        // isDisabled: true,
+        size: 'Select Size',
+      })
+    } else {
+      cur = Object.entries(styles[currentStyle].skus).filter(([, entry]) => {
+        return entry.size === e.target.value
+      })
+      const currentSku = cur[0][0];
+      this.setState({
+        size: e.target.value,
+        totalQuantity: cur[0][1].quantity,
+        selectedQuantity: 1,
+        currentSku: currentSku,
+        isDisabled: false,
+        forgotSize: false
+      })
+    }
+  }
+
+  clickEvent(e) {
+    e.preventDefault()
+    const { currentSku, selectedQuantity } = this.state
+    this.sizeSelect.current.focus()
+    // this.sizeSelect.current.keydown()
+    if (this.state.size && this.state.size !== 'Select Size') {
+      this.props.handleAddToCart(e, currentSku, selectedQuantity)
+    } else {
+      this.setState({
+        forgotSize: true
+      })
+    }
   }
 
   handleQuantityChange(e) {
     this.setState({
-      selectedQuantity: e.target.value
+      selectedQuantity: e.target.value,
     })
+
+    if (e.target.value) {
+      this.setState({
+        isDisabled: false
+      })
+    }
+    if (!e.target.value) {
+      this.setState({
+        isDisabled: true
+      })
+    }
   }
 
   render() {
-    const { product, styles, currentStyle, handleStyleClick } = this.props;
+    const { product, styles, currentStyle, handleStyleClick, isExtendedView} = this.props;
     const { name, default_price, category } = this.props.product
-    return product ?
+    const { isDisabled } = this.state;
+    const buttonClass = isDisabled ? 'checkout-input' : 'hvr-back-pulse checkout-input'
+    const forgotSize = this.state.forgotSize ? 'forgotSize' : 'hidden-button'
+    const productInformationClass = isExtendedView ? 'prod-info-extended' : 'product-information'
+    return product && styles[currentStyle] ?
     (
-      <div className='product-information'>
+      <div className={productInformationClass}>
+        {/* Social Media buttons */}
+        <div className='product-information__social-buttons'>
+          <h5>SHARE</h5>
+          <a
+          className="twitter-share-button"
+          href="https://twitter.com/intent/tweet?text=Hello%20world">
+            <i> </i>
+             Tweet
+          </a>
+          <a
+          className="facebook-share-button"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+            <i> </i>
+             Post
+          </a>
+          <a
+          className="pinterest-share-button"
+          href="https://www.pinterest.com/pin/create/button/">
+             Pinterest
+          </a>
+          {/* Product information */}
+        </div>
         <h5>Read all [#] reviews</h5>
         <h5>{category}</h5>
         <h3>{name}</h3>
-        <p>{default_price}</p>
-        <h5>STYLE &gt; SELECTED STYLE</h5>
+        {/* Conditionally rendering prices based on whether or not there is a sale */}
+        <div>
+          {
+          styles[currentStyle].sale_price ?
+          <div id='product-information__prices'>
+            <p id='old-price'>{styles[currentStyle].original_price}</p>
+            <p>{styles[currentStyle].sale_price}</p>
+          </div>
+          :
+          styles[currentStyle].original_price || default_price
+          }
+        </div>
+        {/* Current style */}
+        <h5>STYLE &gt; {styles[currentStyle].name || 'Loading...'}</h5>
+        {/* Rendering the styles that are available for each product */}
         <div className='styles-container'>
           {
             styles.map((style, idx) => {
-              return <img className='styles__photo hvr-glow' onClick={() => handleStyleClick(idx)} key={style.style_id} src={style.photos[0].thumbnail_url}></img>
+              return(
+                <div className='styles-container__style' key={style.style_id}>
+
+                  <div className='checkmark'>{
+                    currentStyle === idx ? <>&#10003;</> : <></>
+                  }</div>
+                  <img className='styles__photo hvr-glow' alt={style.name} onClick={() => handleStyleClick(idx)} src={style.photos[0].thumbnail_url}></img>
+                  <h6 onClick={() => handleStyleClick(idx)}>{style.name}</h6>
+                </div>
+
+              )
               // <img className='styles__photo' key={style.style_id} alt={style.name} src={style.photos[0].thumbnail_url} />
             })
           }
         </div>
         <div className='checkout-buttons'>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.clickEvent(e)}>
+              <h6 className={forgotSize}>Please Select a Size</h6>
           <div className='input-container'>
-            <select className='checkout-input hvr-glow' value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
+            <select className='checkout-input hvr-glow' ref={this.sizeSelect} value={this.state.size} onChange={(e) => this.handleSizeChange(e)}>
               <option value=''>Select Size</option>
               {
-              styles[currentStyle] && Object.entries(styles[currentStyle].skus).map(([key, entry]) => {
+              styles[currentStyle] && Object.entries(styles[currentStyle].skus).filter(([, entry]) => entry.size !== 0).map(([key, entry]) => {
                 return <option key={key} value={entry.size}>{entry.size}</option>
               })
               }
@@ -75,12 +174,13 @@ class ProductInfo extends React.Component {
             <select className='checkout-input hvr-glow' value={this.state.selectedQuantity} onChange={e => this.handleQuantityChange(e)}>
               <option value=''>-</option>
               {
-                this.state.totalQuantity && [...Array(this.state.totalQuantity)].map((el, idx) => {
+                this.state.totalQuantity ? [...Array(this.state.totalQuantity - 1)].map((el, idx) => {
                   return <option key={idx}>{idx + 1}</option>
                 })
+                : <option>No Results</option>
               }
             </select>
-            <input className="hvr-back-pulse checkout-input" type="submit" value="Add to Cart" />
+              <button onClick={this.clickEvent} className={buttonClass} type="submit" value="Add to Cart">Add To Cart</button>
           </div>
         </form>
         </div>

@@ -21,7 +21,6 @@ class RelProductList extends React.Component {
     sliderLimit -= sliderLimit * 2;
 
     var currentPosition = parseInt(view.css("left"));
-    console.log(currentPosition);
     if (direction === 'right') {
       if (currentPosition >= 0) {
         $('.related-list-arrows__right').animate({ border: 'solid 2px red' }, { duration: 400 });
