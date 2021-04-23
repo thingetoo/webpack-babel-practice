@@ -4,6 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
+app.use(bodyParser())
 const helperfunction = require('./helperfunction.js');
 
 const port = 3000;
@@ -93,6 +94,7 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     })
 })
 
+// console.log(req.params);
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   //helpful-question
@@ -204,14 +206,30 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
 })
 
 app.get('/products/:product_id/info', (req, res) => {
-  console.log('ID', req.params);
+  // console.log('ID', req.params);
   var id = req.params.product_id.split(':').join('');
   axios.get(`${requests.products}/${id}`)
     .then((response) => {
+      // console.log(response.data);
       res.send(response.data);
     })
     .catch((err) => {
       console.log(err);
+    })
+})
+
+app.get('/cart', (req, res) => {
+  axios.get(requests.cart)
+    .then(response => {
+      res.json(response.data)
+    })
+})
+
+app.post('/cart', (req, res) => {
+  const sku = { sku_id: req.body.sku }
+  axios.post(requests.cart, sku)
+    .then(response => {
+      res.json(response.data)
     })
 })
 

@@ -1,14 +1,29 @@
 .image-container {
+  /* For the thumbnail view */
   /* border: 1px solid black; */
-  height: 70vh;
+  /* height: 70vh;
   width: 46vw;
   position: relative;
   display: flex;
   overflow: hidden;
   justify-content: end;
-  align-items: center;
+  align-items: center; */
   /* flex: 0 2 50%; */
   /* grid-area: a; */
+
+  /* For regular url view */
+    height: 70vh;
+    width: 35vw;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    justify-content: end;
+    align-items: center;
+    /* flex: 0 2 50%; */
+    /* grid-area: a; */
+    background-color: black;
+    border-radius: 5px;
+    box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.40);
 }
 
 .extended-image-container {
@@ -19,6 +34,8 @@
   overflow: scroll;
   justify-content: end;
   align-items: center;
+  border-radius: 5px;
+  box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.40);
 }
 
 .image-container:hover {
@@ -78,18 +95,23 @@
 }
 
 .image-container__main-image {
-  position: absolute;
+  /* For the thumbnail url */
+  /* position: absolute; */
   /* z-index: -1; */
-  flex-shrink: 0;
+  /* flex-shrink: 0;
   min-height:100%;
-  min-width: 100%;
+  min-width: 100%; */
+
+  /* For the regular url */
+  position: absolute;
+  max-width: -webkit-fill-available;
+  width: -webkit-fill-available;
 }
 
 .product-information {
   grid-area: b;
   height: 70vh;
   width: 35vw;
-  border: 1px solid black;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -97,12 +119,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-radius: 5px;
+  box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.40);
 }
 
 .overview-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  box-sizing: border-box;
+  padding: 50px;
   /* grid-template-areas:
             "a a b b"
             "c c c c" */
@@ -112,6 +138,11 @@
   flex: 1 0 100%;
   display: flex;
   justify-content: center;
+  /* margin-top: 5%; */
+}
+
+.description-container {
+  margin-top: 5%;
 }
 
 .styles-container {
@@ -188,8 +219,14 @@
 }
 
 .checkout-input {
-  flex: 1 37%
+  flex: 1 37%;
+  background-color: #264143;
+  color: #f2ebe9;
 }
+
+/* button.checkout-input {
+  background-color: transparent;
+} */
 
 .product-information h5 {
   margin: 0;
