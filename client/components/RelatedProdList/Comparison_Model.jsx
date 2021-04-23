@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import noScroll from './window_functions.js';
 
 var Comparison_Model = (props) => {
   var currentInfo;
@@ -22,6 +23,13 @@ var Comparison_Model = (props) => {
   if (Object.keys(displayInfo).length) {
     return (
       <div className="comparison-viewer" onClick={(e) => {
+        // var noScroll = () => {
+        //   window.scrollTo(0, 0);
+        // }
+
+        // DONT REMOVE THIS JUST YET
+        // window.removeEventListener('scroll', noScroll.module());
+
         props.toggleComparison();
       }}>
         <table className="comparison-table">

@@ -11,7 +11,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..')));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const tempOutfitList = [];
 
@@ -60,7 +60,7 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     .catch((err) => {
       // console.log(err)
     })
-  })
+})
 
 app.get('/products/:product_id/related', (req, res) => {
 
@@ -110,6 +110,9 @@ app.post('/products/:product/outfits', (req, res) => {
         if (arr.length === tempOutfitList.length) {
           res.json(arr);
         }
+      })
+      .catch((err) => {
+
       })
     // res.sendStatus(200);
   })

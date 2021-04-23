@@ -51,13 +51,13 @@ class App extends React.Component {
           <section aria-label="overview">
             <Overview id='overview' product={this.state.currentProduct} />
           </section>
-          <section aria-label="related-products">
+          <section aria-label="related-products" id="lists">
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
             <QA id='qa' />
             <QuestionBar id="question-bar" />
-            <Review item={this.state.currentProduct.id}/>
+            <Review item={this.state.currentProduct.id} />
           </section>
         </div>
       </main>

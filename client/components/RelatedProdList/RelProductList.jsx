@@ -18,8 +18,8 @@ class RelProductList extends React.Component {
     var view = $("." + list_type);
     var sliderLimit = parseInt($('.list-content').css('width'));
     // var sliderLimit = -500;
-    sliderLimit = (sliderLimit / 2) - sliderLimit;
-    var move = sliderLimit / -2;
+    sliderLimit = sliderLimit - (sliderLimit * 2);
+    var move = sliderLimit / -3;
     move = move.toString();
     var currentPosition = parseInt(view.css("left"));
     if (direction === 'right') {

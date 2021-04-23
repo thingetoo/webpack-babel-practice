@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import noScroll from './window_functions.js';
 
 class RelProductCard extends React.Component {
   constructor(props) {
@@ -64,6 +65,10 @@ class RelProductCard extends React.Component {
     return (
       <div className='card hvr-float'>
         <div className='related-card-visual' onClick={(e) => {
+          // DONT REMOVE THIS
+          // var y_axis = window.scrollY;
+          // console.log(noScroll.module());
+          // window.addEventListener('scroll', noScroll.module());
           this.props.toggleComparison(this.props.product, this.state.currentStyle);
         }}>
           <img className='related-card-visual-star-default' src="https://img.icons8.com/windows/32/000000/star--v1.png" />
