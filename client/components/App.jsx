@@ -1,6 +1,7 @@
 import React from 'react';
 import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
+import Review from './Review.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelProductList.jsx';
@@ -36,8 +37,6 @@ class App extends React.Component {
   render() {
 
 
-
-
     return (
       <div>
         <h1>App.js is connected and working!</h1>
@@ -46,6 +45,7 @@ class App extends React.Component {
         <RelProductList productId={this.state.currentProduct.id} />
         <QA />
         <QuestionBar />
+        <Review item={this.state.currentProduct.id}/>
       </div>
     )
   }
