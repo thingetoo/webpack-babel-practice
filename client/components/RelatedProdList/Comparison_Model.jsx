@@ -1,36 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import noScroll from './window_functions.js';
 
 var Comparison_Model = (props) => {
   var currentInfo;
   const [displayInfo, changeDisplay] = useState({});
 
-  // var handleChange = (data) => {
-  //   changeDisplay(data);
-  // }
   useEffect(() => {
     axios.get(`http://localhost:3000/products/:${props.displayedProduct.id}/info`)
       .then((response) => {
-        // return function cleanup() {
-        // }
-
-
-        // handleChange(response.data);
         fetchproduct(response.data);
       })
       .catch((err) => {
         console.log(err);
       })
   }, [])
+
   var fetchproduct = (data) => {
     changeDisplay(data);
-    return function () {
-    }
   }
 
   if (Object.keys(displayInfo).length) {
     return (
       <div className="comparison-viewer" onClick={(e) => {
+        // var noScroll = () => {
+        //   window.scrollTo(0, 0);
+        // }
+
+        // DONT REMOVE THIS JUST YET
+        // window.removeEventListener('scroll', noScroll.module());
+
         props.toggleComparison();
       }}>
         <table className="comparison-table">
@@ -57,13 +56,13 @@ var Comparison_Model = (props) => {
             </tr>
             <tr className="comparison-table-info">
               <td className="comparison-table-display-product">{displayInfo.features[0].value}</td>
-              <td className="comparison-table-feature">Fabric</td>
+              <td className="comparison-table-feature">Material</td>
               <td className="comparison-table-related-product">{props.relatedProduct.features[0].value}</td>
             </tr>
             <tr className="comparison-table-info">
               <td className="comparison-table-display-product">{displayInfo.features[0].value}</td>
               <td className="comparison-table-feature">Cut</td>
-              <td className="comparison-table-related-product">{props.relatedProduct.features[1].value}</td>
+              <td className="comparison-table-related-product">{props.relatedProduct.features[1].value || '---'}</td>
             </tr>
           </tbody>
         </table>

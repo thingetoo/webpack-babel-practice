@@ -1,12 +1,14 @@
 import React from 'react';
+import axios from 'axios';
+
 import QA from './QA/QA.jsx'
 import Review from './Review.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
-
-import axios from 'axios';
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
+import css from './App_Style.css';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -49,12 +51,12 @@ class App extends React.Component {
           <section aria-label="overview">
             <Overview id='overview' product={this.state.currentProduct} />
           </section>
-          <section aria-label="related-products">
-            <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} />
+          <section aria-label="related-products" id="lists">
+            <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
-            <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name}/>
-            <Review item={this.state.currentProduct.id}/>
+            <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
+            <Review item={this.state.currentProduct.id} />
           </section>
         </div>
       </main>
