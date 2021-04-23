@@ -18,7 +18,6 @@ class QuestionBar extends React.Component {
       var filtered = this.props.questions.filter((question)=> {
          return question.question_body.includes(event.target.value)
       })
-      console.log(filtered)
       this.props.update(filtered)
 
     } else {

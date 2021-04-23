@@ -49,9 +49,6 @@ class AddAnswer extends React.Component {
         photos: event.target.files
       })
     }
-
-
-    console.log(event.target.files)
   }
 
   handleThumbnail () {
@@ -67,8 +64,8 @@ class AddAnswer extends React.Component {
 
   render() {
     return (
-      <form className='questionform'>
-        <div className='innerForm'>
+      <form className='answerform'>
+        <div className='innerForma'>
         <div className='close' onClick={() => this.props.close(false)}>+</div>
         <div className='form-title'>Submit your Answer</div>
         <div className='mini-title'>{this.props.name} : {this.props.question}</div>
