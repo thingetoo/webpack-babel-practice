@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import QA from './QA.jsx'
 import QuestionBar from './QuestionBar.jsx'
+import Review from './Review.jsx'
 //
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
@@ -56,6 +57,7 @@ class App extends React.Component {
           <section aria-label="questions and ratings">
             <QA id='qa' />
             <QuestionBar id="question-bar" />
+            <Review item={this.state.currentProduct.id}/>
           </section>
         </div>
       </main>
