@@ -6,9 +6,6 @@ const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
 const helperfunction = require('./helperfunction.js');
 
-var bodyParser = require('body-parser')
-
-
 const port = 3000;
 
 app.use(bodyParser.json());
@@ -199,6 +196,8 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
     .catch(err => {
       console.log('error in reporting answer')
       res.end();
+    })
+})
 
 app.get('/products/:product_id/info', (req, res) => {
   console.log('ID', req.params);
