@@ -1,16 +1,19 @@
-body {
-  background: white;
-}
-.related-view {
+
+.view {
+  /* left: 15%; */
+  /* grid-column-start: line1; */
+
   position: relative;
-  max-width: 80%;
+  /* max-width: 80%; */
+  width: 80%;
+  /* min-width: 20%; */
   overflow: hidden;
   z-index: 1;
   /* background: linear-gradient(90deg, rgba(255, 255, 255, 0) 80%, rgb(255, 255, 255, 1)); */
 
   mix-blend-mode:overlay;
 }
-.related-list {
+.list {
   position: relative;
   max-width: 90%;
   padding: 20px;
@@ -20,14 +23,14 @@ body {
   z-index: -1;
 }
 
-.related-list-content {
+.list-content {
   padding: 20px;
   display: flex;
   justify-content: space-between;
   z-index: -2;
 }
 
-.related-list-arrows {
+.list-arrows {
   height: 24px;
   position: absolute;
   background-color: white;
@@ -36,10 +39,12 @@ body {
   z-index: 1;
 }
 
-.related-list-arrows__right {
+.related-arrows__right,
+.outfit-arrows__right {
   left: 97%;
 }
-.related-list-arrows__left {
+.related-arrows__left,
+.outfit-arrows__left {
   left: 0%;
 }
 
@@ -79,7 +84,7 @@ body {
 }
 
 /*RELATED CARD */
-.related-card {
+.card {
   max-width: 250px;
   width: 250px;
   min-width: 250px;
@@ -91,12 +96,32 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   z-index: -6;
-  color: red;
   background: white;
 }
 
+/* Related Card Effect */
+.hvr-float {
+  /* display: inline-block; */
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-float:hover, .hvr-float:focus, .hvr-float:active {
+  -webkit-transform: translateY(-8px);
+  transform: translateY(-8px);
+}
+
+/* Related Card Contents */
 .related-card-visual {
   display: flex;
   height: 70%;
@@ -123,7 +148,7 @@ body {
 }
 
 .related-card-info {
-
+  align-self: flex-start;
   margin: 10px 20px;
 }
 /* all children */
@@ -189,4 +214,25 @@ body {
 
 td {
   padding: 0px;
+}
+
+.outfit-card {
+  box-shadow: none;
+}
+
+.outfit-add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.outfit-add-img {
+  width: 80px;
+  height: 80px;
+}
+
+.outfit-add-desc {
+  font-size: 1.2em;
+  font-weight: 600;
 }
