@@ -29,6 +29,7 @@ class Overview extends React.Component{
     this.onArrowRightClick = this.onArrowRightClick.bind(this);
     this.handleStyleClick = this.handleStyleClick.bind(this);
     this.handleMainImageClick = this.handleMainImageClick.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
 // Arrow function account for only 14 icons - will need to adjust the logic for more item
@@ -103,12 +104,21 @@ class Overview extends React.Component{
   componentDidUpdate(prevProps) {
     if (this.props.product !== prevProps.product) {
       this.fetchThumbnails();
+      this.setState({
+        thumbnailsShown: [0, 7],
+        currentStyle: 0,
+        currentThumbnail: 0,
+        extendedView: false
+      })
     }
   }
 
   handleAddToCart(e, sku, quantity) {
     e.preventDefault();
-    // console.log(sku, quantity)
+    console.log(sku, quantity)
+    axios.post('/cart', {sku}).then(() => {
+      this.props.getCart()
+    })
   }
 
   render() {

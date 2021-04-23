@@ -66,35 +66,35 @@ class ReviewTiles extends React.Component {
       <div>
         {reviews.map((review) => {
           return (
-            <div class= 'reviewTile' key={review.review_id}>
-              <p class='review-rating'>{review.rating}</p>
-              <p class='review-name-date'>{review.reviewer_name}, {review.date}</p>
-              <p class='review-sum'>{review.summary}</p>
-              <p class='review-body'>{review.body}</p>
+            <div className= 'reviewTile' key={review.review_id}>
+              <p className='review-rating'>{review.rating}</p>
+              <p className='review-name-date'>{review.reviewer_name}, {review.date}</p>
+              <p className='review-sum'>{review.summary}</p>
+              <p className='review-body'>{review.body}</p>
               {
                 review.recommend?
-                  <p class='review-recommend'>I recommend this product</p> : null
+                  <p className='review-recommend'>I recommend this product</p> : null
               }
               {
                 review.response?
-                  <p class='review-response'>Response: {review.response}</p> : null
+                  <p className='review-response'>Response: {review.response}</p> : null
               }
               {
                 review.photos[0] ?
-                  review.photos.map(img => {
+                  review.photos.map((img, idx) => {
                     return (
-                      <img id= 'review-thumbnail' src={'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}></img>
+                      <img key={idx} id= 'review-thumbnail' src={'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}></img>
                     )
                   })
                   :null
               }
-              <p class='review-helpfulness'>{'('}{review.helpfulness}{')'}</p>
+              <p className='review-helpfulness'>{'('}{review.helpfulness}{')'}</p>
             </div>
           );
         })}
         {
           !allShown?
-            <button class='show-review-button' onClick={this.handleClick}>
+            <button className='show-review-button' onClick={this.handleClick}>
             Show More
             </button> : null
         }
