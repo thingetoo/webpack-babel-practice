@@ -4,18 +4,19 @@ import QuestionBar from './QuestionBar.jsx'
 import Review from './Review.jsx'
 //
 import Overview from './Overview/Overview.jsx';
-import RelProductList from './RelProductList.jsx';
+import RelProductList from './RelatedProdList/RelProductList.jsx';
 
 import axios from 'axios';
-import requests from '../../axios-prefilter'
-
+import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: []
+      currentProduct: [],
+      comparisonToggle: false
     }
     this.productStateChange = this.productStateChange.bind(this);
+    this.comparisonToggle = this.comparisonToggle.bind(this);
   }
 
   productStateChange(data) {
@@ -27,26 +28,38 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
-        console.log(response.data);
         this.productStateChange(response.data)
       });
   }
 
+  comparisonToggle(relatedProduct) {
+    // console.log(this.state.currentProduct);
+    var status = !this.state.comparisonToggle ? <Comparison_Model toggleComparison={this.comparisonToggle} displayedProduct={this.state.currentProduct} relatedProduct={relatedProduct} /> : false;
 
+    this.setState({
+      comparisonToggle: status
+    })
+  }
 
   render() {
-
-
+    var comparison = this.state.comparisonToggle ? this.state.comparisonToggle : <div></div>;
     return (
-      <div>
-        <h1>App.js is connected and working!</h1>
-        <Overview product={this.state.currentProduct} />
-        {/* <Questions /> */}
-        <RelProductList productId={this.state.currentProduct.id} />
-        <QA />
-        <QuestionBar />
-        <Review item={this.state.currentProduct.id}/>
-      </div>
+      <main>
+        {comparison}
+        <div className="product-page-viewer">
+          <section aria-label="overview">
+            <Overview id='overview' product={this.state.currentProduct} />
+          </section>
+          <section aria-label="related-products">
+            <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} />
+          </section>
+          <section aria-label="questions and ratings">
+            <QA id='qa' />
+            <QuestionBar id="question-bar" />
+            <Review item={this.state.currentProduct.id}/>
+          </section>
+        </div>
+      </main>
     )
   }
 }
