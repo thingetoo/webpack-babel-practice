@@ -19,7 +19,10 @@ app.get('/products', (req, res) => {
   axios.get(requests.products)
     .then((response) => {
       res.send(response.data)
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 })
 
 app.get('/product/:productId/styles', (req, res) => {
@@ -27,6 +30,9 @@ app.get('/product/:productId/styles', (req, res) => {
   axios.get(`${requests.products}/${req.params.productId}/styles`)
     .then((response) => {
       res.json(response.data)
+    })
+    .catch((err) => {
+      console.log(err);
     })
 })
 
@@ -62,7 +68,7 @@ app.get('/reviews/:product_Id', (req, res) => {
       res.json(response.data)
     })
     .catch((err) => {
-      // console.log(err)
+      console.log(err)
     })
 })
 
@@ -72,7 +78,7 @@ app.get('/reviews/meta/:product_id', (req, res) => {
       res.json(response.data)
     })
     .catch((err) => {
-      // console.log(err)
+      console.log(err)
     })
 })
 
@@ -83,7 +89,7 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
       res.json(response.data)
     })
     .catch((err) => {
-      // console.log(err)
+      console.log(err)
     })
 })
 
@@ -125,7 +131,7 @@ app.get('/products/:product_id/related', (req, res) => {
       })
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     })
 })
 
@@ -205,7 +211,7 @@ app.get('/products/:product_id/info', (req, res) => {
       res.send(response.data);
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     })
 })
 
@@ -226,7 +232,7 @@ app.post('/products/:product/outfits', (req, res) => {
         }
       })
       .catch((err) => {
-
+        console.log(err);
       })
     // res.sendStatus(200);
   })
@@ -241,6 +247,9 @@ app.get('/products/outfits', (req, res) => {
         if (arr.length === tempOutfitList.length) {
           res.json(arr);
         }
+      })
+      .catch((err) => {
+        console.log(err);
       })
     // res.sendStatus(200);
   })

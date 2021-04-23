@@ -19,23 +19,25 @@ class RelProductList extends React.Component {
     var sliderLimit = parseInt($('.list-content').css('width'));
     // var sliderLimit = -500;
     sliderLimit = sliderLimit - (sliderLimit * 2);
-    var move = sliderLimit / -3;
+    var move = sliderLimit * -.15;
     move = move.toString();
     var currentPosition = parseInt(view.css("left"));
     if (direction === 'right') {
-      if (currentPosition === 0) {
-        $('.' + right).css('display', 'none');
-        $('.' + left).css('display', 'block');
-      }
-      if (currentPosition >= sliderLimit) {
+      // DO NOT DELETE PLS
+      // if (currentPosition === sliderLimit) {
+      //   $('.' + right).css('display', 'none');
+      //   $('.' + left).css('display', 'block');
+      // }
+      if (currentPosition >= sliderLimit / 3) {
         view.stop(false, true).animate({ left: "-=" + move }, { duration: 400 });
       }
     } else {
       console.log('Slider: ', sliderLimit);
-      if (currentPosition === 0) {
-        $('.' + left).css('display', 'none');
-        $('.' + right).css('display', 'block');
-      }
+      // DO NOT DELETE PLS
+      // if (currentPosition === 0) {
+      //   $('.' + left).css('display', 'none');
+      //   $('.' + right).css('display', 'block');
+      // }
       if (currentPosition < 0) {
         view.stop(false, true).animate({ left: "+=" + move }, { duration: 400 });
       }
@@ -45,6 +47,8 @@ class RelProductList extends React.Component {
   handleRelatedProductUpdates(id) {
     axios.get(`/products/${id}/related`)
       .then((response) => {
+        console.log(response.data);
+        $('.related-list').animate({ left: '0' }, { duration: 400 });
         this.setState({
           rel_products: response.data
         })
@@ -53,6 +57,7 @@ class RelProductList extends React.Component {
 
   handleOutfitProductUpdates(list) {
     console.log(list);
+    $('.outfit-list').animate({ left: '0' }, { duration: 400 });
     this.setState({
       outfit_products: list
     })
@@ -68,6 +73,9 @@ class RelProductList extends React.Component {
     }
   }
   componentDidMount() {
+    this.setState({
+      rel_products: []
+    })
   }
   render() {
 
