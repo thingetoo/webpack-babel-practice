@@ -22,7 +22,6 @@ class RelProductList extends React.Component {
     var move = sliderLimit / -2;
     move = move.toString();
     var currentPosition = parseInt(view.css("left"));
-    console.log(currentPosition);
     if (direction === 'right') {
       if (currentPosition === 0) {
         $('.' + right).css('display', 'none');

@@ -17,7 +17,9 @@ class Overview extends React.Component{
       styles: [],
       currentStyle: 0,
       currentThumbnail: 0,
-      product: []
+      product: [],
+      sku: '',
+      extendedView: false
     }
     this.onArrowDownClick = this.onArrowDownClick.bind(this);
     this.onArrowUpClick = this.onArrowUpClick.bind(this);
@@ -26,6 +28,7 @@ class Overview extends React.Component{
     this.onArrowLeftClick = this.onArrowLeftClick.bind(this);
     this.onArrowRightClick = this.onArrowRightClick.bind(this);
     this.handleStyleClick = this.handleStyleClick.bind(this);
+    this.handleMainImageClick = this.handleMainImageClick.bind(this);
   }
 
 // Arrow function account for only 14 icons - will need to adjust the logic for more item
@@ -81,6 +84,12 @@ class Overview extends React.Component{
     })
   }
 
+  handleMainImageClick() {
+    this.setState({
+      extendedView: !this.state.extendedView
+    }, () => console.log(this.state.extendedView))
+  }
+
   fetchThumbnails() {
     axios.get(`/product/${this.props.product.id}/styles`)
       .then(response => {
@@ -97,16 +106,22 @@ class Overview extends React.Component{
     }
   }
 
+  handleAddToCart(e, sku, quantity) {
+    e.preventDefault();
+    // console.log(sku, quantity)
+  }
+
   render() {
-    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail } = this.state;
+    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView } = this.state;
     const { product } = this.props
-    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick } = this;
-    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product }
+    const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick, handleAddToCart, handleMainImageClick } = this;
+    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }
+
     return product ?
     (
       <div className='overview-container'>
         <ImageDisplay {...overviewProps} />
-        <ProductInfo product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick}/>
+        <ProductInfo isExtendedView={extendedView} product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick} handleAddToCart={handleAddToCart}/>
         <div className='description-container'>
           <h4>{product.slogan}</h4>
           <h5>{product.description}</h5>
