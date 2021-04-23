@@ -79,9 +79,20 @@ app.post('/products/:product/outfits', (req, res) => {
   })
 })
 
-// app.get('/products/outfits', (req, res) => {
-//   res.sendStatus(200);
-// })
+app.get('/products/outfits', (req, res) => {
+  var arr = [];
+  tempOutfitList.forEach((id) => {
+    axios.get(`${requests.products}/${id}`)
+      .then((response) => {
+        arr.push(response.data);
+        if (arr.length === tempOutfitList.length) {
+          res.json(arr);
+        }
+      })
+    // res.sendStatus(200);
+  })
+  // res.sendStatus(200);
+})
 
 app.listen(port, () => {
   console.log(`Server listening at localhost: ${port}!`);

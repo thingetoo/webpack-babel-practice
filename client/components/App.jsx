@@ -51,7 +51,7 @@ class App extends React.Component {
             <Overview id='overview' product={this.state.currentProduct} />
           </section>
           <section aria-label="related-products">
-            <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} />
+            <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
             <QA id='qa' />

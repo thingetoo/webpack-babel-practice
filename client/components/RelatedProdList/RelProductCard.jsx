@@ -25,7 +25,9 @@ class RelProductCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-
+    if (prevProps !== this.props) {
+      this.handleUpdate(this.props.product.id);
+    }
   }
 
   componentDidMount() {
@@ -69,7 +71,9 @@ class RelProductCard extends React.Component {
         </div>
         <div className='related-card-info'>
           <h4 className='related-card-info-category'>{category}</h4>
-          <h3 className='related-card-info-name'>{name}</h3>
+          <h3 className='related-card-info-name' onClick={(e) => {
+            this.props.changePage([this.props.product]);
+          }}>{name}</h3>
           {price}
           <img />
         </div>

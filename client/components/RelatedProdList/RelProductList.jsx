@@ -27,7 +27,7 @@ class RelProductList extends React.Component {
         $('.' + right).css('display', 'none');
         $('.' + left).css('display', 'block');
       }
-      if (currentPosition >= 0) {
+      if (currentPosition >= sliderLimit) {
         view.stop(false, true).animate({ left: "-=" + move }, { duration: 400 });
       }
     } else {
@@ -61,7 +61,7 @@ class RelProductList extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.productId !== prevProps.productId) {
       this.handleRelatedProductUpdates(this.props.productId);
-      axios.post(`/products/${this.props.productId}/outfits`)
+      axios.get(`/products/outfits`)
         .then((response) => {
           this.handleOutfitProductUpdates(response.data);
         })
@@ -82,7 +82,7 @@ class RelProductList extends React.Component {
             <div className='list-content'>
               {
                 this.state.rel_products.map((product, i) => {
-                  return <RelProductCard key={i} product={product} toggleComparison={this.props.toggleComparison} />;
+                  return <RelProductCard key={i} product={product} toggleComparison={this.props.toggleComparison} changePage={this.props.changePage} />;
                 })
               }
             </div>
