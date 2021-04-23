@@ -29,15 +29,29 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
+  /* justify-content:space-around; */
   align-items:flex-start;
+}
+
+.innerForm label {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin-bottom: 1em;
+}
+
+.submit {
+  align-self: center;
+}
+
+.textbox {
+ width: 250px;
+ height: 90px;
 }
 
 .innerForm span {
   font-size: x-small;
   color: red;
-  margin-top: 0em;
-  border-top: 0em;
 }
 .innerForma {
   width: 500px;
