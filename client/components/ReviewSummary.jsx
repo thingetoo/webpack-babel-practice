@@ -10,7 +10,9 @@ class ReviewSummary extends React.Component {
     super(props)
     this.state = {
       meta: [],
-      productId: ''
+      productId: '',
+      scoreCounts: {},
+      characteristics: {}
     }
   }
 
@@ -27,8 +29,11 @@ class ReviewSummary extends React.Component {
     axios.get(`/reviews/meta/${this.props.data}`)
       .then((response) => {
         this.setState({
-          meta: response.data
+          meta: response.data,
+          scoreCounts: response.data.ratings,
+          characteristics: response.data.characteristics
         })
+        console.log(response.data)
       })
       .catch((err) => [
         // console.log(err)
@@ -59,16 +64,58 @@ class ReviewSummary extends React.Component {
     trueCount *= 100 / recCount;
 
 
+    const isSize = this.state.characteristics.Size;
+    const isWidth = this.state.characteristics.Width;
+    const isComfort = this.state.characteristics.Comfort;
+    const isQuality = this.state.characteristics.Quality;
+    const isLength = this.state.characteristics.Length;
+    const isFit = this.state.characteristics.Fit;
+
+    let size, width, comfort, quality, length, fit;
+
+    if (isSize) {
+      size = <div id='measurement-bar'>Size<p>{isSize.value}</p></div>
+    }
+    if (isWidth) {
+      width = <div id='measurement-bar'>Width<p>{isWidth.value}</p></div>
+    }
+    if (isComfort) {
+      comfort = <div id='measurement-bar'>Comfort<p>{isComfort.value}</p></div>
+    }
+    if (isQuality) {
+      quality = <div id='measurement-bar'>Quality<p>{isQuality.value}</p></div>
+    }
+    if (isLength) {
+      length = <div id='measurement-bar'>Length<p>{isLength.value}</p></div>
+    }
+    if (isFit) {
+      fit = <div id='measurement-bar'>Fit<p>{isFit.value}</p></div>
+    }
+
+
     return (
       <div id='score-summary'>
-        <p id='average-score'>{score}</p>
-        <p id='recommendations'>{trueCount}% of reviews recommend this product</p>
+        <p id='average-score'>{score.toFixed(2)}</p>
+        <p id='recommendations'>{trueCount.toFixed(0)}% of reviews recommend this product</p>
         <div id='star-counts'>
-          <p>5 stars</p>
-          <p>4 stars</p>
-          <p>3 stars</p>
-          <p>2 stars</p>
-          <p>1 stars</p>
+          <p><span id='summary-score-list'>5 stars </span>
+          <span id='score-count'>{this.state.scoreCounts[5]}</span></p>
+          <p><span id='summary-score-list'>4 stars </span>
+          <span id='score-count'>{this.state.scoreCounts[4]}</span></p>
+          <p><span id='summary-score-list'>3 stars </span>
+          <span id='score-count'>{this.state.scoreCounts[3]}</span></p>
+          <p><span id='summary-score-list'>2 stars </span>
+          <span id='score-count'>{this.state.scoreCounts[2] || 0}</span></p>
+          <p><span id='summary-score-list'>1 stars </span>
+          <span id='score-count'>{this.state.scoreCounts[1] || 0}</span></p>
+        </div>
+        <div id ='measurements'>
+          <div>{size}</div>
+          <div>{width}</div>
+          <div>{comfort}</div>
+          <div>{quality}</div>
+          <div>{length}</div>
+          <div>{fit}</div>
         </div>
       </div>
     )
