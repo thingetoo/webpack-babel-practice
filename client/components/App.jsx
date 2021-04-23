@@ -67,10 +67,10 @@ class App extends React.Component {
     return (
       <main>
         {comparison}
-        <div className="product-page-viewer">
           <section aria-label="navbar">
             <Navbar numItemsInCart={this.state.numItemsInCart} id='navbar' />
           </section>
+        <div className="product-page-viewer">
           <section aria-label="overview">
             <Overview getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
           </section>
