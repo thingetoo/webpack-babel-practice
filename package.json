@@ -21,6 +21,7 @@
     "chai": "^4.3.4",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "react": "^16.4",
     "react-dom": "^16.4",
     "react-modal": "^3.13.1",

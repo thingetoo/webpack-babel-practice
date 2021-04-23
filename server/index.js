@@ -3,9 +3,8 @@ const app = express();
 const path = require('path');
 const axios = require('axios');
 const requests = require('../axios-prefilter.js');
-
-var bodyParser = require('body-parser')
-
+const bodyParser = require('body-parser');
+const helperfunction = require('./helperfunction.js');
 
 const port = 3000;
 
@@ -31,6 +30,32 @@ app.get('/product/:productId/styles', (req, res) => {
     })
 })
 
+app.get('/qa/questions/:product_id/:count', (req, res) => {
+  //questions
+  axios.get(`${requests.questions}?product_id=${req.params.product_id}&count=${req.params.count}`)
+    .then((response) => {
+      var sorted = response.data.results.sort(function (a, b) {
+        return b.question_helpfulness - a.question_helpfulness
+      })
+      res.json(sorted)
+    })
+    .catch((err) => {
+      console.log('Error with Questions get request' + err)
+      res.end()
+    })
+})
+
+app.get('/qa/answers/:question_id/answers', (req, res) => {
+  //answers
+  axios.get(`${requests.questions}/${req.params.question_id}/answers`)
+    .then((response) => {
+      res.json(helperfunction.sortAnswer(response.data.results));
+    })
+    .catch((err) => {
+      console.log('Error with Answers get request' + err)
+      res.end();
+    })
+})
 app.get('/reviews/:product_Id', (req, res) => {
   axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}`)
     .then((response) => {
@@ -62,8 +87,29 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     })
 })
 
-app.get('/products/:product_id/related', (req, res) => {
 
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  //helpful-question
+  axios.put(`${requests.questions}/${req.params.question_id}/helpful`)
+    .then(() => {
+      axios.get(`${requests.questions}?product_id=${req.body.product_id}&count=100`)
+        .then((response) => {
+          var sorted = response.data.results.sort(function (a, b) {
+            return b.question_helpfulness - a.question_helpfulness
+          })
+          res.json(sorted)
+        })
+        .catch((err) => {
+          console.log('Error with Questions get request' + err)
+          res.end()
+        })
+    })
+    .catch((err) => {
+      console.log('error')
+      res.end(err)
+    })
+})
+app.get('/products/:product_id/related', (req, res) => {
   // res.sendStatus(200);
   axios.get(`${requests.products}/${req.params.product_id}/related`)
     .then((data) => {
@@ -80,6 +126,74 @@ app.get('/products/:product_id/related', (req, res) => {
     })
     .catch((err) => {
       // console.log(err);
+    })
+})
+
+app.post('/qa/questions', (req, res) => {
+  console.log(req.body);
+  axios.post(`${requests.questions}`, req.body)
+    .then(success => {
+      console.log('sucessfully sent post')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error with post request' + err)
+      res.end()
+    })
+})
+
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+  axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
+    .then(success => {
+      console.log('successful sent answer')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error sending answer' + err)
+      res.end();
+    })
+})
+
+app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  //helpful-answers
+  axios.put(`${requests.answers}/${req.params.answer_id}/helpful`)
+    .then(() => {
+      axios.get(`${requests.questions}/${req.body.question_id}/answers`)
+        .then((response) => {
+          res.json(response.data)
+        })
+        .catch((err) => {
+          console.log('Error with Answers get request' + err)
+          res.end();
+        })
+    })
+    .catch(err => {
+      console.log('error updating answer helpfulness')
+      res.end();
+    })
+})
+
+app.put('/qa/questions/:question_id/report', (req, res) => {
+  axois.put(`${requests.questions}/${req.params.question_id}/report`)
+    .then(success => {
+      console.log('successfully reported question')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error in reporting question')
+      res.end();
+    })
+})
+
+app.put('/qa/answers/:answer_id/report', (req, res) => {
+  axios.put(`${requests.answers}/${req.params.answer_id}/report`)
+    .then(success => {
+      console.log('successfully reported answer')
+      res.end();
+    })
+    .catch(err => {
+      console.log('error in reporting answer')
+      res.end();
     })
 })
 
