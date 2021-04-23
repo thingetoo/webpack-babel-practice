@@ -9,7 +9,7 @@ import css from './Navbar.css'
 // eslint-disable-next-line react/prop-types
 const Navbar = ({numItemsInCart}) => (
   <div className='navbar-container'>
-    <div>Catwalk</div>
+    <img src='./../../../assets/Catwalk.svg'></img>
     <div>
       <div id='cart-container'>
         <FontAwesomeIcon id='bag-icon' icon={faShoppingBag} />

@@ -43,7 +43,7 @@ class App extends React.Component {
   fetchCart() {
     axios.get('/cart')
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         this.setState({
           cart: response.data,
           numItemsInCart: response.data.length

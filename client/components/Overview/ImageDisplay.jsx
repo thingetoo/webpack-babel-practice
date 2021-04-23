@@ -5,6 +5,13 @@ import Thumbnail from './Thumbnail.jsx';
 import css from './Overview.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+// import CursorZoom from 'react-cursor-zoom';
+
+{/* <CursorZoom className='image-container__main-image' onClick={(e) => handleMainImageClick(e)} alt={product.name} image={{src: `${styles[currentStyle].photos[currentThumbnail].thumbnail_url}`, width: 400, height: 300}} zoomImage={{
+        src: `${styles[currentStyle].photos[currentThumbnail].url}`,
+        width: 1600,
+        height: 1200
+    }} /> */}
 
 const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }) => {
   const imageContainerClass = extendedView ? 'extended-image-container' : 'image-container';
@@ -13,7 +20,7 @@ const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, curre
   <div className={imageContainerClass}>
     {
       styles[currentStyle] ?
-      <img className='image-container__main-image' onClick={(e) => handleMainImageClick(e)} alt={product.name} src={styles[currentStyle].photos[currentThumbnail].thumbnail_url} />
+      <img className='image-container__main-image' onClick={(e) => handleMainImageClick(e)} alt={product.name} src={styles[currentStyle].photos[currentThumbnail].url} />
       :
       <img alt='placeholder image' src='https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'
       />

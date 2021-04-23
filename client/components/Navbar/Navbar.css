@@ -19,6 +19,11 @@
   position: sticky;
 }
 
+.navbar-container img {
+  width: 127px;
+  height: 200px;
+}
+
 #bag-icon, #cart-container, #num-items {
   height:50px;
   width: 50px;

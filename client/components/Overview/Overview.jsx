@@ -104,6 +104,12 @@ class Overview extends React.Component{
   componentDidUpdate(prevProps) {
     if (this.props.product !== prevProps.product) {
       this.fetchThumbnails();
+      this.setState({
+        thumbnailsShown: [0, 7],
+        currentStyle: 0,
+        currentThumbnail: 0,
+        extendedView: false
+      })
     }
   }
 
