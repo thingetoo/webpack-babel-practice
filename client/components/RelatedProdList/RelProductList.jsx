@@ -114,7 +114,7 @@ class RelProductList extends React.Component {
                       this.handleOutfitProductUpdates(response.data);
                     })
                 }}>
-                  <img src="https://img.icons8.com/ios/100/000000/plus-2-math.png" className='outfit-add-img' />
+                  <img src="https://img.icons8.com/carbon-copy/100/000000/plus-2-math.png" className='outfit-add-img' />
                   <h4 className='outfit-add-desc'>Add To Outfits</h4>
                 </div>
               </div>

@@ -1,3 +1,8 @@
+/* light pink: #eddcd9 */
+/* smokey white: #f2ebe9 */
+/* Hot pink: #de5499 */
+/* Blue: #266143 */
+/* yellow: #e99f4c */
 
 .view {
   /* left: 15%; */
@@ -10,7 +15,7 @@
   overflow: hidden;
   z-index: 1;
   /* background: linear-gradient(90deg, rgba(255, 255, 255, 0) 80%, rgb(255, 255, 255, 1)); */
-
+  color: #de5499;
   mix-blend-mode:overlay;
 }
 .list {
@@ -33,7 +38,7 @@
 .list-arrows {
   height: 24px;
   position: absolute;
-  background-color: white;
+  background-color: #eddcd9;
   border-radius: 5px;
   top: 60%;
   z-index: 1;
@@ -41,11 +46,11 @@
 
 .related-arrows__right,
 .outfit-arrows__right {
-  left: 97%;
+  left: 95%;
 }
 .related-arrows__left,
 .outfit-arrows__left {
-  left: 0%;
+  left: 2%;
 }
 
 /* ARROW HOVER EFFECTS */
@@ -92,14 +97,15 @@
   height: 350px;
   margin: 0 20px 0 20px;
   border-radius: 5px;
-  box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.40);
+  box-shadow: 5px 7px 20px 1px rgba(0, 0, 0, 0.26);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: -6;
-  background: white;
+  color: #266143;
+  background: #f2ebe9;
 }
 
 /* Related Card Effect */
@@ -218,6 +224,8 @@ td {
 
 .outfit-card {
   box-shadow: none;
+  background: transparent;
+  color: black;
 }
 
 .outfit-add {
@@ -234,5 +242,5 @@ td {
 
 .outfit-add-desc {
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: 300;
 }

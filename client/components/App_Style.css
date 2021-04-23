@@ -1,3 +1,12 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #393232;
+  }
+
+  .card {
+    background: #4d4545;
+  }
+}
 .product-page-viewer {
   display: grid;
   grid-template-columns: [first] 10% [line1] 90% [end];
