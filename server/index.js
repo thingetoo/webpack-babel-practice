@@ -6,11 +6,14 @@ const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
 const helperfunction = require('./helperfunction.js');
 
+var bodyParser = require('body-parser')
+
+
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, '..')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, '..')));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // app.use('/', (req, res) => {
 //   res.render('index.html')
@@ -58,6 +61,37 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
       res.end();
     })
 })
+app.get('/reviews/:product_Id', (req, res) => {
+  axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+})
+
+app.get('/reviews/meta/:product_id', (req, res) => {
+  axios.get(`${requests.reviews}/meta/?product_id=${req.params.product_id}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+})
+
+
+app.get('/reviews/:product_Id/:sort', (req, res) => {
+  axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}&sort=${req.params.sort}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+  })
+
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   //helpful-question
@@ -86,7 +120,7 @@ app.get('/products/:product_id/related', (req, res) => {
     .then((data) => {
       var arr = [];
       data.data.forEach((id) => {
-        axios.get(`${requests.products}/${id}/styles`)
+        axios.get(`${requests.products}/${id}`)
           .then((response) => {
             arr.push(response.data);
             if (arr.length === data.data.length) {
@@ -165,9 +199,20 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
     .catch(err => {
       console.log('error in reporting answer')
       res.end();
+
+app.get('/products/:product_id/info', (req, res) => {
+  console.log('ID', req.params);
+  var id = req.params.product_id.split(':').join('');
+  axios.get(`${requests.products}/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      res.send(response.data);
+    })
+    .catch((err) => {
+      // console.log(err);
     })
 })
 
 app.listen(port, () => {
-  console.log(`Server listening at localhost:${port}!`);
-});
+  console.log(`Server listening at localhost: ${port}!`);
+})

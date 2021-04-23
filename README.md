@@ -23,3 +23,5 @@ FEC
 - npm run build
 - npm start to start server
 - open local host 3000
+- Before running a test deactivate css from the jsx files
+- Then run npm test
