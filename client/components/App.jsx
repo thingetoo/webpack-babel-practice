@@ -10,6 +10,7 @@ import Navbar from './Navbar/Navbar.jsx'
 // eslint-disable-next-line no-unused-vars
 
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
+// eslint-disable-next-line no-unused-vars
 import css from './App_Style.css';
 
 class App extends React.Component {
@@ -29,7 +30,7 @@ class App extends React.Component {
 
   productStateChange(data) {
     this.setState({
-      currentProduct: data[4]
+      currentProduct: data[0]
     })
     this.fetchCart()
   }

@@ -17,7 +17,6 @@ class Overview extends React.Component{
       styles: [],
       currentStyle: 0,
       currentThumbnail: 0,
-      thumbnailUrl: '',
       product: [],
       sku: '',
       extendedView: false
@@ -39,6 +38,7 @@ class Overview extends React.Component{
       const diff = this.state.thumbnails.length - this.state.thumbnailsShown[1];
       this.setState({
         thumbnailsShown: [diff, this.state.thumbnailsShown[1] + diff],
+        currentThumbnail: diff
       })
     }
   }
@@ -81,10 +81,9 @@ class Overview extends React.Component{
     })
   }
 
-  handleThumbnailClick(id, url) {
+  handleThumbnailClick(id) {
     this.setState({
-      currentThumbnail: id,
-      thumbnailUrl: url
+      currentThumbnail: id
     })
   }
 
@@ -125,10 +124,10 @@ class Overview extends React.Component{
   }
 
   render() {
-    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView, thumbnailUrl } = this.state;
+    const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView } = this.state;
     const { product } = this.props
     const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick, handleAddToCart, handleMainImageClick } = this;
-    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView, thumbnailUrl }
+    const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }
 
     return product ?
     (
