@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser())
 const helperfunction = require('./helperfunction.js');
 
+
 const port = 3000;
 
 app.use(bodyParser.json());
@@ -88,6 +89,17 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     })
 })
 
+
+app.post('reviews/:product_Id', (req, res) => {
+  axios.post(`${requests.reviews}/?product_id=${req.params.product_Id}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+})
+
   // console.log(req.params);
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
@@ -132,8 +144,8 @@ app.get('/products/:product_id/related', (req, res) => {
 })
 
 app.post('/qa/questions', (req, res) => {
-  console.log(req.body);
-  axios.post(`${requests.questions}`, req.body)
+  //post question form
+   axios.post(`${requests.questions}`, req.body)
     .then(success => {
       console.log('sucessfully sent post')
       res.end();
@@ -144,7 +156,8 @@ app.post('/qa/questions', (req, res) => {
     })
 })
 
-app.post('/qa/questions/:question_id/answers', (req, res) => {
+app.post('/qa/questions/:question_id/answers', (req, res)=> {
+  //post answer form
   axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
     .then(success => {
       console.log('successful sent answer')
