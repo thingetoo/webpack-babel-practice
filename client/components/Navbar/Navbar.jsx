@@ -7,9 +7,10 @@ import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import css from './Navbar.css'
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({numItemsInCart}) => (
+const Navbar = ({ numItemsInCart, themeButton }) => (
   <div className='navbar-container'>
     <img src='./../../../assets/Catwalk.svg'></img>
+    {themeButton}
     <div>
       <div id='cart-container'>
         <FontAwesomeIcon id='bag-icon' icon={faShoppingBag} />
