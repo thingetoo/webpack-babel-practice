@@ -16,9 +16,9 @@ import { faArrowDown, faArrowUp, faAngleRight, faAngleLeft } from '@fortawesome/
 const ImageDisplay = ({ thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }) => {
 
   const placeholder = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'
-  styles[currentStyle]  && console.log(styles[currentStyle].photos)
+  // styles[currentStyle]  && console.log(styles[currentStyle].photos)
   const addDefault = (ev) => {
-    console.log(ev)
+    // console.log(ev)
     ev.target.src = 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'
   }
   const imageContainerClass = extendedView ? 'extended-image-container' : 'image-container';

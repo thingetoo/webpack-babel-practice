@@ -125,7 +125,7 @@ class Overview extends React.Component{
 
   render() {
     const { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, extendedView } = this.state;
-    const { product } = this.props
+    const { product, productScore, numReviews } = this.props
     const { handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, handleStyleClick, handleAddToCart, handleMainImageClick } = this;
     const overviewProps = { thumbnails, thumbnailsShown, styles, currentStyle, currentThumbnail, handleThumbnailClick, onArrowDownClick, onArrowLeftClick, onArrowRightClick, onArrowUpClick, product, handleMainImageClick, extendedView }
 
@@ -133,7 +133,7 @@ class Overview extends React.Component{
     (
       <div className='overview-container'>
         <ImageDisplay {...overviewProps} />
-        <ProductInfo isExtendedView={extendedView} product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick} handleAddToCart={handleAddToCart}/>
+        <ProductInfo averageScore={productScore} numReviews={numReviews} isExtendedView={extendedView} product={product} styles={styles} currentStyle={currentStyle} handleStyleClick={handleStyleClick} handleAddToCart={handleAddToCart}/>
         <div className='description-container'>
           <h4>{product.slogan}</h4>
           <h5>{product.description}</h5>
