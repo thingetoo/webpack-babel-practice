@@ -10,7 +10,7 @@ import Navbar from './Navbar/Navbar.jsx'
 // eslint-disable-next-line no-unused-vars
 
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
-import css from './App_Style.css';
+// import css from './App_Style.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,13 +19,43 @@ class App extends React.Component {
       currentProduct: [],
       comparisonToggle: false,
       cart: [],
-      numItemsInCart: 0
+      numItemsInCart: 0,
+      theme_status: 'dark'
     }
     this.productStateChange = this.productStateChange.bind(this);
     this.comparisonToggle = this.comparisonToggle.bind(this);
     this.fetchCart = this.fetchCart.bind(this);
+    this.switchTheme = this.switchTheme.bind(this);
   }
 
+  createThemeSelector() {
+    const LightTheme = React.lazy(() => import('./Light_Theme.jsx'))
+    const DarkTheme = React.lazy(() => import('./Dark_Theme.jsx'))
+
+    const CHOSEN_THEME = this.state.theme_status;
+    const Theme = CHOSEN_THEME === 'light' ? <LightTheme /> : <DarkTheme />;
+
+    console.log('THEME: ', CHOSEN_THEME);
+
+    const ThemeSelector = () => {
+      return (
+        <>
+          <React.Suspense fallback={<></>}>
+            {Theme}
+          </React.Suspense>
+        </>
+      )
+    }
+
+    return ThemeSelector;
+  }
+
+  switchTheme() {
+    var theme = this.state.theme_status === 'light' ? 'dark' : 'light';
+    this.setState({
+      theme_status: theme
+    })
+  }
 
   productStateChange(data) {
     this.setState({
@@ -64,12 +94,17 @@ class App extends React.Component {
 
   render() {
     var comparison = this.state.comparisonToggle ? this.state.comparisonToggle : <div></div>;
+
+    var lightDarkBtn = this.state.theme_status === 'light' ? <button className='theme_control' onClick={this.switchTheme}>Light Mode</button> : <button className='theme_control' onClick={this.switchTheme}>Dark Mode</button>;
+    var ThemeSelector = this.createThemeSelector();
+
     return (
       <main>
+        <ThemeSelector />
         {comparison}
-          <section aria-label="navbar">
-            <Navbar numItemsInCart={this.state.numItemsInCart} id='navbar' />
-          </section>
+        <section aria-label="navbar">
+          <Navbar numItemsInCart={this.state.numItemsInCart} themeButton={lightDarkBtn} id='navbar' />
+        </section>
         <div className="product-page-viewer">
           <section aria-label="overview">
             <Overview getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
@@ -82,6 +117,7 @@ class App extends React.Component {
             <Review item={this.state.currentProduct.id} />
           </section>
         </div>
+
       </main>
     )
   }

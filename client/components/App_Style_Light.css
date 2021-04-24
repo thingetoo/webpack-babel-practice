@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap');
+
+/* @media (prefers-color-scheme: light) {
+  body {
+    background: #393232;
+  }
+
+  .card {
+    background: #4d4545;
+  }
+} */
+.product-page-viewer {
+  display: grid;
+  grid-template-columns: [first] 10% [line1] 80% [end];
+
+}
+
+.product-page-viewer>* {
+
+  grid-column-start: line1;
+}
+
+body {
+  background-color: #eddcd9;
+  /* background-color: #393232; */
+  color: #266143 ;
+  font-family: 'Rubik', sans-serif;
+}
+
+a {
+  color: #eddcd9;
+  font-family: 'Rubik', sans-serif;
+}
+
+.navbar-container {
+  background-color: #f2ebe9;
+
+}
+
+btn {
+  color: #ed8d8d;
+}
+
+
+.list-arrows {
+  background: #e99f4c;
+}
+
+.card {
+  /* color: #ed8d8d; */
+  background: #f2ebe9 ;
+}
+
+.comparison-table {
+  background-color: #f2ebe9;
+  border: #ed8d8d 1px solid;
+}
+
+.outfit-card {
+  background: transparent;
+}
