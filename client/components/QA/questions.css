@@ -1,0 +1,248 @@
+
+.questionform{
+  padding-top: 5%;
+  padding-left: 35%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color : rgba(0, 0, 0, 0.8);
+}
+
+.answerform{
+  padding-top: 5%;
+  padding-left: 35%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color : rgba(0, 0, 0, 0.8);
+
+}
+
+.innerForm {
+  width: 500px;
+  height: auto;
+  padding: 1em;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content:space-around; */
+  align-items:flex-start;
+}
+
+.innerForm label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.submit {
+  align-self: center;
+}
+
+.textbox {
+ width: 250px;
+ height: 90px;
+}
+
+.answer-textbox {
+  width: 250px;
+ height: 90px;
+}
+
+.innerForm span {
+  font-size: x-small;
+  color:blue;
+}
+
+.innerForma {
+  width: 500px;
+  height: auto;
+  padding: 1em;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items:flex-start;
+}
+
+.innerForma label {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-img {
+  border: 2px solid pink;
+  width: 20%;
+  height: auto;
+  margin: 1em;
+}
+
+.form-img:hover {
+  width: 75%;
+  height: auto;
+}
+
+.form-title {
+  margin-top: 0em;
+  align-self: center;
+  font-weight: 600;
+}
+
+.mini-title {
+  align-self: center;
+  margin-bottom: 1em;
+}
+
+.close {
+  align-self: flex-end;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+.error{
+  font-size: small;
+  color: red;
+}
+.QA-ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 250px;
+}
+
+.main-heading{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: medium;
+}
+
+.searchBar{
+  width: 100%;
+  height: 3em;
+  border: 1px solid black;
+  background-image: url("https://img.icons8.com/ios-glyphs/50/000000/search.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 2em;
+}
+
+.list-ctn {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
+
+.question{
+  font-family: monospace;
+  font-size: large;
+  font-weight: 550;
+  color: #484848;
+}
+
+.container {
+  width: 100%;
+}
+
+.questionLink {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  font-size: small;
+}
+
+.A {
+  font-weight: 550;
+}
+
+.answer {
+  font-size: 0.9em;
+}
+
+.answer-ctn{
+  height: 100px;
+  overflow: scroll;
+}
+
+.ans {
+}
+
+.test {
+  width: 100%;
+  padding-left: 1em;
+}
+
+.ans-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.ans-info {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  font-size: small;
+  margin-bottom: 1em;
+  color: #696969;
+}
+
+.load-ans {
+  font-size: 9px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:900;
+  margin-bottom: 1em;
+}
+
+.button {
+  display: flex;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.button1 {
+  border: 1px solid black;
+  padding: 1em;
+  background-color: white;
+}
+.button2 {
+  border: 1px solid black;
+  padding: 1em;
+  padding-right: 2em;
+  margin-left: 1em;
+  background-color: white;
+  background-image: url("https://img.icons8.com/android/24/000000/plus.png");
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  background-size: 1em;
+}
+
+.help{
+  color: white;
+}
+
+::placeholder {
+  font-weight: 600;
+  padding-left: 0.5em;
+}
+
+.link-helpful {
+  padding-right: 1em;
+}
+
+.questionLink span {
+  text-decoration: underline;
+}
+
+.ans-info span {
+  text-decoration: underline;
+}
+
+.seller {
+  font-weight: 800;
+}

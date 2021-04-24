@@ -86,7 +86,7 @@ class ReviewTiles extends React.Component {
               }
               {
                 review.photos[0] ?
-                  review.photos.map(img => {
+                  review.photos.map((img, idx) => {
                     return (
                       <img id= 'review-thumbnail'
                       src={'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}

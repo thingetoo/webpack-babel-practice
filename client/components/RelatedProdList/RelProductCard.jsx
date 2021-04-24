@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import noScroll from './window_functions.js';
 
 class RelProductCard extends React.Component {
   constructor(props) {
@@ -25,10 +26,9 @@ class RelProductCard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log(prevProps);
-    // // this.handleUpdate(this.props.product.id);
-    // if (prevProps !== this.props) {
-    // }
+    if (prevProps !== this.props) {
+      this.handleUpdate(this.props.product.id);
+    }
   }
 
   componentDidMount() {
@@ -60,11 +60,15 @@ class RelProductCard extends React.Component {
 
     // Display conditions
     var price = !this.state.currentStyle.sale_price ? defPriceElement : saleElement;
-    var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' alt='image is not found' />;
+    var thumb = this.state.thumbnailImg ? <img src={this.state.thumbnailImg} alt={this.state.currentStyle.name} className='related-card-visual-thumbnail' /> : <img className='related-card-visual-thumbnail' src={`https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081`} alt='image is not found' />;
 
     return (
-      <div className='related-card'>
+      <div className='card hvr-float'>
         <div className='related-card-visual' onClick={(e) => {
+          // DONT REMOVE THIS
+          // var y_axis = window.scrollY;
+          // console.log(noScroll.module());
+          // window.addEventListener('scroll', noScroll.module());
           this.props.toggleComparison(this.props.product, this.state.currentStyle);
         }}>
           <img className='related-card-visual-star-default' src="https://img.icons8.com/windows/32/000000/star--v1.png" />
@@ -72,7 +76,9 @@ class RelProductCard extends React.Component {
         </div>
         <div className='related-card-info'>
           <h4 className='related-card-info-category'>{category}</h4>
-          <h3 className='related-card-info-name'>{name}</h3>
+          <h3 className='related-card-info-name' onClick={(e) => {
+            this.props.changePage([this.props.product]);
+          }}>{name}</h3>
           {price}
           <img />
         </div>

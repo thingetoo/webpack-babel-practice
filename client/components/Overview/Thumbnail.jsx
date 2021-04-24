@@ -9,7 +9,7 @@ const Thumbnail = ({ thumbnailClick, thumbnailIndex, thumb, currentThumbnail, pr
     onClick={() => thumbnailClick(thumbnailIndex)}
     style={
       thumbnailIndex === currentThumbnail ?
-      {border: '2px solid white', boxSizing: 'border-box'} :
+      {border: '2px solid', boxSizing: 'border-box', borderColor: '#de5499'} :
       {}
     } src={thumb.thumbnail_url}
     alt={product.name}
