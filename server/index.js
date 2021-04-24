@@ -6,13 +6,10 @@ const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
 app.use(bodyParser())
 const helperfunction = require('./helperfunction.js');
-const multer = require('multer');
-var cors = require('cors');
 
 
 const port = 3000;
 
-app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,6 +81,17 @@ app.get('/reviews/meta/:product_id', (req, res) => {
 
 app.get('/reviews/:product_Id/:sort', (req, res) => {
   axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}&sort=${req.params.sort}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+})
+
+
+app.post('reviews/:product_Id', (req, res) => {
+  axios.post(`${requests.reviews}/?product_id=${req.params.product_Id}`)
     .then((response) => {
       res.json(response.data)
     })

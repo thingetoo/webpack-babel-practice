@@ -18,12 +18,22 @@ class App extends React.Component {
     this.state = {
       currentProduct: [],
       comparisonToggle: false,
+      reviewCount: 0,
+      averageScore: 0,
       cart: [],
       numItemsInCart: 0
     }
     this.productStateChange = this.productStateChange.bind(this);
     this.comparisonToggle = this.comparisonToggle.bind(this);
+    this.getScore = this.getScore.bind(this);
     this.fetchCart = this.fetchCart.bind(this);
+  }
+
+  getScore(count, score) {
+    this.setState({
+      reviewCount: count,
+      averageScore: score
+    })
   }
 
 
@@ -78,8 +88,8 @@ class App extends React.Component {
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
-            <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
-            <Review item={this.state.currentProduct.id} />
+            <QA id='qa' productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
+            <Review item={this.state.currentProduct.id} getScore={this.getScore}/>
           </section>
         </div>
       </main>
