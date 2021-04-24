@@ -159,7 +159,7 @@ class AddReview extends React.Component {
             <div id='review-form-whole'>
               <form id='write-form'>
               <h2 id='review-form-top'>Write Your Review</h2>
-              <button id='review-form-top' onClick={this.handleClose}>Close</button>
+              <button id='close-button' onClick={this.handleClose}>Close</button>
                 <div id='review-radio'>
                 <Rating name="Rating" rating={this.state.rating} totalStars={5}
                 starHoverColor="black" value={this.state.rating}
