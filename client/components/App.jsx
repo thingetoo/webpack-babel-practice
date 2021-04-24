@@ -13,10 +13,20 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentProduct: [],
-      comparisonToggle: false
+      comparisonToggle: false,
+      reviewCount: 0,
+      averageScore: 0
     }
     this.productStateChange = this.productStateChange.bind(this);
     this.comparisonToggle = this.comparisonToggle.bind(this);
+    this.getScore = this.getScore.bind(this);
+  }
+
+  getScore(count, score) {
+    this.setState({
+      reviewCount: count,
+      averageScore: score
+    })
   }
 
   productStateChange(data) {
@@ -56,7 +66,7 @@ class App extends React.Component {
           <section aria-label="questions and ratings">
             <QA id='qa' />
             <QuestionBar id="question-bar" />
-            <Review item={this.state.currentProduct.id}/>
+            <Review item={this.state.currentProduct.id} getScore={this.getScore}/>
           </section>
         </div>
       </main>

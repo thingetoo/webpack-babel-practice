@@ -62,7 +62,18 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
     .catch((err) => {
       // console.log(err)
     })
-  })
+})
+
+
+app.post('reviews/:product_Id', (req, res) => {
+  axios.post(`${requests.reviews}/?product_id=${req.params.product_Id}`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      // console.log(err)
+    })
+})
 
 app.get('/products/:product_id/related', (req, res) => {
 

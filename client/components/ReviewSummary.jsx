@@ -4,6 +4,7 @@ import Rating from 'react-star-ratings';
 
 import App from './App.jsx';
 import Review from './Review.jsx';
+import css from './Review.css';
 
 class ReviewSummary extends React.Component {
   constructor(props) {
@@ -12,7 +13,10 @@ class ReviewSummary extends React.Component {
       meta: [],
       productId: '',
       scoreCounts: {},
-      characteristics: {}
+      characteristics: {},
+      score: 0,
+      scoresCount: 0
+
     }
   }
 
@@ -33,7 +37,7 @@ class ReviewSummary extends React.Component {
           scoreCounts: response.data.ratings,
           characteristics: response.data.characteristics
         })
-        console.log(response.data)
+        this.props.getScore(this.state.scoresCount, this.state.score);
       })
       .catch((err) => [
         // console.log(err)
@@ -42,6 +46,7 @@ class ReviewSummary extends React.Component {
 
 
   render() {
+    var starScore = 0;
     var score = 0;
     var ratings = this.state.meta.ratings;
     var scoreCount = 0;
@@ -50,6 +55,10 @@ class ReviewSummary extends React.Component {
       scoreCount += parseInt(ratings[key]);
     }
     score /= scoreCount;
+    if (!isNaN(score)) {
+      this.state.score = score;
+      this.state.scoresCount = scoreCount;
+    }
 
     var recommendations = this.state.meta.recommended;
     var trueCount = 0;
@@ -92,10 +101,13 @@ class ReviewSummary extends React.Component {
       fit = <div id='measurement-bar'>Fit<p>{isFit.value}</p></div>
     }
 
-
     return (
-      <div id='score-summary'>
-        <p id='average-score'>{score.toFixed(2)}</p>
+      <div id='review-container'>
+        <div id='review-summary'>
+        <h3>Ratings {'&'} Review</h3>
+        <h1 id='average-score'>{score.toFixed(2)}{' '}
+        <Rating rating={this.state.score} numberOfStars={5}
+        starSpacing="3px" starDimension="15px" starRatedColor='black'/></h1>
         <p id='recommendations'>{trueCount.toFixed(0)}% of reviews recommend this product</p>
         <div id='star-counts'>
           <p><span id='summary-score-list'>5 stars </span>
@@ -116,6 +128,7 @@ class ReviewSummary extends React.Component {
           <div>{quality}</div>
           <div>{length}</div>
           <div>{fit}</div>
+        </div>
         </div>
       </div>
     )

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReviewTiles from './ReviewTiles.jsx';
 import Review from './Review.jsx';
+import css from './Review.css';
 
 class ReviewsList extends React.Component {
   constructor(props) {
@@ -32,13 +33,16 @@ class ReviewsList extends React.Component {
 
   render() {
     return (
-      <div class='review-list'> {this.props.data.count} reviews, sort by
-        <select onChange={this.onChange} class='drop-down'>
+      <div id='review-container'>
+      <div id='review-list'>
+      {this.props.data.count} reviews, sort by
+        <select onChange={this.onChange} className='drop-down'>
           <option value='relevant'>relevance</option>
           <option value='helpful'>helpfulness</option>
           <option value='newest'>new to old</option>
         </select>
         <ReviewTiles data={[this.state.sort, this.props.data]}/>
+      </div>
       </div>
     )
   }

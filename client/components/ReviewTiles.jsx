@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import Rating from 'react-star-ratings';
+import Moment from 'moment';
 
 import App from './App.jsx';
 import Review from './Review.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import ReviewAdd from './ReviewAdd.jsx';
+import css from './Review.css';
+
 
 class ReviewTiles extends React.Component {
   constructor(props) {
@@ -36,6 +39,7 @@ class ReviewTiles extends React.Component {
         this.setState({
           reviews: response.data.results
         })
+        console.log(this.state.reviews)
       })
   }
 
@@ -63,38 +67,41 @@ class ReviewTiles extends React.Component {
       allShown = true;
     }
     return (
-      <div>
+      <div id='reviews'>
         {reviews.map((review) => {
           return (
-            <div class= 'reviewTile' key={review.review_id}>
-              <p class='review-rating'>{review.rating}</p>
-              <p class='review-name-date'>{review.reviewer_name}, {review.date}</p>
-              <p class='review-sum'>{review.summary}</p>
-              <p class='review-body'>{review.body}</p>
+            <div className= 'reviewTile' key={review.review_id}>
+              <p className='review-rating'><Rating rating={review.rating} numberOfStars={5}
+              starRatedColor='black' starDimension="20px"/></p>
+              <p className='review-name-date'>{review.reviewer_name},  {Moment(review.date).format('ll') || Moment.locale()}</p>
+              <p className='review-sum'>{review.summary}</p>
+              <p className='review-body'>{review.body}</p>
               {
                 review.recommend?
-                  <p class='review-recommend'>I recommend this product</p> : null
+                  <p className='review-recommend'>I recommend this product</p> : null
               }
               {
                 review.response?
-                  <p class='review-response'>Response: {review.response}</p> : null
+                  <p className='review-response'>Response: {review.response}</p> : null
               }
               {
                 review.photos[0] ?
                   review.photos.map(img => {
                     return (
-                      <img id= 'review-thumbnail' src={'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}></img>
+                      <img id= 'review-thumbnail'
+                      src={'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}
+                      ></img>
                     )
                   })
                   :null
               }
-              <p class='review-helpfulness'>{'('}{review.helpfulness}{')'}</p>
+              <p className='review-helpfulness'>Helpful? Yes{'('}{review.helpfulness}{')'}</p>
             </div>
           );
         })}
         {
           !allShown?
-            <button class='show-review-button' onClick={this.handleClick}>
+            <button className='buttons' onClick={this.handleClick}>
             Show More
             </button> : null
         }

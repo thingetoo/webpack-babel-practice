@@ -5,12 +5,14 @@ import Modal from 'react-modal';
 
 import Review from './Review.jsx';
 import App from './App.jsx';
+import css from './Review.css';
+
 
 class AddReview extends React.Component {
   constructor() {
     super();
     this.state = {
-      rating: null,
+      rating: 0,
       summary: '',
       recommend: null,
       body: '',
@@ -148,16 +150,19 @@ class AddReview extends React.Component {
       5: 'Great'
     };
     return (
-      <div class='write-review'>
-        <button class='write-button' onClick={this.handleShow}>
+      <div id='write-review'>
+        <button className='buttons' onClick={this.handleShow}>
           Write Review
         </button>
         {
           this.state.show?
-            <div class='review-form-whole'>
-              <h2>Write Your Review</h2>
-              <form class='write-form'>
-                <Rating name="Rating" totalStars={5} starHoverColor="black" value={this.state.rating}
+            <div id='review-form-whole'>
+              <form id='write-form'>
+              <h2 id='review-form-top'>Write Your Review</h2>
+              <button id='review-form-top' onClick={this.handleClose}>Close</button>
+                <div id='review-radio'>
+                <Rating name="Rating" rating={this.state.rating} totalStars={5}
+                starHoverColor="black" value={this.state.rating}
                 starRatedColor="black" changeRating={(rating) => this.handleRating(rating)}/>
                 <div>
                   <div> Do you recommend this product?</div>
@@ -332,7 +337,8 @@ class AddReview extends React.Component {
                     </div>
                   :null
                 }
-
+                </div>
+                <div id='review-input'>
                 <input value = {this.state.email} onChange={this.handleEmail}
                 placeholder="Example: jackson11@email.com"></input>
 
@@ -347,8 +353,8 @@ class AddReview extends React.Component {
                 minLength="50" maxLength="1000"
                 placeholder="Why did you like the product or not?"></textarea>
                 <button type="submit">Submit</button>
+                </div>
               </form>
-              <button class='write-close-button' onClick={this.handleClose}>Close</button>
             </div> : null
         }
       </div>
