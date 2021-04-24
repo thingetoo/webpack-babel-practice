@@ -6,14 +6,18 @@ class AddQuestion extends React.Component {
     super(props)
     this.state = {
       question: '',
+      questionError: '',
       nickname: '',
-      email: ''
+      nicknameError: '',
+      email: '',
+      emailError: ''
     }
 
     this.handleQuestion = this.handleQuestion.bind(this);
     this.handleName = this.handleName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validate = this.validate.bind(this);
   }
 
   handleQuestion (event) {
@@ -34,26 +38,53 @@ class AddQuestion extends React.Component {
     })
   }
 
+  validate () {
+    let message = 'You must enter the following';
+    if (this.state.question.length < 1) {
+      this.setState({
+        questionError: message
+      })
+      return false;
+    }
+    if (this.state.nickname.length < 1) {
+      this.setState({
+        nicknameError: message
+      })
+      return false;
+    }
+    if (!this.state.email.includes('@') || !this.state.email) {
+      this.setState({
+        emailError: message
+      })
+      return false;
+    }
+
+    return true
+  }
+
   handleSubmit (e) {
-    axios.post('/qa/questions', {
-      body: this.state.question,
-      name: this.state.nickname,
-      email: this.state.email,
-      product_id: this.props.id
-    })
-      .then(success => {
-        console.log('Successfully sent post request')
-        this.setState({
-          question: '',
-          nickname: '',
-          email: ''
+    e.preventDefault();
+
+    var isValid = this.validate();
+    if (isValid) {
+      axios.post('/qa/questions', {
+        body: this.state.question,
+        name: this.state.nickname,
+        email: this.state.email,
+        product_id: this.props.id
+      })
+        .then(success => {
+          console.log('Successfully sent post request')
+          this.setState({
+            question: '',
+            nickname: '',
+            email: ''
+          })
         })
-      })
-      .catch((err) => {
-        console.log('Failed to send post request' + err)
-      })
-      e.preventDefault();
-      //check length here
+        .catch((err) => {
+          console.log('Failed to send post request' + err)
+        })
+    }
   }
 
   render () {
@@ -64,15 +95,18 @@ class AddQuestion extends React.Component {
         <div className='form-title'>Ask Your Question</div>
         <div className='mini-title'>About the {this.props.name}</div>
         <label htmlFor='question' >Your Question*
-        <textarea className='textbox' type='text' value={this.state.question} id='question' placeholder='What is your question?' maxLength="1000" onChange={this.handleQuestion} required></textarea>
+        <div className='error'>{this.state.questionError}</div>
+        <textarea className='textbox' type='text' value={this.state.question} id='question' placeholder='What is your question?' maxLength="1000" onChange={this.handleQuestion}></textarea>
         </label>
         <br></br>
         <label>Nickname*
-        <input value={this.state.nickname} placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName} required></input>
+        <div className='error'>{this.state.nicknameError}</div>
+        <input value={this.state.nickname} placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName}></input>
         <span>“For privacy reasons, do not use your full name or email address”</span>
         </label>
         <label>Email*
-        <input type='email' value={this.state.email} maxLength="60"  onChange={this.handleEmail} required></input>
+        <div className='error'>{this.state.emailError}</div>
+        <input type='email' value={this.state.email} maxLength="60"  onChange={this.handleEmail}></input>
         <span>“For authentication reasons, you will not be emailed”</span>
         </label>
 
