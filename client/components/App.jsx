@@ -18,12 +18,15 @@ class App extends React.Component {
     this.state = {
       currentProduct: [],
       comparisonToggle: false,
+      reviewCount: 0,
+      averageScore: 0,
       cart: [],
       numItemsInCart: 0,
       theme_status: 'dark'
     }
     this.productStateChange = this.productStateChange.bind(this);
     this.comparisonToggle = this.comparisonToggle.bind(this);
+    this.getScore = this.getScore.bind(this);
     this.fetchCart = this.fetchCart.bind(this);
     this.switchTheme = this.switchTheme.bind(this);
   }
@@ -56,6 +59,13 @@ class App extends React.Component {
       theme_status: theme
     })
   }
+  getScore(count, score) {
+    this.setState({
+      reviewCount: count,
+      averageScore: score
+    })
+  }
+
 
   productStateChange(data) {
     this.setState({
@@ -93,6 +103,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.averageScore)
     var comparison = this.state.comparisonToggle ? this.state.comparisonToggle : <div></div>;
 
     var lightDarkBtn = this.state.theme_status === 'light' ? <button className='theme_control' onClick={this.switchTheme}>Light Mode</button> : <button className='theme_control' onClick={this.switchTheme}>Dark Mode</button>;
@@ -107,14 +118,14 @@ class App extends React.Component {
         </section>
         <div className="product-page-viewer">
           <section aria-label="overview">
-            <Overview getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
+            <Overview productScore={this.state.averageScore} numReviews={this.state.reviewCount} getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
           </section>
           <section aria-label="related-products" id="lists">
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
-            <QA productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
-            <Review item={this.state.currentProduct.id} />
+            <QA id='qa' productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
+            <Review id='review' item={this.state.currentProduct.id} getScore={this.getScore} />
           </section>
         </div>
 
