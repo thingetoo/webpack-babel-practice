@@ -5,6 +5,8 @@ import requests from '../../axios-prefilter';
 import ReviewsList from './ReviewsList.jsx';
 import ReviewAdd from './ReviewAdd.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
+import css from './Review.css';
+
 
 class Review extends React.Component {
   constructor(props) {
@@ -33,11 +35,12 @@ class Review extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Ratings {'&'} Review</h2>
-        <ReviewSummary data={this.props.item}/>
-        <ReviewsList data={this.state.reviews}/>
-        <ReviewAdd data={this.props.item}/>
+      <div className='review'>
+        <ReviewSummary data={this.props.item} getScore={this.props.getScore}/>
+        <div id='review-line-two'>
+          <ReviewsList data={this.state.reviews}/>
+          <ReviewAdd data={this.props.item}/>
+        </div>
       </div>
     )
   }
