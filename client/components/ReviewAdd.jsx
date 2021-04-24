@@ -148,15 +148,15 @@ class AddReview extends React.Component {
       5: 'Great'
     };
     return (
-      <div class='write-review'>
-        <button class='write-button' onClick={this.handleShow}>
+      <div className='write-review'>
+        <button className='write-button' onClick={this.handleShow}>
           Write Review
         </button>
         {
           this.state.show?
-            <div class='review-form-whole'>
+            <div className='review-form-whole'>
               <h2>Write Your Review</h2>
-              <form class='write-form'>
+              <form className='write-form'>
                 <Rating name="Rating" totalStars={5} starHoverColor="black" value={this.state.rating}
                 starRatedColor="black" changeRating={(rating) => this.handleRating(rating)}/>
                 <div>
@@ -348,7 +348,7 @@ class AddReview extends React.Component {
                 placeholder="Why did you like the product or not?"></textarea>
                 <button type="submit">Submit</button>
               </form>
-              <button class='write-close-button' onClick={this.handleClose}>Close</button>
+              <button className='write-close-button' onClick={this.handleClose}>Close</button>
             </div> : null
         }
       </div>
