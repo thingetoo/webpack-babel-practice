@@ -5,9 +5,13 @@ const axios = require('axios');
 const requests = require('../axios-prefilter.js');
 const bodyParser = require('body-parser');
 const helperfunction = require('./helperfunction.js');
+const multer = require('multer');
+var cors = require('cors');
+
 
 const port = 3000;
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..')));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -145,6 +149,7 @@ app.post('/qa/questions', (req, res) => {
 })
 
 app.post('/qa/questions/:question_id/answers', (req, res)=> {
+  console.log(req.body)
   axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
     .then(success => {
       console.log('successful sent answer')

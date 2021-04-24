@@ -19,6 +19,7 @@
   left: 0;
   right: 0;
   background-color : rgba(0, 0, 0, 0.8);
+
 }
 
 .innerForm {
@@ -36,7 +37,6 @@
 .innerForm label {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   margin-bottom: 1em;
 }
 
@@ -49,10 +49,16 @@
  height: 90px;
 }
 
+.answer-textbox {
+  width: 250px;
+ height: 90px;
+}
+
 .innerForm span {
   font-size: x-small;
   color: red;
 }
+
 .innerForma {
   width: 500px;
   height: auto;
@@ -63,6 +69,11 @@
   flex-direction: column;
   justify-content:space-around;
   align-items:flex-start;
+}
+
+.innerForma label {
+  display: flex;
+  flex-direction: column;
 }
 
 .form-img {
