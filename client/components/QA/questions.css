@@ -56,7 +56,7 @@
 
 .innerForm span {
   font-size: x-small;
-  color: red;
+  color:blue;
 }
 
 .innerForma {
@@ -104,9 +104,11 @@
   transform: rotate(45deg);
   cursor: pointer;
 }
-
+.error{
+  font-size: small;
+  color: red;
+}
 .QA-ctn {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -129,7 +131,7 @@
 }
 
 .list-ctn {
-  height: 290px;
+  height: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -163,7 +165,7 @@
 }
 
 .answer-ctn{
-  height: 90px;
+  height: 100px;
   overflow: scroll;
 }
 

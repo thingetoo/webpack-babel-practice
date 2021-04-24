@@ -6,8 +6,11 @@ class AddAnswer extends React.Component {
     super(props)
     this.state = {
       answer: '',
+      answerError: '',
       nickname: '',
+      nicknameError: '',
       email: '',
+      emailError: '',
       photos: [],
       url: [],
       max: false,
@@ -95,29 +98,32 @@ class AddAnswer extends React.Component {
   }
 
   handleSubmit () {
-    axios.post(`/qa/questions/${this.props.questionId}/answers`, {
-      body: this.state.answer,
-      name: this.state.nickname,
-      email: this.state.email,
-      photos: this.state.url
-    })
-    .then(()=>{
-      this.setState({
-        submit: 'Answer Submitted!',
-        answer: '',
-        nickname: '',
-        email: '',
-        max: true
+    var isValid = this.validate();
+
+    if (isValid){
+      axios.post(`/qa/questions/${this.props.questionId}/answers`, {
+        body: this.state.answer,
+        name: this.state.nickname,
+        email: this.state.email,
+        photos: this.state.url
       })
-    })
-    .catch(()=> {
-      console.log('Failed')
-    })
+      .then(()=>{
+        this.setState({
+          submit: 'Answer Submitted!',
+          answer: '',
+          nickname: '',
+          email: '',
+          max: true
+        })
+      })
+      .catch(()=> {
+        console.log('Failed')
+      })
+    }
     event.preventDefault();
   }
 
   render() {
-    console.log(this.state.photos)
     return (
       <form className='answerform' onSubmit={(e) => this.handleSubmit(e)}>
         <div className='innerForma'>
@@ -125,12 +131,15 @@ class AddAnswer extends React.Component {
         <div className='form-title'>{this.state.submit}</div>
         <div className='mini-title'>{this.props.name} : {this.props.question}</div>
         <label>Answer:
-        <textarea type='text' value={this.state.answer} onChange={this.handleAnswer}></textarea>
+          <div className='error'>{this.state.answerError}</div>
+        <textarea type='text' value={this.state.answer} onChange={this.handleAnswer} placeholder='add answer here...'></textarea>
         </label>
         <label>nickname:
+          <div className='error'>{this.state.nicknameError}</div>
         <input type='text' value={this.state.nickname} onChange={this.handleNickName}></input>
         </label>
         <label>Email:
+          <div className='error'>{this.state.emailError}</div>
         <input type='email' value={this.state.email} onChange={this.handleEmail}></input>
         </label>
         <label>Add image:

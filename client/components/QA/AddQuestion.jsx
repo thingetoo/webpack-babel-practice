@@ -95,17 +95,17 @@ class AddQuestion extends React.Component {
         <div className='form-title'>Ask Your Question</div>
         <div className='mini-title'>About the {this.props.name}</div>
         <label htmlFor='question' >Your Question*
-        {this.state.questionError}
+        <div className='error'>{this.state.questionError}</div>
         <textarea className='textbox' type='text' value={this.state.question} id='question' placeholder='What is your question?' maxLength="1000" onChange={this.handleQuestion}></textarea>
         </label>
         <br></br>
         <label>Nickname*
-          {this.state.nicknameError}
+        <div className='error'>{this.state.nicknameError}</div>
         <input value={this.state.nickname} placeholder='Example: jackson11!' maxLength="60"  onChange={this.handleName}></input>
         <span>“For privacy reasons, do not use your full name or email address”</span>
         </label>
         <label>Email*
-          {this.state.emailError}
+        <div className='error'>{this.state.emailError}</div>
         <input type='email' value={this.state.email} maxLength="60"  onChange={this.handleEmail}></input>
         <span>“For authentication reasons, you will not be emailed”</span>
         </label>

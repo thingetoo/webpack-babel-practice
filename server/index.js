@@ -136,7 +136,7 @@ app.get('/products/:product_id/related', (req, res) => {
 })
 
 app.post('/qa/questions', (req, res) => {
-  console.log(req.body);
+  //post question form
    axios.post(`${requests.questions}`, req.body)
     .then(success => {
       console.log('sucessfully sent post')
@@ -149,7 +149,7 @@ app.post('/qa/questions', (req, res) => {
 })
 
 app.post('/qa/questions/:question_id/answers', (req, res)=> {
-  console.log(req.body)
+  //post answer form
   axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
     .then(success => {
       console.log('successful sent answer')
