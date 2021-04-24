@@ -10,6 +10,7 @@ import Navbar from './Navbar/Navbar.jsx'
 // eslint-disable-next-line no-unused-vars
 
 import Comparison_Model from './RelatedProdList/Comparison_Model.jsx';
+// eslint-disable-next-line no-unused-vars
 import css from './App_Style.css';
 
 class App extends React.Component {
@@ -73,6 +74,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.averageScore)
     var comparison = this.state.comparisonToggle ? this.state.comparisonToggle : <div></div>;
     return (
       <main>
@@ -82,14 +84,14 @@ class App extends React.Component {
           </section>
         <div className="product-page-viewer">
           <section aria-label="overview">
-            <Overview getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
+            <Overview productScore={this.state.averageScore} numReviews={this.state.reviewCount} getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
           </section>
           <section aria-label="related-products" id="lists">
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
           </section>
           <section aria-label="questions and ratings">
             <QA id='qa' productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
-            <Review item={this.state.currentProduct.id} getScore={this.getScore}/>
+            <Review id='review' item={this.state.currentProduct.id} getScore={this.getScore}/>
           </section>
         </div>
       </main>
