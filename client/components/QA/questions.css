@@ -95,11 +95,11 @@
 }
 
 .QA-ctn {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 250px;
+  /* padding: 0px 250px; */
 }
 
 .main-heading{
