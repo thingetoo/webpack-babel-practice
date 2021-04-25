@@ -131,7 +131,7 @@ class ProductInfo extends React.Component {
           </a>
           {/* Product information */}
         </div>
-        <h5>Read all <a href='#review-container'>{numReviews || 0}</a> reviews</h5>
+        <h5>Read all <a style={{color: 'grey'}} href='#review-container'>{numReviews || 0}</a> reviews</h5>
         <Rating rating={this.props.averageScore} numberOfStars={5}
         starSpacing="3px" starDimension="15px" starRatedColor='black'/>
         <h5>{category}</h5>
