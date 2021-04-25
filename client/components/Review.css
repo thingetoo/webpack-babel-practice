@@ -87,6 +87,8 @@
 .buttons {
   display: flex;
   padding: 8px;
+  padding-right: 1em;
+  margin-left: 1em;
 }
 
 .average-score {
@@ -102,4 +104,8 @@
 #reviews {
   display: flex;
   flex-direction: column;
+}
+
+.review-list {
+  padding: 4px;
 }
