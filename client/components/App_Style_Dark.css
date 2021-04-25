@@ -31,6 +31,10 @@ body a {
   font-family: 'Rubik', sans-serif;
 }
 
+.hvr-glow:hover, .hvr-glow:focus, .hvr-glow:active {
+  box-shadow: 0 0 8px rgb(255 255 255 / 60%);
+}
+
 btn {
   color: #ed8d8d;
 }
