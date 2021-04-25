@@ -112,7 +112,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 250px;
+  /* padding: 0px 250px; */
 }
 
 .main-heading{
@@ -142,7 +142,7 @@
   font-family: monospace;
   font-size: large;
   font-weight: 550;
-  color: #484848;
+  /* color: #484848; */
 }
 
 .container {
@@ -167,9 +167,6 @@
 .answer-ctn{
   height: 100px;
   overflow: scroll;
-}
-
-.ans {
 }
 
 .test {

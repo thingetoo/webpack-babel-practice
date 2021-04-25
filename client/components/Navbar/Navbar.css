@@ -6,7 +6,6 @@
 .navbar-container {
   height: 10vh;
   margin: 0;
-  background-color: #f2ebe9;
   z-index: 100;
   display: flex;
   flex-direction: row;
