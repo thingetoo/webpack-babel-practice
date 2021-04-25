@@ -89,7 +89,7 @@ class QA extends React.Component {
     {this.state.data.length > 2 && this.state.more ? <button className='button1' onClick={this.handleMoreQuestions}>MORE ANSWERED QUESTIONS</button> : null}
     <button className='button2' onClick={() => this.handleClicked(true)}>ADD A QUESTION</button>
     </div>
-    {this.state.clicked ? <AddQuestion name={this.props.name} id={this.props.productId} close={this.handleClicked}/> : null}
+    {this.state.clicked ? <AddQuestion name={this.props.name} id={this.props.productId} close={this.handleClicked} update={this.handleUpdate}/> : null}
   </div>
    )
   }

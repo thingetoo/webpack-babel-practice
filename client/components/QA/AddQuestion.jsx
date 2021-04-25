@@ -73,13 +73,14 @@ class AddQuestion extends React.Component {
         email: this.state.email,
         product_id: this.props.id
       })
-        .then(success => {
+        .then(data => {
           console.log('Successfully sent post request')
           this.setState({
             question: '',
             nickname: '',
             email: ''
           })
+          this.props.update(data.data)
         })
         .catch((err) => {
           console.log('Failed to send post request' + err)

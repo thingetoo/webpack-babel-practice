@@ -153,8 +153,19 @@ app.post('/qa/questions', (req, res) => {
   //post question form
   axios.post(`${requests.questions}`, req.body)
     .then(success => {
-      console.log('sucessfully sent post')
-      res.end();
+      // console.log('sucessfully sent post')
+      // res.end();
+      axios.get(`${requests.questions}?product_id=${req.body.product_id}&count=100`)
+        .then((response) => {
+          var sorted = response.data.results.sort(function (a, b) {
+            return b.question_helpfulness - a.question_helpfulness
+          })
+          res.json(sorted)
+        })
+        .catch((err) => {
+          console.log('Error with Questions get request' + err)
+          res.end()
+        })
     })
     .catch(err => {
       console.log('error with post request' + err)
