@@ -39,7 +39,6 @@ class Review extends React.Component {
         <ReviewSummary data={this.props.item} getScore={this.props.getScore}/>
         <div id='review-line-two'>
           <ReviewsList data={this.state.reviews}/>
-          <ReviewAdd data={this.props.item}/>
         </div>
       </div>
     )

@@ -99,12 +99,15 @@ class ReviewTiles extends React.Component {
             </div>
           );
         })}
+        <div class='buttons'>
         {
           !allShown?
             <button className='buttons' onClick={this.handleClick}>
             Show More
             </button> : null
         }
+        <ReviewAdd data={this.props.data[1].product}/>
+      </div>
       </div>
     )
   }
