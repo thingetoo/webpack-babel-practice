@@ -24,7 +24,7 @@
 
 .innerForm {
   width: 500px;
-  height: auto;
+  height: 400px;
   padding: 1em;
   background-color: white;
   border-radius: 5px;
@@ -40,8 +40,29 @@
   margin-bottom: 1em;
 }
 
+.innerForm-submitted {
+  width: 450px;
+  height: 300px;
+  padding: 1em;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content:space-around; */
+  align-items: center;
+}
+.form-img-submitted {
+  width:200px;
+  height: 200px;
+}
+
 .submit {
   align-self: center;
+    margin: 1em;
+    border-radius: inherit;
+    width: 60px;
+    height: 30px;
+    background-color: palevioletred;
 }
 
 .textbox {
@@ -187,6 +208,11 @@
   font-size: small;
   margin-bottom: 1em;
   color: #696969;
+}
+
+.no-ans {
+  color: grey;
+  margin: 1em;
 }
 
 .load-ans {

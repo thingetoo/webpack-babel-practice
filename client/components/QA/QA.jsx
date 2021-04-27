@@ -26,6 +26,7 @@ class QA extends React.Component {
     this.handleMoreQuestions = this.handleMoreQuestions.bind(this);
     this.handleClicked = this.handleClicked.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.resetData = this.resetData.bind(this);
   }
 
   handleQuestions () {
@@ -75,6 +76,11 @@ class QA extends React.Component {
     })
   }
 
+  resetData () {
+    this.setState({
+      data: this.state.useData
+    })
+  }
 
 
   render() {
@@ -82,7 +88,7 @@ class QA extends React.Component {
     <div className='QA-ctn'>
     <span className='main-heading'>QUESTIONS &#38; ANSWERS</span>
     <br></br>
-    <QuestionBar questions={this.state.useData} update={this.handleUpdate}/>
+    <QuestionBar questions={this.state.useData} update={this.handleUpdate} reset={this.resetData}/>
     <br></br>
     {this.state.data.length > 0 ? <QuestionList name={this.props.name} productId={this.props.productId} questions={this.state.data.slice(0,this.state.amount)} update={this.handleUpdate}/> : null}
     <div className='button'>

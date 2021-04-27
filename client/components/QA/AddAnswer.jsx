@@ -105,9 +105,11 @@ class AddAnswer extends React.Component {
         body: this.state.answer,
         name: this.state.nickname,
         email: this.state.email,
-        photos: this.state.url
+        photos: this.state.url,
+        questionId: this.props.questionId
+
       })
-      .then(()=>{
+      .then((data)=>{
         this.setState({
           submit: 'Answer Submitted!',
           answer: '',
@@ -115,6 +117,7 @@ class AddAnswer extends React.Component {
           email: '',
           max: true
         })
+        this.props.update(data.data)
       })
       .catch(()=> {
         console.log('Failed')
@@ -130,19 +133,19 @@ class AddAnswer extends React.Component {
         <div className='close' onClick={() => this.props.close(false)}>+</div>
         <div className='form-title'>{this.state.submit}</div>
         <div className='mini-title'>{this.props.name} : {this.props.question}</div>
-        <label>Answer:
+        <label>Answer*
           <div className='error'>{this.state.answerError}</div>
         <textarea type='text' value={this.state.answer} onChange={this.handleAnswer} placeholder='add answer here...'></textarea>
         </label>
-        <label>nickname:
+        <label>nickname*
           <div className='error'>{this.state.nicknameError}</div>
         <input type='text' value={this.state.nickname} onChange={this.handleNickName}></input>
         </label>
-        <label>Email:
+        <label>Email*
           <div className='error'>{this.state.emailError}</div>
         <input type='email' value={this.state.email} onChange={this.handleEmail}></input>
         </label>
-        <label>Add image:
+        <label>Add image*
         {this.state.max ? null : <input type='file' multiple onChange={this.handlePhotos}></input>}
         </label>
         <div id='thumbnail'>
