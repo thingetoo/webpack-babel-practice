@@ -37,9 +37,6 @@ class App extends React.Component {
 
     const CHOSEN_THEME = this.state.theme_status;
     const Theme = CHOSEN_THEME === 'light' ? <LightTheme /> : <DarkTheme />;
-
-    console.log('THEME: ', CHOSEN_THEME);
-
     const ThemeSelector = () => {
       return (
         <>
@@ -72,12 +69,16 @@ class App extends React.Component {
       currentProduct: data[0]
     })
     this.fetchCart()
+
   }
 
   componentDidMount() {
     axios.get('/products')
       .then((response) => {
         this.productStateChange(response.data)
+      })
+      .catch((err) => {
+        console.log(err);
       });
     this.fetchCart()
   }
@@ -85,16 +86,17 @@ class App extends React.Component {
   fetchCart() {
     axios.get('/cart')
       .then((response) => {
-        // console.log(response.data)
         this.setState({
           cart: response.data,
           numItemsInCart: response.data.length
         })
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   comparisonToggle(relatedProduct) {
-    // console.log(this.state.currentProduct);
     var status = !this.state.comparisonToggle ? <Comparison_Model toggleComparison={this.comparisonToggle} displayedProduct={this.state.currentProduct} relatedProduct={relatedProduct} /> : false;
 
     this.setState({
@@ -103,7 +105,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.averageScore)
     var comparison = this.state.comparisonToggle ? this.state.comparisonToggle : <div></div>;
 
     var lightDarkBtn = this.state.theme_status === 'light' ? <button className='theme_control' onClick={this.switchTheme}>Light Mode</button> : <button className='theme_control' onClick={this.switchTheme}>Dark Mode</button>;
