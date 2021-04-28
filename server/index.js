@@ -113,7 +113,6 @@ app.post('reviews/:product_Id', (req, res) => {
     })
 })
 
-// console.log(req.params);
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
   //helpful-question
@@ -161,8 +160,17 @@ app.post('/qa/questions', (req, res) => {
   //post question form
   axios.post(`${requests.questions}`, req.body)
     .then(success => {
-      console.log('sucessfully sent post')
-      res.end();
+      axios.get(`${requests.questions}?product_id=${req.body.product_id}&count=100`)
+        .then((response) => {
+          var sorted = response.data.results.sort(function (a, b) {
+            return b.question_helpfulness - a.question_helpfulness
+          })
+          res.json(sorted)
+        })
+        .catch((err) => {
+          console.log('Error with Questions get request')
+          res.end()
+        })
     })
     .catch(err => {
       res.status(err.response.status);
@@ -172,10 +180,22 @@ app.post('/qa/questions', (req, res) => {
 
 app.post('/qa/questions/:question_id/answers', (req, res) => {
   //post answer form
-  axios.post(`${requests.questions}/${req.params.question_id}/answers`, req.body)
+  var obj = {
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+    photos: req.body.photos
+  }
+  axios.post(`${requests.questions}/${req.params.question_id}/answers`, obj)
     .then(success => {
-      console.log('successful sent answer')
-      res.end();
+      axios.get(`${requests.questions}/${req.body.questionId}/answers`)
+        .then((response) => {
+          res.json(helperfunction.sortAnswer(response.data.results));
+        })
+        .catch((err) => {
+          console.log('Error with Answers get request')
+          res.end();
+        })
     })
     .catch(err => {
       res.status(err.response.status);
@@ -186,7 +206,7 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
 app.put('/qa/answers/:answer_id/helpful', (req, res) => {
   //helpful-answers
   axios.put(`${requests.answers}/${req.params.answer_id}/helpful`)
-    .then(() => {
+    .then((data) => {
       axios.get(`${requests.questions}/${req.body.question_id}/answers`)
         .then((response) => {
           res.json(response.data)
@@ -203,7 +223,7 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
 })
 
 app.put('/qa/questions/:question_id/report', (req, res) => {
-  axois.put(`${requests.questions}/${req.params.question_id}/report`)
+  axios.put(`${requests.questions}/${req.params.question_id}/report`)
     .then(success => {
       console.log('successfully reported question')
       res.end();
@@ -264,8 +284,6 @@ app.post('/cart', (req, res) => {
 })
 
 app.post('/products/:product/outfits', (req, res) => {
-
-  // console.log(req.params);
   var outfitNum = parseInt(req.params.product);
   var arr = [];
   if (!tempOutfitList.includes(outfitNum)) {
