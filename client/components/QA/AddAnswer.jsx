@@ -14,7 +14,8 @@ class AddAnswer extends React.Component {
       photos: [],
       url: [],
       max: false,
-      submit: 'Submit your Answer'
+      submit: 'Submit your Answer',
+      submitted: false
     }
     this.handleAnswer = this.handleAnswer.bind(this);
     this.handleNickName = this.handleNickName.bind(this);
@@ -83,7 +84,6 @@ class AddAnswer extends React.Component {
       var photo = document.createElement("img");
       photo.src = URL.createObjectURL(files[i]);
       var photoArr = this.state.photos
-      console.log(photoArr)
       photoArr.push(files[i])
       var urlpic = this.state.url;
       urlpic.push(photo.src)
@@ -115,7 +115,8 @@ class AddAnswer extends React.Component {
           answer: '',
           nickname: '',
           email: '',
-          max: true
+          max: true,
+          submitted: true
         })
         this.props.update(data.data)
       })
@@ -129,7 +130,12 @@ class AddAnswer extends React.Component {
   render() {
     return (
       <form className='answerform' onSubmit={(e) => this.handleSubmit(e)}>
-        <div className='innerForma'>
+        {this.state.submitted ? <div className='innerForm-submitted'>
+          <div className='close' onClick={() => this.props.close(false)}>+</div>
+          <div className='form-title'>Your Answer has been submitted !</div>
+          <div className='mini-title'>Thanks for visiting!</div>
+          <img className='form-img-submitted' src='./../../../assets/Catwalk.svg'></img>
+          </div> :  <div className='innerForma'>
         <div className='close' onClick={() => this.props.close(false)}>+</div>
         <div className='form-title'>{this.state.submit}</div>
         <div className='mini-title'>{this.props.name} : {this.props.question}</div>
@@ -146,12 +152,13 @@ class AddAnswer extends React.Component {
         <input type='email' value={this.state.email} onChange={this.handleEmail}></input>
         </label>
         <label>Add image*
-        {this.state.max ? null : <input type='file' multiple onChange={this.handlePhotos}></input>}
+        {this.state.max ? null : <input className='file-btn' type='file' multiple onChange={this.handlePhotos}></input>}
         </label>
         <div id='thumbnail'>
         </div>
-        <input type='submit'></input>
-        </div>
+        <input className='submit' type='submit'></input>
+        </div>}
+
       </form>
     )
   }

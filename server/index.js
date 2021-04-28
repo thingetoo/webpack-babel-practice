@@ -57,11 +57,10 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
   //answers
   axios.get(`${requests.questions}/${req.params.question_id}/answers`)
     .then((response) => {
-      console.log('Got answers successfully')
       res.json(helperfunction.sortAnswer(response.data.results));
     })
     .catch((err) => {
-      console.log('Error with Answers get request' + err)
+      console.log('Error with Answers get request')
       res.end();
     })
 })
@@ -120,7 +119,7 @@ app.put('/qa/questions/:question_id/helpful', (req, res) => {
           res.json(sorted)
         })
         .catch((err) => {
-          console.log('Error with Questions get request' + err)
+          console.log('Error with Questions get request')
           res.end()
         })
     })
@@ -161,12 +160,12 @@ app.post('/qa/questions', (req, res) => {
           res.json(sorted)
         })
         .catch((err) => {
-          console.log('Error with Questions get request' + err)
+          console.log('Error with Questions get request')
           res.end()
         })
     })
     .catch(err => {
-      console.log('error with post request' + err)
+      console.log('error with post request')
       res.end()
     })
 })
@@ -183,16 +182,15 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
     .then(success => {
       axios.get(`${requests.questions}/${req.body.questionId}/answers`)
         .then((response) => {
-          console.log(response)
       res.json(helperfunction.sortAnswer(response.data.results));
         })
         .catch((err) => {
-      console.log('Error with Answers get request' + err)
+      console.log('Error with Answers get request')
       res.end();
         })
     })
     .catch(err => {
-      console.log('error sending answer' + err)
+      console.log('error sending answer')
       res.end();
     })
 })
@@ -206,7 +204,7 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
           res.json(response.data)
         })
         .catch((err) => {
-          console.log('Error with Answers get request' + err)
+          console.log('Error with Answers get request')
           res.end();
         })
     })

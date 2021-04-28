@@ -23,10 +23,8 @@ class QuestionEntry extends React.Component {
   }
 
   getAnswers() {
-    console.log('answer get request ' + this.props.question.question_id)
     axios.get(`/qa/answers/${this.props.question.question_id}/answers`)
     .then(response => {
-      // console.log(response)
       this.setState ({
         answers: response.data
       })
@@ -62,7 +60,7 @@ class QuestionEntry extends React.Component {
       })
     }
   }
-// make it work when page reloads
+
 
 handleClickForm (boolean) {
   this.setState({
@@ -105,7 +103,6 @@ updateAns (ans) {
       {this.state.clickedForm ? <AddAnswer question={this.props.question.question_body} questionId={this.props.question.question_id} name={this.props.name} close={this.handleClickForm} update={this.updateAns}/> : null}
       <div className='ans-section'>
       <div className='A'>A:</div>
-      {/* <Answers questionId={this.props.question.question_id}/> */}
       <div className='test'>
         {!this.state.answers.length ? <div className='no-ans'>No Answer for this Question. Try submitting an Answer!</div> : <Answer answer={this.state.answers.slice(0,this.state.i)} questionId={this.props.question.question_id} updateAns={this.updateAns}/>}
 

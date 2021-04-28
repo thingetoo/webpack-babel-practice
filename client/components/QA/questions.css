@@ -211,8 +211,10 @@
 }
 
 .no-ans {
+  height: 100px;
+  overflow: scroll;
   color: grey;
-  margin: 1em;
+  margin-left: 1em;
 }
 
 .load-ans {
@@ -266,6 +268,18 @@
   text-decoration: underline;
 }
 
-.seller {
+#seller {
+  margin-left: 0.4em;
   font-weight: 800;
+  color: black;
+}
+
+#normal {
+margin-left: 0.4em;
+}
+
+.ans-sec {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
