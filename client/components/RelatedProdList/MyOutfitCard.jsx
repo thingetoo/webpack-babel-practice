@@ -12,6 +12,9 @@ const MyOutfitCard = (props) => {
       .then((response) => {
         handleOutfit(response.data);
       })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [])
 
   var handleOutfit = (data) => {

@@ -9,7 +9,7 @@ var Comparison_Model = (props) => {
   const [displayInfo, changeDisplay] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/products/:${props.displayedProduct.id}/info`)
+    axios.get(`/products/:${props.displayedProduct.id}/info`)
       .then((response) => {
         fetchproduct(response.data);
       })

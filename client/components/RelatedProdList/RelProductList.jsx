@@ -52,6 +52,9 @@ class RelProductList extends React.Component {
           rel_products: response.data
         })
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleOutfitProductUpdates(list) {
@@ -66,6 +69,21 @@ class RelProductList extends React.Component {
       .then((response) => {
         this.handleOutfitProductUpdates(response.data);
       })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleDuplication(array) {
+    var duplications = {};
+    return array.filter((item, i) => {
+      if (!duplications[item.id]) {
+        duplications[item.id] = 1;
+        return true;
+      } else {
+        return false;
+      }
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -74,6 +92,8 @@ class RelProductList extends React.Component {
       axios.get(`/products/outfits`)
         .then((response) => {
           this.handleOutfitProductUpdates(response.data);
+        }).catch((err) => {
+          console.log(err);
         })
     }
   }
@@ -94,8 +114,8 @@ class RelProductList extends React.Component {
           <div className='list related-list'>
             <div className='list-content'>
               {
-                this.state.rel_products.map((product, i) => {
-                  return <RelProductCard key={i} product={product} toggleComparison={this.props.toggleComparison} changePage={this.props.changePage} />;
+                this.handleDuplication(this.state.rel_products).map((product, i) => {
+                  return <RelProductCard key={product.name} product={product} toggleComparison={this.props.toggleComparison} changePage={this.props.changePage} />;
                 })
               }
             </div>
@@ -118,6 +138,9 @@ class RelProductList extends React.Component {
                     .then((response) => {
                       this.handleOutfitProductUpdates(response.data);
                     })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                 }}>
                   <img src="https://img.icons8.com/carbon-copy/100/000000/plus-2-math.png" className='outfit-add-img' alt='add to outfit' />
                   <h4 className='outfit-add-desc'>Add To Outfits</h4>

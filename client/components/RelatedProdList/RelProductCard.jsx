@@ -23,6 +23,7 @@ class RelProductCard extends React.Component {
           currentStyle: response.data.results[0],
           thumbnailImg: response.data.results[0].photos[0].url
         })
+        return;
       })
       .catch((err) => {
         console.log(err);
@@ -30,9 +31,7 @@ class RelProductCard extends React.Component {
 
     axios.get(`/reviews/${id}`)
       .then((response) => {
-        // var total = 0;
         var avg = 0;
-        console.log(response.data.results);
         if (response.data.results.length === 0) {
           return 0;
         } else {
@@ -49,11 +48,13 @@ class RelProductCard extends React.Component {
           styleAvg: result
         })
       })
-      .catch((err) => console.log(err));
+      .catch((err) => { console.log(err) });
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+
+    // console.log(prevProps.product.id);
+    if (prevProps.product.id !== this.props.product.id) {
       this.handleUpdate(this.props.product.id);
     }
   }
@@ -107,6 +108,7 @@ class RelProductCard extends React.Component {
         <div className='related-card-info'>
           <h4 className='related-card-info-category'>{category}</h4>
           <h3 className='related-card-info-name' onClick={(e) => {
+            window.scrollTo(0, 0);
             this.props.changePage([this.props.product]);
           }}>{name}</h3>
           {price}

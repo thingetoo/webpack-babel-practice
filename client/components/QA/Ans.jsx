@@ -14,19 +14,22 @@ class Ans extends React.Component {
     this.handleAnswerReport = this.handleAnswerReport.bind(this);
   }
 
-  handleAnswerHelpful (answerid) {
+  handleAnswerHelpful(answerid) {
     if (this.state.clickedHelpful === false) {
-      axios.put(`/qa/answers/${answerid}/helpful`, {question_id: this.props.questionId})
-        .then ((data) => {
+      axios.put(`/qa/answers/${answerid}/helpful`, { question_id: this.props.questionId })
+        .then((data) => {
           this.props.updateAns(data.data.results);
           this.setState({
             clickedHelpful: true
           })
         })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
-  handleAnswerReport (answerid) {
+  handleAnswerReport(answerid) {
     if (this.state.report === 'Report') {
       axios.put(`/qa/answers/${answerid}/report`)
         .then(success => {
@@ -34,18 +37,21 @@ class Ans extends React.Component {
             report: 'Reported'
           })
         })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
-  render () {
-    return(
+  render() {
+    return (
       <div className='ans'>
-          <div className='answer'>{this.props.ans.body}</div>
-          <div className='ans-info'>
+        <div className='answer'>{this.props.ans.body}</div>
+        <div className='ans-info'>
           {this.props.ans.answerer_name === 'seller' ? <div className='seller'>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div> : <div>by {this.props.ans.answerer_name}, {moment(this.props.ans.date, "YYYY-MM-DD").format('LL')}</div>}
           <div>Helpful? <span onClick={() => this.handleAnswerHelpful(this.props.ans.answer_id)}>Yes</span>({this.props.ans.helpfulness})</div>
           <div onClick={() => this.handleAnswerReport(this.props.ans.answer_id)}>{this.state.report}</div>
-          </div>
+        </div>
       </div>
     )
   }
