@@ -12,12 +12,12 @@ class RelProductList extends React.Component {
       rel_products: [],
       outfit_products: []
     }
+    this.handleOutfitDelete = this.handleOutfitDelete.bind(this);
   }
 
   arrowHandler(direction, list_type, left, right) {
     var view = $("." + list_type);
     var sliderLimit = parseInt($('.list-content').css('width'));
-    // var sliderLimit = -500;
     sliderLimit = sliderLimit - (sliderLimit * 2);
     var move = sliderLimit * -.15;
     move = move.toString();
@@ -47,7 +47,6 @@ class RelProductList extends React.Component {
   handleRelatedProductUpdates(id) {
     axios.get(`/products/${id}/related`)
       .then((response) => {
-        console.log(response.data);
         $('.related-list').animate({ left: '0' }, { duration: 400 });
         this.setState({
           rel_products: response.data
@@ -56,11 +55,17 @@ class RelProductList extends React.Component {
   }
 
   handleOutfitProductUpdates(list) {
-    console.log(list);
     $('.outfit-list').animate({ left: '0' }, { duration: 400 });
     this.setState({
       outfit_products: list
     })
+  }
+
+  handleOutfitDelete(id) {
+    axios.delete(`/products/${id}/outfits`)
+      .then((response) => {
+        this.handleOutfitProductUpdates(response.data);
+      })
   }
 
   componentDidUpdate(prevProps) {
@@ -83,7 +88,7 @@ class RelProductList extends React.Component {
       <>
         <div className='view'>
           <h2>Related Products</h2>
-          <img className='list-arrows related-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='list-arrows related-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" alt="left arrow" onClick={(e) => {
             this.arrowHandler('left', 'related-list', 'related-arrows__left', 'related-arrows__right');
           }} />
           <div className='list related-list'>
@@ -95,13 +100,13 @@ class RelProductList extends React.Component {
               }
             </div>
           </div>
-          <img className='list-arrows related-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='list-arrows related-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" alt="right arrow" onClick={(e) => {
             this.arrowHandler('right', 'related-list', 'related-arrows__left', 'related-arrows__right');
           }} />
         </div>
         <div className='view'>
           <h2>My Outfits</h2>
-          <img className='list-arrows outfit-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='list-arrows outfit-arrows__left hvr-backward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" alt="left arrow" onClick={(e) => {
             this.arrowHandler('left', 'outfit-list', 'outfit-arrows__left', 'outfit-arrows__right');
           }} />
           <div className='list outfit-list'>
@@ -114,18 +119,18 @@ class RelProductList extends React.Component {
                       this.handleOutfitProductUpdates(response.data);
                     })
                 }}>
-                  <img src="https://img.icons8.com/carbon-copy/100/000000/plus-2-math.png" className='outfit-add-img' />
+                  <img src="https://img.icons8.com/carbon-copy/100/000000/plus-2-math.png" className='outfit-add-img' alt='add to outfit' />
                   <h4 className='outfit-add-desc'>Add To Outfits</h4>
                 </div>
               </div>
               {
                 this.state.outfit_products.map((product, i) => {
-                  return <MyOutfitCard key={i} product={product} />;
+                  return <MyOutfitCard key={i} product={product} outfitDelete={this.handleOutfitDelete} />;
                 })
               }
             </div>
           </div>
-          <img className='list-arrows outfit-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" onClick={(e) => {
+          <img className='list-arrows outfit-arrows__right hvr-forward' src="https://img.icons8.com/pastel-glyph/64/000000/forward.png" alt="right arrow" onClick={(e) => {
             this.arrowHandler('right', 'outfit-list', 'outfit-arrows__left', 'outfit-arrows__right');
           }} />
         </div>

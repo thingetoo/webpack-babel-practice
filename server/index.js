@@ -188,7 +188,7 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
           res.end();
         })
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('error updating answer helpfulness')
       res.end();
     })
@@ -280,11 +280,31 @@ app.get('/products/outfits', (req, res) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        res.json(err);
       })
     // res.sendStatus(200);
   })
   // res.sendStatus(200);
+})
+
+app.delete('/products/:product/outfits', (req, res) => {
+  var arr = [];
+  var index = tempOutfitList.indexOf(parseInt(req.params.product));
+  tempOutfitList.splice(index, 1);
+  if (tempOutfitList.length !== 0) {
+    axios.get(`${requests.products}/${id}`)
+      .then((response) => {
+        arr.push(response.data);
+        if (arr.length === tempOutfitList.length) {
+          res.json(arr);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  } else {
+    res.json(arr);
+  }
 })
 
 app.listen(port, () => {
