@@ -172,7 +172,7 @@ app.post('/qa/questions', (req, res) => {
           res.end()
         })
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(err.response.status);
       res.send(err.response.statusText);
     })
@@ -193,8 +193,8 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
           res.json(helperfunction.sortAnswer(response.data.results));
         })
         .catch((err) => {
-          console.log('Error with Answers get request')
-          res.end();
+          res.status(err.response.status);
+          res.send(err.response.statusText);
         })
     })
     .catch(err => {

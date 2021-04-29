@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import axios from 'axios';
 
-import QA from './QA/QA.jsx'
-import Review from './Review.jsx'
-//
+const QA = React.lazy(() => {
+  return import('./QA/QA.jsx')
+})
+const Review = React.lazy(() => {
+  return import('./Review.jsx')
+})
+
+// const RelProductList = React.lazy(() => import('./RelatedProdList/RelProductList.jsx'));
 import Overview from './Overview/Overview.jsx';
 import RelProductList from './RelatedProdList/RelProductList.jsx';
 import Navbar from './Navbar/Navbar.jsx'
@@ -22,7 +27,7 @@ class App extends React.Component {
       averageScore: 0,
       cart: [],
       numItemsInCart: 0,
-      theme_status: 'dark'
+      theme_status: 'light'
     }
     this.productStateChange = this.productStateChange.bind(this);
     this.comparisonToggle = this.comparisonToggle.bind(this);
@@ -122,11 +127,18 @@ class App extends React.Component {
             <Overview productScore={this.state.averageScore} numReviews={this.state.reviewCount} getCart={this.fetchCart} id='overview' product={this.state.currentProduct} />
           </section>
           <section aria-label="related-products" id="lists">
+
+
             <RelProductList id="related-products" productId={this.state.currentProduct.id} toggleComparison={this.comparisonToggle} changePage={this.productStateChange} />
+
           </section>
           <section aria-label="questions and ratings">
-            <QA id='qa' productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
-            <Review id='review' item={this.state.currentProduct.id} getScore={this.getScore} />
+            <Suspense fallback={<div>Loading</div>}>
+              <QA id='qa' productId={this.state.currentProduct.id} name={this.state.currentProduct.name} />
+            </Suspense>
+            <Suspense fallback={<div>Loading</div>}>
+              <Review id='review' item={this.state.currentProduct.id} getScore={this.getScore} />
+            </Suspense>
           </section>
         </div>
 
