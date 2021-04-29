@@ -64,15 +64,6 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
       res.end();
     })
 })
-app.get('/reviews/:product_Id', (req, res) => {
-  axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}`)
-    .then((response) => {
-      res.json(response.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-})
 
 app.get('/reviews/meta/:product_id', (req, res) => {
   axios.get(`${requests.reviews}/meta/?product_id=${req.params.product_id}`)
@@ -85,8 +76,8 @@ app.get('/reviews/meta/:product_id', (req, res) => {
 })
 
 
-app.get('/reviews/:product_Id/:sort', (req, res) => {
-  axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}&sort=${req.params.sort}`)
+app.get('/reviews/:product_Id/:sort/:count', (req, res) => {
+  axios.get(`${requests.reviews}/?product_id=${req.params.product_Id}&sort=${req.params.sort}&count=${1000}`)
     .then((response) => {
       res.json(response.data)
     })
@@ -96,13 +87,13 @@ app.get('/reviews/:product_Id/:sort', (req, res) => {
 })
 
 
-app.post('reviews/:product_Id', (req, res) => {
-  axios.post(`${requests.reviews}/?product_id=${req.params.product_Id}`)
+app.post('/reviews', (req, res) => {
+  axios.post(`${requests.reviews}`, req.body)
     .then((response) => {
       res.json(response.data)
     })
     .catch((err) => {
-      // console.log(err)
+      console.log(err)
     })
 })
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Rating from 'react-star-ratings';
-import Modal from 'react-modal';
-
-import Review from './Review.jsx';
-import App from './App.jsx';
-import css from './Review.css';
 
 
 class AddReview extends React.Component {
@@ -21,6 +16,8 @@ class AddReview extends React.Component {
       characteristics: {},
       helpfulness: null,
       show: false,
+      allow: true,
+      clicked: false,
     }
 
     this.handleRecommend = this.handleRecommend.bind(this);
@@ -36,12 +33,14 @@ class AddReview extends React.Component {
     this.handleNickname = this.handleNickname.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       this.setState({
-        productId: prevProps.data
+        productId: this.props.data
       })
       this.fetchMeta();
     }
@@ -51,7 +50,7 @@ class AddReview extends React.Component {
     axios.get(`/reviews/meta/${this.props.data}`)
       .then((response) => {
         this.setState({
-          characteristics: response.data.characteristics
+          characteristics: response.data.characteristics,
         })
       })
   }
@@ -64,37 +63,37 @@ class AddReview extends React.Component {
 
   handleSize (value) {
     this.setState ({
-      size: value
-    })
+      Size: value
+    });
   }
 
   handleWidth (value) {
     this.setState ({
-      width: value
+      Width: value
     });
   }
 
   handleComfort (value) {
     this.setState ({
-      comfort: value
+      Comfort: value
     })
   }
 
   handleQuality (value) {
     this.setState ({
-      quality: value
+      Quality: value
     })
   }
 
   handleLength (value) {
     this.setState ({
-      length: value
+      Length: value
     })
   }
 
   handleFit (value) {
     this.setState ({
-      fit: value
+      Fit: value
     })
   }
 
@@ -140,18 +139,41 @@ class AddReview extends React.Component {
     })
   }
 
+  handleSubmit (e) {
+    if(this.state.body.length < 50) {
+      this.setState({
+        allow: false
+      })
+      alert('missing components')
+    }
+    const characteristics = {};
+    for (var key in this.state.characteristics) {
+      console.log(this.state.key, key)
+      characteristics[this.state.characteristics[key].id] = this.state[key]
+    }
+    if (this.state.allow) {
+      axios.post(`/reviews`, {
+        product_id: Number(this.props.data),
+        rating: this.state.rating,
+        summary: this.state.summary,
+        body: this.state.body,
+        recommend: this.state.recommend,
+        name: this.state.name,
+        email: this.state.email,
+        photos: [],
+        characteristics: characteristics,
+      })
+      this.handleClose();
+    }
+      e.preventDefault();
+
+  }
+
 
   render() {
-    const ratingLabels = {
-      1: 'Poor',
-      2: 'Fair',
-      3: 'Average',
-      4: 'Good',
-      5: 'Great'
-    };
     return (
       <div id='write-review'>
-        <button className='buttons' onClick={this.handleShow}>
+        <button id='write' className='buttons' onClick={this.handleShow}>
           Write Review
         </button>
         {
@@ -164,8 +186,33 @@ class AddReview extends React.Component {
                 <Rating name="Rating" rating={this.state.rating} totalStars={5}
                 starHoverColor="black" value={this.state.rating}
                 starRatedColor="black" changeRating={(rating) => this.handleRating(rating)}/>
+                {
+                  this.state.rating === 1?
+                    <div id='rating-description'>Poor</div>
+                  :null
+                }
+                {
+                  this.state.rating === 2?
+                  <div id='rating-description'>Fair</div>
+                  :null
+                }
+                {
+                  this.state.rating === 3?
+                  <div id='rating-description'>Average</div>
+                  :null
+                }
+                {
+                  this.state.rating === 4?
+                  <div id='rating-description'>Good</div>
+                  :null
+                }
+                {
+                  this.state.rating === 5?
+                  <div id='rating-description'>Great</div>
+                  :null
+                }
                 <div>
-                  <div> Do you recommend this product?</div>
+                  <div> Do you recommend this product?*</div>
                   <label>
                     <input name="Recommend" type="radio" onChange = {() =>  this.handleRecommend(true)}/>
                     <span>Yes</span>
@@ -178,7 +225,7 @@ class AddReview extends React.Component {
                 {
                   this.state.characteristics.Size?
                     <div id='rate-size'>
-                    <div>Size</div>
+                    <div>Size*</div>
                     <label>
                       <input name="Size" type="radio" onChange = {() =>  this.handleSize(1)}/>
                       <span>A size too small</span>
@@ -206,7 +253,7 @@ class AddReview extends React.Component {
                   this.state.characteristics.Width?
                     <div id='rate-width'>
                       <label>
-                        <div>Width</div>
+                        <div>Width*</div>
                         <input name="Width" type="radio" onChange = {() =>  this.handleWidth(1)}/>
                         <span>Too narrow</span>
                       </label>
@@ -233,7 +280,7 @@ class AddReview extends React.Component {
                   this.state.characteristics.Comfort?
                     <div id='rate-comfort'>
                       <label>
-                        <div>Comfort</div>
+                        <div>Comfort*</div>
                         <input name="Comfort" type="radio" onChange = {() =>  this.handleComfort(1)}/>
                         <span>Uncomfortable</span>
                       </label>
@@ -260,7 +307,7 @@ class AddReview extends React.Component {
                   this.state.characteristics.Quality?
                     <div id='rate-quality'>
                     <label>
-                      <div>Quality</div>
+                      <div>Quality*</div>
                       <input name="Quality" type="radio" onChange = {() =>  this.handleQuality(1)}/>
                       <span>Poor</span>
                     </label>
@@ -287,7 +334,7 @@ class AddReview extends React.Component {
                   this.state.characteristics.Length?
                     <div id='rate-length'>
                     <label>
-                      <div>Length</div>
+                      <div>Length*</div>
                       <input name="Length" type="radio" onChange = {() =>  this.handleLength(1)}/>
                       <span>Runs Short</span>
                     </label>
@@ -314,7 +361,7 @@ class AddReview extends React.Component {
                   this.state.characteristics.Fit?
                     <div id='rate-fit'>
                     <label>
-                      <div>Fit</div>
+                      <div>Fit*</div>
                       <input name="Fit" type="radio" onChange = {() =>  this.handleFit(1)}/>
                       <span>Runs tight</span>
                     </label>
@@ -339,20 +386,41 @@ class AddReview extends React.Component {
                 }
                 </div>
                 <div id='review-input'>
-                <input value = {this.state.email} onChange={this.handleEmail}
-                placeholder="Example: jackson11@email.com"></input>
 
-                <input onChange={this.handleNickname}
+                <div>Your Email*</div>
+                <input id='email-field' value = {this.state.email}
+                maxLength="60" onChange={this.handleEmail}
+                placeholder="Example: jackson11@email.com"></input>
+                <div id='email-reasons'>For authentication reasons, you will not be emailed</div>
+
+                <div>Your Username*</div>
+                <input id='username-field' onChange={this.handleNickname} maxLength="60"
                 value = {this.state.name} placeholder="Example: jackson11!"></input>
 
-                <textarea onChange={this.handleSummary} maxLength="60"
+                <div>Review Summary*</div>
+                <textarea id='summary-field' onChange={this.handleSummary} maxLength="60"
                 placeholder="Example: Best purchase ever!?"
                 value = {this.state.summary}></textarea>
 
-                <textarea onChange={this.handleBody} value={this.state.body}
+                <div>Review Body*</div>
+                <textarea id='body-field' onChange={this.handleBody} value={this.state.body}
                 minLength="50" maxLength="1000"
                 placeholder="Why did you like the product or not?"></textarea>
-                <button type="submit">Submit</button>
+                  {
+                    this.state.body.length < 50?
+                    <div id='word-count'>
+                      Minimum required characters left: {50 - this.state.body.length}
+                    </div>
+                    :null
+                  }
+                  {
+                    this.state.body.length > 49?
+                    <div id='word-count'>
+                      Minimum reached
+                    </div>
+                    :null
+                  }
+                   <button id='form-submit' type="submit" onClick={this.handleSubmit}>Submit</button>
                 </div>
               </form>
             </div> : null

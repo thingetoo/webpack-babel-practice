@@ -1,18 +1,15 @@
 import React from 'react';
-import App from './App.jsx';
 import axios from 'axios';
-import requests from '../../axios-prefilter';
 import ReviewsList from './ReviewsList.jsx';
-import ReviewAdd from './ReviewAdd.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
-import css from './Review.css';
 
 
 class Review extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reviews: []
+      reviews: [],
+      count: null
     }
   }
 
@@ -24,10 +21,11 @@ class Review extends React.Component {
   }
 
   fetchReviews () {
-    axios.get(`/reviews/${this.props.item}`)
+    axios.get(`/reviews/${this.props.item}/relevant/1000`)
       .then((response) => {
         this.setState({
-          reviews: response.data
+          reviews: response.data.results,
+          count: response.data.results.length
         })
       });
 
@@ -38,7 +36,7 @@ class Review extends React.Component {
       <div className='review'>
         <ReviewSummary data={this.props.item} getScore={this.props.getScore}/>
         <div id='review-line-two'>
-          <ReviewsList data={this.state.reviews}/>
+          <ReviewsList data={this.state.reviews} count={this.state.count} product={this.props.item}/>
         </div>
       </div>
     )
