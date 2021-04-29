@@ -34,7 +34,7 @@ class ReviewsList extends React.Component {
   render() {
     return (
       <div id='review-container'>
-      <div className='review-list'> {this.props.count} reviews, sort by
+      <div className='review-list'> {this.state.count} reviews, sort by
         <select onChange={this.onChange} className='drop-down'>
           <option value='relevant'>relevance</option>
           <option value='helpful'>helpfulness</option>

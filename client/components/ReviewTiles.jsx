@@ -38,10 +38,13 @@ class ReviewTiles extends React.Component {
       .catch((err) => {
         console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  handleClick () {
-    this.setState ((prevState)=> {
+  handleClick() {
+    this.setState((prevState) => {
       return {
         numberShown: prevState.numberShown + 2
       }
@@ -90,7 +93,7 @@ class ReviewTiles extends React.Component {
                       ></img>
                     )
                   })
-                  :null
+                  : null
               }
               <div className='review-helpfulness'>Helpful? Yes{'('}{review.helpfulness}{')'}</div>
             </div>

@@ -53,10 +53,13 @@ class AddReview extends React.Component {
           characteristics: response.data.characteristics,
         })
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  handleRecommend (value) {
-    this.setState ({
+  handleRecommend(value) {
+    this.setState({
       recommend: value
     })
   }
@@ -97,44 +100,44 @@ class AddReview extends React.Component {
     })
   }
 
-  handleSummary (e) {
-    this.setState ({
+  handleSummary(e) {
+    this.setState({
       summary: e.target.value
     })
   }
 
-  handleBody (e) {
-    this.setState ({
+  handleBody(e) {
+    this.setState({
       body: e.target.value
     })
   }
 
-  handleEmail (e) {
-    this.setState ({
+  handleEmail(e) {
+    this.setState({
       email: e.target.value
     })
   }
 
-  handleNickname (e) {
-    this.setState ({
+  handleNickname(e) {
+    this.setState({
       name: e.target.value
     })
   }
 
-  handleRating (value) {
-    this.setState ({
+  handleRating(value) {
+    this.setState({
       rating: value
     })
   }
 
-  handleClose () {
-    this.setState ({
+  handleClose() {
+    this.setState({
       show: false
     })
   }
 
-  handleShow () {
-    this.setState ({
+  handleShow() {
+    this.setState({
       show: true
     })
   }
@@ -177,11 +180,11 @@ class AddReview extends React.Component {
           Write Review
         </button>
         {
-          this.state.show?
+          this.state.show ?
             <div id='review-form-whole'>
               <form id='write-form'>
-              <h2 id='review-form-top'>Write Your Review</h2>
-              <button id='close-button' onClick={this.handleClose}>Close</button>
+                <h2 id='review-form-top'>Write Your Review</h2>
+                <button id='close-button' onClick={this.handleClose}>Close</button>
                 <div id='review-radio'>
                 <Rating name="Rating" rating={this.state.rating} totalStars={5}
                 starHoverColor="black" value={this.state.rating}
@@ -235,16 +238,12 @@ class AddReview extends React.Component {
                       <span>½ a size too small</span>
                     </label>
                     <label>
-                      <input name="Size" type="radio" onChange = {() =>  this.handleSize(3)}/>
-                      <span>Perfect</span>
+                      <input name="Recommend" type="radio" onChange={() => this.handleRecommend(true)} />
+                      <span>Yes</span>
                     </label>
                     <label>
-                      <input name="Size" type="radio" onChange = {() =>  this.handleSize(4)}/>
-                      <span>½ a size too big</span>
-                    </label>
-                    <label>
-                      <input name="Size" type="radio" onChange = {() =>  this.handleSize(5)}/>
-                      <span>A size too big</span>
+                      <input name="Recommend" type="radio" onChange={() => this.handleRecommend(false)} />
+                      <span>No</span>
                     </label>
                   </div>
                   :null

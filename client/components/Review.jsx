@@ -9,14 +9,22 @@ class Review extends React.Component {
     super(props)
     this.state = {
       reviews: [],
-      count: null
+      count: null,
+      updated: false
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.item !== prevProps.item) {
-      this.setState({productId: prevProps.item});
-      this.fetchReviews();
+  componentDidUpdate(prevProps, prevState) {
+    prevState = JSON.stringify(prevState);
+    var currentState = JSON.stringify(this.state);
+    if (currentState === prevState) {
+      if (!this.state.updated) {
+        this.setState({
+          productId: prevProps.item,
+          updated: true
+        });
+        this.fetchReviews();
+      }
     }
   }
 
@@ -27,6 +35,9 @@ class Review extends React.Component {
           reviews: response.data.results,
           count: response.data.results.length
         })
+      })
+      .catch((err) => {
+        console.log(err);
       });
 
   }
@@ -34,7 +45,7 @@ class Review extends React.Component {
   render() {
     return (
       <div className='review'>
-        <ReviewSummary data={this.props.item} getScore={this.props.getScore}/>
+        <ReviewSummary data={this.props.item} getScore={this.props.getScore} />
         <div id='review-line-two'>
           <ReviewsList data={this.state.reviews} count={this.state.count} product={this.props.item}/>
         </div>

@@ -50,7 +50,7 @@ class ReviewSummary extends React.Component {
         })
       })
       .catch((err) => [
-        // console.log(err)
+        console.log(err)
       ])
   }
 
@@ -188,11 +188,14 @@ class ReviewSummary extends React.Component {
         </div>
       </div>
     }
-    var score5 = (this.state.scoreCounts[5] || 0) / scoreCount;
-    var score4 = (this.state.scoreCounts[4] || 0) / scoreCount;
-    var score3 = (this.state.scoreCounts[3] || 0) / scoreCount;
-    var score2 = (this.state.scoreCounts[2] || 0) / scoreCount;
-    var score1 = (this.state.scoreCounts[1] || 0) / scoreCount;
+    // var score5 = (this.state.scoreCounts[5] || 0) / scoreCount;
+    var score5 = ((this.state.scoreCounts[5] || 0) / scoreCount) || 0;
+
+    var score4 = ((this.state.scoreCounts[4] || 0) / scoreCount) || 0;
+
+    var score3 = ((this.state.scoreCounts[3] || 0) / scoreCount) || 0;
+    var score2 = ((this.state.scoreCounts[2] || 0) / scoreCount) || 0;
+    var score1 = ((this.state.scoreCounts[1] || 0) / scoreCount) || 0;
 
     return (
       <div id='review-container'>
