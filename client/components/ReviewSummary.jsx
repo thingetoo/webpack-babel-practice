@@ -30,13 +30,14 @@ class ReviewSummary extends React.Component {
   fetchMeta() {
     axios.get(`/reviews/meta/${this.props.data}`)
       .then((response) => {
-        console.log(response)
         this.setState({
           meta: response.data,
           scoreCounts: response.data.ratings,
           characteristics: response.data.characteristics
-        })
-        this.props.getScore(this.state.scoresCount, this.state.score);
+        }, () => {
+          this.props.getScore(this.state.scoresCount, this.state.score);
+          }
+        )
         var completeScore = this.state.scoreCounts;
         for (var i = 1; i < 6; i++) {
           if (this.state.scoreCounts[i] === undefined) {
@@ -166,8 +167,8 @@ class ReviewSummary extends React.Component {
           <div id='bars'></div>
         </div>
         <div id='measurement-desc'>
-          <div id='desc' style={{"margin-right" : `50px`}}>Runs short</div>
-          <div id='desc' style={{"margin-right" : `57px`}}>Perfect</div>
+          <div id='desc' style={{"margin-right" : `53px`}}>Runs short</div>
+          <div id='desc' style={{"margin-right" : `55px`}}>Perfect</div>
           <div id='desc'>Runs long</div>
         </div>
       </div>
@@ -182,8 +183,8 @@ class ReviewSummary extends React.Component {
           <div id='bars'></div>
         </div>
         <div id='measurement-desc'>
-        <div id='desc' style={{"margin-right" : `50px`}}>Runs tight</div>
-          <div id='desc' style={{"margin-right" : `57px`}}>Perfect</div>
+        <div id='desc' style={{"margin-right" : `56px`}}>Runs tight</div>
+          <div id='desc' style={{"margin-right" : `55px`}}>Perfect</div>
           <div id='desc'>Runs long</div>
         </div>
       </div>
@@ -208,28 +209,28 @@ class ReviewSummary extends React.Component {
         <div id='star-counts'>
           <div id='score-count'>
             <div id='score-category'>5 stars
-            <div id='score-5-above'style={{"width" : `${parseInt(score5*300)}px`}}></div>
+            <div id='score-5-above'style={{"width" : `${parseInt(score5*280)}px`}}></div>
             <div id='score-below'></div>
             </div>
           </div>
           <div id='score-count'>
           <div id='score-category'>4 stars</div>
-            <div id='score-4-above'style={{"width" : `${parseInt(score4*300)}px`}}></div>
+            <div id='score-4-above'style={{"width" : `${parseInt(score4*280)}px`}}></div>
             <div id='score-below'></div>
           </div>
           <div id='score-count'>
           <div id='score-category'>3 stars</div>
-            <div id='score-3-above'style={{"width" : `${parseInt(score3*300)}px`}}></div>
+            <div id='score-3-above'style={{"width" : `${parseInt(score3*280)}px`}}></div>
             <div id='score-below'></div>
           </div>
           <div id='score-count'>
           <div id='score-category'>2 stars</div>
-            <div id='score-2-above'style={{"width" : `${parseInt(score2*300)}px`}}></div>
+            <div id='score-2-above'style={{"width" : `${parseInt(score2*280)}px`}}></div>
             <div id='score-below'></div>
           </div>
           <div id='score-count'>
           <div id='score-category'>1 stars</div>
-            <div id='score-1-above'style={{"width" : `${parseInt(score1*300)}px`}}></div>
+            <div id='score-1-above'style={{"width" : `${parseInt(score1*280)}px`}}></div>
             <div id='score-below'></div>
           </div>
         </div>

@@ -18,6 +18,7 @@ class AddReview extends React.Component {
       show: false,
       allow: true,
       clicked: false,
+      max: false
     }
 
     this.handleRecommend = this.handleRecommend.bind(this);
@@ -142,16 +143,29 @@ class AddReview extends React.Component {
     })
   }
 
+  handlePhotos() {
+    var array = this.state.photos;
+    if (event.target.files.length + this.state.photos.length > 5) {
+      alert('Maximum file count reached')
+    } else if (event.target.files.length + this.state.photos.length === 5) {
+      this.setState({
+        max: true
+      })
+    }
+  }
+
+
   handleSubmit (e) {
-    if(this.state.body.length < 50) {
+    if(this.state.body.length < 50 ||
+      !this.state.email.includes('@') ||
+      this.state.name.length < 1) {
       this.setState({
         allow: false
       })
-      alert('missing components')
+      return alert('missing components')
     }
     const characteristics = {};
     for (var key in this.state.characteristics) {
-      console.log(this.state.key, key)
       characteristics[this.state.characteristics[key].id] = this.state[key]
     }
     if (this.state.allow) {
@@ -166,10 +180,9 @@ class AddReview extends React.Component {
         photos: [],
         characteristics: characteristics,
       })
+      alert('Review posted!')
       this.handleClose();
     }
-      e.preventDefault();
-
   }
 
 
@@ -183,38 +196,38 @@ class AddReview extends React.Component {
           this.state.show ?
             <div id='review-form-whole'>
               <form id='write-form'>
-                <h2 id='review-form-top'>Write Your Review</h2>
-                <button id='close-button' onClick={this.handleClose}>Close</button>
                 <div id='review-radio'>
+                <button id='close-button' onClick={this.handleClose}>x</button>
+                <h2 id='review-form-top'>Write Your Review</h2>
                 <Rating name="Rating" rating={this.state.rating} totalStars={5}
                 starHoverColor="black" value={this.state.rating}
                 starRatedColor="black" changeRating={(rating) => this.handleRating(rating)}/>
                 {
                   this.state.rating === 1?
-                    <div id='rating-description'>Poor</div>
+                  <div id='rate-char'>Poor</div>
                   :null
                 }
                 {
                   this.state.rating === 2?
-                  <div id='rating-description'>Fair</div>
+                  <div id='rate-char'>Fair</div>
                   :null
                 }
                 {
                   this.state.rating === 3?
-                  <div id='rating-description'>Average</div>
+                  <div id='rate-char'>Average</div>
                   :null
                 }
                 {
                   this.state.rating === 4?
-                  <div id='rating-description'>Good</div>
+                  <div id='rate-char'>Good</div>
                   :null
                 }
                 {
                   this.state.rating === 5?
-                  <div id='rating-description'>Great</div>
+                  <div id='rate-char'>Great</div>
                   :null
                 }
-                <div>
+                <div id='rate-char'>
                   <div> Do you recommend this product?*</div>
                   <label>
                     <input name="Recommend" type="radio" onChange = {() =>  this.handleRecommend(true)}/>
@@ -227,7 +240,7 @@ class AddReview extends React.Component {
                 </div>
                 {
                   this.state.characteristics.Size?
-                    <div id='rate-size'>
+                  <div id='rate-char'>
                     <div>Size*</div>
                     <label>
                       <input name="Size" type="radio" onChange = {() =>  this.handleSize(1)}/>
@@ -250,8 +263,8 @@ class AddReview extends React.Component {
                 }
                 {
                   this.state.characteristics.Width?
-                    <div id='rate-width'>
-                      <label>
+                  <div id='rate-char'>
+                  <label>
                         <div>Width*</div>
                         <input name="Width" type="radio" onChange = {() =>  this.handleWidth(1)}/>
                         <span>Too narrow</span>
@@ -277,8 +290,8 @@ class AddReview extends React.Component {
                 }
                 {
                   this.state.characteristics.Comfort?
-                    <div id='rate-comfort'>
-                      <label>
+                    <div id='rate-char'>
+                    <label>
                         <div>Comfort*</div>
                         <input name="Comfort" type="radio" onChange = {() =>  this.handleComfort(1)}/>
                         <span>Uncomfortable</span>
@@ -304,7 +317,7 @@ class AddReview extends React.Component {
                 }
                 {
                   this.state.characteristics.Quality?
-                    <div id='rate-quality'>
+                    <div id='rate-char'>
                     <label>
                       <div>Quality*</div>
                       <input name="Quality" type="radio" onChange = {() =>  this.handleQuality(1)}/>
@@ -331,7 +344,7 @@ class AddReview extends React.Component {
                 }
                 {
                   this.state.characteristics.Length?
-                    <div id='rate-length'>
+                  <div id='rate-char'>
                     <label>
                       <div>Length*</div>
                       <input name="Length" type="radio" onChange = {() =>  this.handleLength(1)}/>
@@ -358,7 +371,7 @@ class AddReview extends React.Component {
                 }
                 {
                   this.state.characteristics.Fit?
-                    <div id='rate-fit'>
+                  <div id='rate-char'>
                     <label>
                       <div>Fit*</div>
                       <input name="Fit" type="radio" onChange = {() =>  this.handleFit(1)}/>
@@ -396,7 +409,7 @@ class AddReview extends React.Component {
                 <input id='username-field' onChange={this.handleNickname} maxLength="60"
                 value = {this.state.name} placeholder="Example: jackson11!"></input>
 
-                <div>Review Summary*</div>
+                <div>Review Summary</div>
                 <textarea id='summary-field' onChange={this.handleSummary} maxLength="60"
                 placeholder="Example: Best purchase ever!?"
                 value = {this.state.summary}></textarea>
@@ -407,18 +420,25 @@ class AddReview extends React.Component {
                 placeholder="Why did you like the product or not?"></textarea>
                   {
                     this.state.body.length < 50?
-                    <div id='word-count'>
+                    <div id='rate-char'>
                       Minimum required characters left: {50 - this.state.body.length}
                     </div>
                     :null
                   }
                   {
                     this.state.body.length > 49?
-                    <div id='word-count'>
+                    <div id='rate-char'>
                       Minimum reached
                     </div>
                     :null
                   }
+                {!this.state.max?
+                   <div id='rate-char'>Add image
+                  <input id='photo' type='file' multiple onChange={this.handlePhotos}></input>
+                  </div>
+                  :null
+                }
+                <div id='rate-char'>* required fields</div>
                    <button id='form-submit' type="submit" onClick={this.handleSubmit}>Submit</button>
                 </div>
               </form>

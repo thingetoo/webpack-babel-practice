@@ -68,6 +68,18 @@ app.get('/qa/answers/:question_id/answers', (req, res) => {
     })
 })
 
+app.put('/reviews/:review_id/helpful', (req, res) => {
+  axios.put(`${requests.reviews}/${req.params.review_id}/helpful`)
+    .then((response) => {
+      res.json(response.data)
+    })
+    .catch((err) => {
+      res.status(err.response.status);
+      res.send(err.response.statusText);
+    })
+})
+
+
 app.get('/reviews/meta/:product_id', (req, res) => {
   axios.get(`${requests.reviews}/meta/?product_id=${req.params.product_id}`)
     .then((response) => {

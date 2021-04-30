@@ -19,7 +19,7 @@ class ReviewsList extends React.Component {
     if (this.props.data[0] !== prevProps.data[0]) {
       this.setState({
         reviews: this.props.data,
-        count: this.props.count
+        count: (this.props.count || 0)
       })
     }
   }

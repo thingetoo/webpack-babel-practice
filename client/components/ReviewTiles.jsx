@@ -13,10 +13,12 @@ class ReviewTiles extends React.Component {
       numberShown: 2,
       write: false,
       imgError: false,
-      src: ''
+      src: '',
+      help: false
     }
     this.handleClick = this.handleClick.bind(this);
-    // this.onError = this.onError.bind(this);
+    this.handleHelp = this.handleHelp.bind(this);
+    this.imageZoom = this.imageZoom.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -38,9 +40,6 @@ class ReviewTiles extends React.Component {
       .catch((err) => {
         console.log(err)
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   handleClick() {
@@ -51,14 +50,18 @@ class ReviewTiles extends React.Component {
     })
   }
 
-  // onError () {
-  //   if (!this.state.imgError) {
-  //     this.setState ({
-  //       src: 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081',
-  //       imgError: true
-  //     })
-  //   }
-  // }
+  handleHelp(e) {
+    if(!this.state.help) {
+      axios.put(`/reviews/${e}/helpful`)
+      this.setState({
+        help: true
+      })
+    }
+  }
+
+  imageZoom() {
+    alert('clicked!')
+  }
 
   render() {
     var reviews = this.state.reviews.slice(0, this.state.numberShown);
@@ -87,15 +90,15 @@ class ReviewTiles extends React.Component {
                 review.photos[0] ?
                   review.photos.map((img) => {
                     return (
-                      <img id= 'review-thumbnail' key={img.id}
-                      src={img.url}
-                      // onError="this.src='https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081';"
+                      <img id= 'review-thumbnail' key={img.url} onClick={this.imageZoom} src={img.url}
+                      onError={function(e) {e.target.src='https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'}}
                       ></img>
                     )
                   })
                   : null
               }
-              <div className='review-helpfulness'>Helpful? Yes{'('}{review.helpfulness}{')'}</div>
+              <div><div id='review-helpfulness' onClick={()=>this.handleHelp(review.review_id)}>Helpful? Yes{'('}{review.helpfulness}{')'}</div></div>
+              {/* <div id='no-help'onClick={()=>this.handleHelp(review.review_id)}>No</div> */}
             </div>
           );
         })}

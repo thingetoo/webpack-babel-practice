@@ -10,7 +10,7 @@ class Review extends React.Component {
     this.state = {
       reviews: [],
       count: null,
-      updated: false
+      updated: null
     }
   }
 
@@ -18,10 +18,10 @@ class Review extends React.Component {
     prevState = JSON.stringify(prevState);
     var currentState = JSON.stringify(this.state);
     if (currentState === prevState) {
-      if (!this.state.updated) {
+      if (this.props.item !== this.state.updated) {
         this.setState({
           productId: prevProps.item,
-          updated: true
+          updated: this.props.item
         });
         this.fetchReviews();
       }
@@ -37,9 +37,12 @@ class Review extends React.Component {
         })
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, 'review');
+        this.setState({
+          reviews: [],
+          count: 0
+        })
       });
-
   }
 
   render() {
